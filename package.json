@@ -1,0 +1,51 @@
+{
+  "name": "personal-task-timer",
+  "version": "0.0.1",
+  "author": "Ken W. Sodemann",
+  "homepage": "http://kensodemann.github.io/",
+  "scripts": {
+    "build": "ng build",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
+    "ng": "ng",
+    "start": "ng serve",
+    "test": "jest --coverage",
+    "test:ci": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "~8.2.14",
+    "@angular/core": "~8.2.14",
+    "@angular/forms": "~8.2.14",
+    "@angular/platform-browser": "~8.2.14",
+    "@angular/platform-browser-dynamic": "~8.2.14",
+    "@angular/router": "~8.2.14",
+    "@ionic/angular": "~4.11.5",
+    "core-js": "~3.4.2",
+    "rxjs": "~6.5.1",
+    "tslib": "~1.10.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "~0.803.19",
+    "@angular-devkit/build-angular": "~0.803.19",
+    "@angular-devkit/core": "~8.3.19",
+    "@angular-devkit/schematics": "~8.3.19",
+    "@angular/cli": "~8.3.19",
+    "@angular/compiler": "~8.2.14",
+    "@angular/compiler-cli": "~8.2.14",
+    "@angular/language-service": "~8.2.14",
+    "@ionic/angular-toolkit": "~2.1.1",
+    "@types/jest": "~24.0.23",
+    "@types/node": "~12.12.11",
+    "codelyzer": "~5.2.0",
+    "jest": "~24.9.0",
+    "jest-preset-angular": "~8.0.0",
+    "protractor": "~5.4.0",
+    "ts-node": "~8.5.2",
+    "tslint": "~5.20.1",
+    "typescript": "~3.5.3"
+  },
+  "description": "An Ionic project"
+}
