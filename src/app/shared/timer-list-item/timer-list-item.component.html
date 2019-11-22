@@ -1,0 +1,14 @@
+<ion-item>
+  <ion-label (click)="labelClicked()">
+    <div class="title">[{{ timer.customer }}]: {{ timer.title }}</div>
+    <div class="sub-title">
+      {{ timer.type }}
+    </div>
+    <div class="sub-title">
+      {{ timer.task }}
+    </div>
+  </ion-label>
+  <ion-button slot="end" [fill]="timer.startTime ? 'solid' : 'outline'" (click)="buttonClicked()">{{
+    timer.minutes
+  }}</ion-button>
+</ion-item>
