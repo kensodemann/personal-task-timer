@@ -1,1 +1,18 @@
+.about-info {
+  color: var(--ion-color-tertiary);
 
+  .title {
+    margin-top: 32px;
+    font-size: x-large;
+  }
+
+  ion-icon {
+    height: 192px;
+    width: 192px;
+    margin-top: 32px;
+  }
+
+  .version {
+    margin-top: 32px;
+  }
+}
