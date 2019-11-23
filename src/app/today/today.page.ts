@@ -3,10 +3,10 @@ import { Timer } from '@app/models/timer';
 
 @Component({
   selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  templateUrl: 'today.page.html',
+  styleUrls: ['today.page.scss']
 })
-export class Tab1Page {
+export class TodayPage {
   timers: Array<Timer>;
 
   constructor() {

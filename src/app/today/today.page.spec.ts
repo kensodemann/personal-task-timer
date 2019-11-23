@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { Tab1Page } from './tab1.page';
+import { TodayPage } from './today.page';
 import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
 
-describe('Tab1Page', () => {
-  let component: Tab1Page;
-  let fixture: ComponentFixture<Tab1Page>;
+describe('TodayPage', () => {
+  let component: TodayPage;
+  let fixture: ComponentFixture<TodayPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [Tab1Page],
+      declarations: [TodayPage],
       imports: [IonicModule.forRoot(), TimerListItemComponentModule]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Tab1Page);
+    fixture = TestBed.createComponent(TodayPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

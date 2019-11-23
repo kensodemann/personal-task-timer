@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { Tab1Page } from './tab1.page';
+import { TodayPage } from './today.page';
 import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
 
 @NgModule({
@@ -12,9 +12,9 @@ import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: Tab1Page }]),
+    RouterModule.forChild([{ path: '', component: TodayPage }]),
     TimerListItemComponentModule
   ],
-  declarations: [Tab1Page]
+  declarations: [TodayPage]
 })
-export class Tab1PageModule {}
+export class TodayPageModule {}

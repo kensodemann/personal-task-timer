@@ -12,8 +12,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+            loadChildren: () => import('../today/today.module').then(m => m.TodayPageModule)
           }
         ]
       },
@@ -22,8 +21,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+            loadChildren: () => import('../history/history.module').then(m => m.Tab2PageModule)
           }
         ]
       },
@@ -32,8 +30,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+            loadChildren: () => import('../about/about.module').then(m => m.Tab3PageModule)
           }
         ]
       },
