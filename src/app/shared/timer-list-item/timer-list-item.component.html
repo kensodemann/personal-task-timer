@@ -9,9 +9,13 @@
         {{ timer.task }}
       </div>
     </ion-label>
-    <ion-button slot="end" [fill]="timer.startTime ? 'solid' : 'outline'" (click)="toggle.emit(timer)">{{
-      timer.minutes
-    }}</ion-button>
+    <ion-button
+      color="secondary"
+      slot="end"
+      [fill]="timer.startTime ? 'solid' : 'outline'"
+      (click)="toggle.emit(timer)"
+      >{{ timer.minutes }}</ion-button
+    >
   </ion-item>
 
   <ion-item-options>
