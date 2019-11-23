@@ -1,14 +1,22 @@
-<ion-item>
-  <ion-label (click)="labelClicked()">
-    <div class="title">[{{ timer.customer }}]: {{ timer.title }}</div>
-    <div class="sub-title">
-      {{ timer.type }}
-    </div>
-    <div class="sub-title">
-      {{ timer.task }}
-    </div>
-  </ion-label>
-  <ion-button slot="end" [fill]="timer.startTime ? 'solid' : 'outline'" (click)="buttonClicked()">{{
-    timer.minutes
-  }}</ion-button>
-</ion-item>
+<ion-item-sliding>
+  <ion-item>
+    <ion-label (click)="edit.emit(timer)">
+      <div class="title">[{{ timer.customer }}]: {{ timer.title }}</div>
+      <div class="sub-title">
+        {{ timer.type }}
+      </div>
+      <div class="sub-title">
+        {{ timer.task }}
+      </div>
+    </ion-label>
+    <ion-button slot="end" [fill]="timer.startTime ? 'solid' : 'outline'" (click)="toggle.emit(timer)">{{
+      timer.minutes
+    }}</ion-button>
+  </ion-item>
+
+  <ion-item-options>
+    <ion-item-option color="danger" (click)="delete.emit(timer)">
+      Delete
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>
