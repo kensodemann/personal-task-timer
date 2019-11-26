@@ -10,7 +10,7 @@ export interface TimersState {
 
 export const initialState = { data: [], loading: false };
 
-const scoreboardReducer = createReducer(
+const timerReducer = createReducer(
   initialState,
   on(TimerActions.load, state => ({ ...state, loading: true, error: undefined })),
   on(TimerActions.loadSuccess, (state, { timers }) => ({ ...state, data: timers, loading: false })),
@@ -42,5 +42,5 @@ const scoreboardReducer = createReducer(
 );
 
 export function reducer(state: TimersState | undefined, action: Action) {
-  return scoreboardReducer(state, action);
+  return timerReducer(state, action);
 }

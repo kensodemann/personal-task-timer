@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+
 import { Timer } from '@app/models/timer';
+import { logout } from '@app/actions/auth.actions';
+import { State } from '@app/reducers';
 
 @Component({
   selector: 'app-tab1',
@@ -9,7 +13,7 @@ import { Timer } from '@app/models/timer';
 export class TodayPage {
   timers: Array<Timer>;
 
-  constructor() {
+  constructor(private store: Store<State>) {
     this.timers = [
       {
         title: 'Help someone do something',
@@ -44,5 +48,9 @@ export class TodayPage {
         date: new Date()
       }
     ];
+  }
+
+  logout() {
+    this.store.dispatch(logout());
   }
 }

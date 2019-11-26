@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { environment } from '@env/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from '@app/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +31,8 @@ import { environment } from '@env/environment';
         strictStateImmutability: true,
         strictActionImmutability: true
       }
-    })
+    }),
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]
