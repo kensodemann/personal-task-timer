@@ -9,10 +9,10 @@ import { AuthenticationService } from '@app/services';
 import { createAuthenticationServiceMock } from '@app/services/mocks';
 import { createNavControllerMock, createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
 import { LoginPage } from './login.page';
-import { login } from '@app/actions/auth.actions';
-import { AuthState } from '@app/reducers/auth/auth.reducer';
-import { selectAuthLoading, selectAuthEmail, selectAuthError } from '@app/selectors';
-import { State } from '@app/reducers';
+import { login } from '@app/store/actions/auth.actions';
+import { AuthState } from '@app/store/reducers/auth/auth.reducer';
+import { selectAuthLoading, selectAuthEmail, selectAuthError } from '@app/store/selectors';
+import { State } from '@app/store/reducers';
 
 describe('LoginPage', () => {
   let alert;

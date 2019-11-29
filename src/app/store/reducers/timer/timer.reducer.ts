@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as TimerActions from '@app/actions/timer.actions';
+import * as TimerActions from '@app/store/actions/timer.actions';
 import { Timer } from '@app/models/timer';
 
 export interface TimersState {

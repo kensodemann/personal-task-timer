@@ -10,7 +10,7 @@ describe('TimerListItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TimerListItemComponent],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimerListItemComponent);
@@ -19,7 +19,8 @@ describe('TimerListItemComponent', () => {
       title: 'foo',
       customer: 'bar',
       type: 'Code Review',
-      minutes: 120
+      minutes: 120,
+      date: new Date()
     };
     fixture.detectChanges();
   }));

@@ -9,7 +9,7 @@ import {
   removeFailure,
   loadFailure,
   loadSuccess
-} from '@app/actions/timer.actions';
+} from '@app/store/actions/timer.actions';
 import { Timer } from '@app/models/timer';
 
 let testTimers: Array<Timer>;

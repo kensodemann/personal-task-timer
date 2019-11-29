@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Timer } from '@app/models/timer';
-import { logout } from '@app/actions/auth.actions';
-import { State } from '@app/reducers';
+import { logout } from '@app/store/actions/auth.actions';
+import { State } from '@app/store/reducers';
 
 @Component({
   selector: 'app-tab1',

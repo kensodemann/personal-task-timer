@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { AuthEffects } from './auth.effects';
 import { AuthenticationService } from '@app/services';
 import { createAuthenticationServiceMock } from '@app/services/mocks';
-import { login, logout, AuthActionTypes } from '@app/actions/auth.actions';
+import { login, logout, AuthActionTypes } from '@app/store/actions/auth.actions';
 
 describe('AppEffects', () => {
   let actions$: Observable<any>;

@@ -5,9 +5,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AuthenticationService } from '@app/services';
-import { State } from '@app/reducers';
-import { selectAuthEmail, selectAuthError, selectAuthLoading } from '@app/selectors';
-import { login } from '@app/actions/auth.actions';
+import { State } from '@app/store/reducers';
+import { selectAuthEmail, selectAuthError, selectAuthLoading } from '@app/store/selectors';
+import { login } from '@app/store/actions/auth.actions';
 
 @Component({
   selector: 'app-login',

@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { from, of } from 'rxjs';
 import { exhaustMap, map, catchError } from 'rxjs/operators';
-import { login, loginFailure, loginSuccess, logout, logoutFailure, logoutSuccess } from '@app/actions/auth.actions';
+import {
+  login,
+  loginFailure,
+  loginSuccess,
+  logout,
+  logoutFailure,
+  logoutSuccess
+} from '@app/store/actions/auth.actions';
 import { AuthenticationService } from '@app/services';
 
 @Injectable()

@@ -5,7 +5,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { TodayPage } from './today.page';
 import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
-import { logout } from '@app/actions/auth.actions';
+import { logout } from '@app/store/actions/auth.actions';
 
 describe('TodayPage', () => {
   let component: TodayPage;
@@ -14,7 +14,7 @@ describe('TodayPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TodayPage],
-      imports: [IonicModule.forRoot(), TimerListItemComponentModule],
+      imports: [IonicModule, TimerListItemComponentModule],
       providers: [provideMockStore()]
     }).compileComponents();
 

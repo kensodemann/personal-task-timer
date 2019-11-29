@@ -10,7 +10,7 @@ describe('HistoryPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HistoryPage],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HistoryPage);

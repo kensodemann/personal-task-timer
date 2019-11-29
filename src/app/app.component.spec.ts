@@ -7,8 +7,8 @@ import { Store } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { createAngularFireAuthMock, createNavControllerMock } from '@test/mocks';
-import { loginChanged } from './actions/auth.actions';
-import { State } from './reducers';
+import { loginChanged } from './store/actions/auth.actions';
+import { State } from './store/reducers';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

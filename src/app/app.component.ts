@@ -3,8 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 
-import { State } from './reducers';
-import { loginChanged } from './actions/auth.actions';
+import { State } from './store/reducers';
+import { loginChanged } from './store/actions/auth.actions';
 
 @Component({
   selector: 'app-root',

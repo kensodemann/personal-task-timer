@@ -4,16 +4,16 @@ import { RouteReuseStrategy } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
 import { environment } from '@env/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from '@app/effects';
+import { reducers, metaReducers } from '@app/store/reducers';
+import { AuthEffects } from '@app/store/effects';
 
 @NgModule({
   declarations: [AppComponent],

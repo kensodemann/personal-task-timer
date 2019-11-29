@@ -8,7 +8,7 @@ import {
   logout,
   logoutFailure,
   logoutSuccess
-} from '@app/actions/auth.actions';
+} from '@app/store/actions/auth.actions';
 
 it('returns the default state', () => {
   expect(reducer(undefined, { type: 'NOOP' })).toEqual(initialState);
