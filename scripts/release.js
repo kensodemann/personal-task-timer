@@ -71,7 +71,7 @@ function runTasks(oldVersion, inc) {
     },
     {
       title: 'Building',
-      task: () => execa('npm', ['run', 'build'], { cwd: rootDir })
+      task: () => execa('npm', ['run', 'build:web'], { cwd: rootDir })
     },
     {
       title: 'Testing',
@@ -116,7 +116,7 @@ function runTasks(oldVersion, inc) {
     },
     {
       title: 'Final Build',
-      task: () => execa('npm', ['run', 'build'], { cwd: rootDir })
+      task: () => execa('npm', ['run', 'build:web'], { cwd: rootDir })
     },
     {
       title: 'Switch to Production',
