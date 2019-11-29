@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+
 import { version } from '@app/default-data/version';
 import { Version } from '@app/models/version';
+import { State } from '@app/store/reducers';
+import { logout } from '@app/store/actions/auth.actions';
 
 @Component({
   selector: 'app-tab3',
@@ -9,5 +13,9 @@ import { Version } from '@app/models/version';
 })
 export class AboutPage {
   appVersion: Version = version;
-  constructor() {}
+  constructor(private store: Store<State>) {}
+
+  logout() {
+    this.store.dispatch(logout());
+  }
 }
