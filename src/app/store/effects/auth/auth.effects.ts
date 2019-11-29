@@ -8,7 +8,10 @@ import {
   loginSuccess,
   logout,
   logoutFailure,
-  logoutSuccess
+  logoutSuccess,
+  resetPassword,
+  resetPasswordFailure,
+  resetPasswordSuccess
 } from '@app/store/actions/auth.actions';
 import { AuthenticationService } from '@app/services';
 
@@ -35,6 +38,18 @@ export class AuthEffects {
         from(this.authenticationService.logout()).pipe(
           map(() => logoutSuccess()),
           catchError(error => of(logoutFailure({ error })))
+        )
+      )
+    )
+  );
+
+  resetPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(resetPassword),
+      exhaustMap(action =>
+        from(this.authenticationService.sendPasswordResetEmail(action.email)).pipe(
+          map(() => resetPasswordSuccess({ email: action.email })),
+          catchError(error => of(resetPasswordFailure({ error })))
         )
       )
     )

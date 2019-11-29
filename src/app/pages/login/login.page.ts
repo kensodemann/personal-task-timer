@@ -4,10 +4,9 @@ import { Store, select } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthenticationService } from '@app/services';
 import { State } from '@app/store/reducers';
-import { selectAuthEmail, selectAuthError, selectAuthLoading } from '@app/store/selectors';
-import { login } from '@app/store/actions/auth.actions';
+import { selectAuthEmail, selectAuthError, selectAuthLoading, selectAuthMessage } from '@app/store/selectors';
+import { login, resetPassword } from '@app/store/actions/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +25,6 @@ export class LoginPage implements OnInit, OnDestroy {
   constructor(
     private alert: AlertController,
     private loadingController: LoadingController,
-    private auth: AuthenticationService,
     private navController: NavController,
     private store: Store<State>
   ) {}
@@ -38,6 +36,9 @@ export class LoginPage implements OnInit, OnDestroy {
     });
     this.store.pipe(select(selectAuthError), takeUntil(this.destroy$)).subscribe(e => {
       this.setErrorMessage(e);
+    });
+    this.store.pipe(select(selectAuthMessage), takeUntil(this.destroy$)).subscribe(msg => {
+      this.infoMessage = msg;
     });
     this.store.pipe(select(selectAuthEmail), takeUntil(this.destroy$)).subscribe(e => {
       this.goToApp(!!e);
@@ -59,6 +60,9 @@ export class LoginPage implements OnInit, OnDestroy {
 
   private setErrorMessage(error: Error) {
     this.errorMessage = error && error.message;
+    if (this.errorMessage) {
+      this.password = '';
+    }
   }
 
   private goToApp(doNav: boolean) {
@@ -74,7 +78,6 @@ export class LoginPage implements OnInit, OnDestroy {
 
   login() {
     this.store.dispatch(login({ email: this.email, password: this.password }));
-    this.password = '';
   }
 
   async handlePasswordReset() {
@@ -104,17 +107,8 @@ export class LoginPage implements OnInit, OnDestroy {
     });
     await a.present();
     const response = await a.onDidDismiss();
-    await this.sendPasswordResetEmail(response);
-  }
-
-  private async sendPasswordResetEmail(response: any) {
-    if (response && response.data.values.emailAddress && response.role === 'send') {
-      try {
-        await this.auth.sendPasswordResetEmail(response.data.values.emailAddress);
-        this.infoMessage = `An e-mail has been sent to ${response.data.values.emailAddress} with password reset instructions.`;
-      } catch (err) {
-        this.errorMessage = err.message;
-      }
+    if (response && response.data && response.data.values.emailAddress && response.role === 'send') {
+      this.store.dispatch(resetPassword({ email: response.data.values.emailAddress }));
     }
   }
 }

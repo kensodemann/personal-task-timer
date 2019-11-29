@@ -7,6 +7,10 @@ export enum AuthActionTypes {
   LoginSuccess = '[Auth API] login success',
   LoginFailure = '[Auth API] login failure',
 
+  ResetPassword = '[LoginPage] reset password',
+  ResetPasswordSuccess = '[Auth API] reset password success',
+  ResetPasswordFailure = '[Auth API] reset password failure',
+
   Logout = '[Application] logout',
   LogoutSuccess = '[Auth API] logout success',
   LogoutFailure = '[Auth API] logout failure'
@@ -21,3 +25,7 @@ export const loginFailure = createAction(AuthActionTypes.LoginFailure, props<{ e
 export const logout = createAction(AuthActionTypes.Logout);
 export const logoutSuccess = createAction(AuthActionTypes.LogoutSuccess);
 export const logoutFailure = createAction(AuthActionTypes.LogoutFailure, props<{ error: Error }>());
+
+export const resetPassword = createAction(AuthActionTypes.ResetPassword, props<{ email: string }>());
+export const resetPasswordSuccess = createAction(AuthActionTypes.ResetPasswordSuccess, props<{ email: string }>());
+export const resetPasswordFailure = createAction(AuthActionTypes.ResetPasswordFailure, props<{ error: Error }>());
