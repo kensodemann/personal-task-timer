@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '@env/environment';
 import { reducers, metaReducers } from '@app/store/reducers';
-import { AuthEffects } from '@app/store/effects';
+import { AuthEffects, TimerEffects } from '@app/store/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +32,7 @@ import { AuthEffects } from '@app/store/effects';
         strictActionImmutability: true
       }
     }),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, TimerEffects])
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]

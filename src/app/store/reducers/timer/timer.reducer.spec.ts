@@ -1,3 +1,6 @@
+import { Dictionary } from '@ngrx/entity';
+import { parseISO } from 'date-fns';
+
 import { initialState, reducer } from './timer.reducer';
 import {
   TimerActionTypes,
@@ -8,11 +11,16 @@ import {
   removeSuccess,
   removeFailure,
   loadFailure,
-  loadSuccess
+  loadSuccess,
+  timerAdded,
+  timersAdded,
+  timerModified,
+  timerRemoved
 } from '@app/store/actions/timer.actions';
 import { Timer } from '@app/models/timer';
 
-let testTimers: Array<Timer>;
+let testTimers: Dictionary<Timer>;
+let testTimerIds: Array<string>;
 
 beforeEach(() => {
   initializeTestData();
@@ -25,22 +33,11 @@ it('returns the default state', () => {
 describe(TimerActionTypes.load, () => {
   it('sets loading true and undefines any error', () => {
     expect(
-      reducer({ data: [], loading: false, error: new Error('the last load failed') }, { type: TimerActionTypes.load })
+      reducer({ ...initialState, error: new Error('the last load failed') }, { type: TimerActionTypes.load })
     ).toEqual({
       ...initialState,
       loading: true,
       error: undefined
-    });
-  });
-});
-
-describe(TimerActionTypes.loadSuccess, () => {
-  it('sets the data and clears the loading flag', () => {
-    const action = loadSuccess({ timers: testTimers });
-    expect(reducer({ ...initialState, loading: true }, action)).toEqual({
-      ...initialState,
-      data: testTimers,
-      loading: false
     });
   });
 });
@@ -59,34 +56,11 @@ describe(TimerActionTypes.loadFailure, () => {
 describe(TimerActionTypes.create, () => {
   it('sets loading true and undefines any error', () => {
     expect(
-      reducer(
-        { data: testTimers, loading: false, error: new Error('the last create failed') },
-        { type: TimerActionTypes.create }
-      )
+      reducer({ ...initialState, error: new Error('the last create failed') }, { type: TimerActionTypes.create })
     ).toEqual({
       ...initialState,
-      data: testTimers,
       loading: true,
       error: undefined
-    });
-  });
-});
-
-describe(TimerActionTypes.createSuccess, () => {
-  it('adds the timer to the data and clears the loading flag', () => {
-    const timer: Timer = {
-      id: '4495234fd',
-      title: 'Help someone do something else',
-      customer: 'Ace Hardware',
-      type: 'Advisory',
-      minutes: 0,
-      date: new Date()
-    };
-    const action = createSuccess({ timer });
-    expect(reducer({ ...initialState, data: testTimers, loading: true }, action)).toEqual({
-      ...initialState,
-      data: [...testTimers, timer],
-      loading: false
     });
   });
 });
@@ -105,30 +79,11 @@ describe(TimerActionTypes.createFailure, () => {
 describe(TimerActionTypes.update, () => {
   it('sets loading true and undefines any error', () => {
     expect(
-      reducer(
-        { data: [], loading: false, error: new Error('the last update failed') },
-        { type: TimerActionTypes.update }
-      )
+      reducer({ ...initialState, error: new Error('the last update failed') }, { type: TimerActionTypes.update })
     ).toEqual({
       ...initialState,
       loading: true,
       error: undefined
-    });
-  });
-});
-
-describe(TimerActionTypes.updateSuccess, () => {
-  it('updates the data and clears the loading flag', () => {
-    const timer = { ...testTimers[1] };
-    timer.minutes = 42;
-    timer.title = 'Uhg, this is so super ugly';
-    const expected = [...testTimers];
-    expected[1] = timer;
-    const action = updateSuccess({ timer });
-    expect(reducer({ ...initialState, data: testTimers, loading: true }, action)).toEqual({
-      ...initialState,
-      data: expected,
-      loading: false
     });
   });
 });
@@ -147,27 +102,11 @@ describe(TimerActionTypes.updateFailure, () => {
 describe(TimerActionTypes.remove, () => {
   it('sets loading true and undefines any error', () => {
     expect(
-      reducer(
-        { data: [], loading: false, error: new Error('the last remove failed') },
-        { type: TimerActionTypes.remove }
-      )
+      reducer({ ...initialState, error: new Error('the last remove failed') }, { type: TimerActionTypes.remove })
     ).toEqual({
       ...initialState,
       loading: true,
       error: undefined
-    });
-  });
-});
-
-describe(TimerActionTypes.updateSuccess, () => {
-  it('updates the data and clears the loading flag', () => {
-    const timer = testTimers[1];
-    const expected = [testTimers[0], testTimers[2], testTimers[3]];
-    const action = removeSuccess({ timer });
-    expect(reducer({ ...initialState, data: testTimers, loading: true }, action)).toEqual({
-      ...initialState,
-      data: expected,
-      loading: false
     });
   });
 });
@@ -183,26 +122,213 @@ describe(TimerActionTypes.removeFailure, () => {
   });
 });
 
-function initializeTestData() {
-  testTimers = [
-    {
-      id: 'asdf1234',
-      title: 'Help someone do something',
-      customer: 'Ace Hardware',
+describe(TimerActionTypes.timerAdded, () => {
+  it('adds the timer to an empty state', () => {
+    const timer: Timer = {
+      id: '194309fkadsfoi',
+      title: 'I am a newly added timer',
       type: 'Advisory',
-      minutes: 0,
-      date: new Date()
-    },
-    {
+      minutes: 30,
+      date: parseISO('2019-11-25'),
+      customer: 'A & W'
+    };
+    const action = timerAdded({ timer });
+    expect(reducer(undefined, action)).toEqual({
+      ...initialState,
+      ids: ['194309fkadsfoi'],
+      entities: {
+        '194309fkadsfoi': {
+          id: '194309fkadsfoi',
+          title: 'I am a newly added timer',
+          type: 'Advisory',
+          minutes: 30,
+          date: parseISO('2019-11-25'),
+          customer: 'A & W'
+        }
+      }
+    });
+  });
+
+  it('adds the timer to the existing ones', () => {
+    const timer: Timer = {
+      id: '194309fkadsfoi',
+      title: 'I am a newly added timer',
+      type: 'Advisory',
+      minutes: 30,
+      date: parseISO('2019-07-25'),
+      customer: 'A & W'
+    };
+    const action = timerAdded({ timer });
+    expect(reducer({ ...initialState, loading: true, ids: testTimerIds, entities: testTimers }, action)).toEqual({
+      ...initialState,
+      loading: false,
+      ids: [...testTimerIds, '194309fkadsfoi'],
+      entities: {
+        ...testTimers,
+        '194309fkadsfoi': {
+          id: '194309fkadsfoi',
+          title: 'I am a newly added timer',
+          type: 'Advisory',
+          minutes: 30,
+          date: parseISO('2019-07-25'),
+          customer: 'A & W'
+        }
+      }
+    });
+  });
+});
+
+describe(TimerActionTypes.timersAdded, () => {
+  it('adds the timers to an empty state', () => {
+    const timers: Array<Timer> = [
+      {
+        id: '194309fkadsfoi',
+        title: 'I am a newly added timer',
+        type: 'Advisory',
+        minutes: 30,
+        date: parseISO('2019-11-25'),
+        customer: 'A & W'
+      },
+      {
+        id: 'fiiagoie92',
+        title: 'I am another newly added timer',
+        type: 'Code Review',
+        minutes: 180,
+        date: parseISO('2019-11-26'),
+        customer: 'Amys Arts'
+      },
+      {
+        id: 'figof003f3',
+        title: 'it is all ok',
+        type: 'Advisory',
+        minutes: 30,
+        date: parseISO('2019-11-25'),
+        customer: 'A & W'
+      }
+    ];
+    const action = timersAdded({ timers });
+    expect(reducer(undefined, action)).toEqual({
+      ...initialState,
+      loading: false,
+      ids: ['194309fkadsfoi', 'fiiagoie92', 'figof003f3'],
+      entities: {
+        '194309fkadsfoi': {
+          id: '194309fkadsfoi',
+          title: 'I am a newly added timer',
+          type: 'Advisory',
+          minutes: 30,
+          date: parseISO('2019-11-25'),
+          customer: 'A & W'
+        },
+        fiiagoie92: {
+          id: 'fiiagoie92',
+          title: 'I am another newly added timer',
+          type: 'Code Review',
+          minutes: 180,
+          date: parseISO('2019-11-26'),
+          customer: 'Amys Arts'
+        },
+        figof003f3: {
+          id: 'figof003f3',
+          title: 'it is all ok',
+          type: 'Advisory',
+          minutes: 30,
+          date: parseISO('2019-11-25'),
+          customer: 'A & W'
+        }
+      }
+    });
+  });
+
+  it('adds the timers to an empty state', () => {
+    const timers: Array<Timer> = [
+      {
+        id: '194309fkadsfoi',
+        title: 'I am a newly added timer',
+        type: 'Advisory',
+        minutes: 30,
+        date: parseISO('2019-11-25'),
+        customer: 'A & W'
+      },
+      {
+        id: 'fiiagoie92',
+        title: 'I am another newly added timer',
+        type: 'Code Review',
+        minutes: 180,
+        date: parseISO('2019-11-26'),
+        customer: 'Amys Arts'
+      },
+      {
+        id: 'figof003f3',
+        title: 'it is all ok',
+        type: 'Advisory',
+        minutes: 30,
+        date: parseISO('2019-11-25'),
+        customer: 'A & W'
+      }
+    ];
+    const action = timersAdded({ timers });
+    expect(reducer({ ...initialState, loading: true, ids: testTimerIds, entities: testTimers }, action)).toEqual({
+      ...initialState,
+      loading: false,
+      ids: [...testTimerIds, '194309fkadsfoi', 'fiiagoie92', 'figof003f3'],
+      entities: {
+        ...testTimers,
+        '194309fkadsfoi': {
+          id: '194309fkadsfoi',
+          title: 'I am a newly added timer',
+          type: 'Advisory',
+          minutes: 30,
+          date: parseISO('2019-11-25'),
+          customer: 'A & W'
+        },
+        fiiagoie92: {
+          id: 'fiiagoie92',
+          title: 'I am another newly added timer',
+          type: 'Code Review',
+          minutes: 180,
+          date: parseISO('2019-11-26'),
+          customer: 'Amys Arts'
+        },
+        figof003f3: {
+          id: 'figof003f3',
+          title: 'it is all ok',
+          type: 'Advisory',
+          minutes: 30,
+          date: parseISO('2019-11-25'),
+          customer: 'A & W'
+        }
+      }
+    });
+  });
+});
+
+describe(TimerActionTypes.timerModified, () => {
+  it('modifies the specified timer', () => {
+    const timer: Timer = {
       id: 'ff898gd',
-      title: 'Uhg, this is so ugly',
-      customer: 'Ace Hardware',
-      type: 'Code Review',
-      task: '#22950',
-      minutes: 27,
-      date: new Date()
-    },
-    {
+      title: 'I am a modified timer',
+      type: 'Advisory',
+      minutes: 90,
+      task: undefined,
+      date: parseISO('2019-12-15'),
+      customer: 'A & W'
+    };
+    const expected = { ...testTimers };
+    expected.ff898gd = timer;
+    const action = timerModified({ timer });
+    expect(reducer({ ...initialState, loading: true, ids: testTimerIds, entities: testTimers }, action)).toEqual({
+      ...initialState,
+      loading: false,
+      ids: testTimerIds,
+      entities: expected
+    });
+  });
+});
+
+describe(TimerActionTypes.timerRemoved, () => {
+  it('deletes the timer', () => {
+    const timer: Timer = {
       id: 'ff88t99er',
       title: 'I feel them crawling under my skin',
       customer: 'Wal-Mart',
@@ -211,15 +337,58 @@ function initializeTestData() {
       bugFound: true,
       startTime: 188359,
       minutes: 42,
-      date: new Date()
+      date: parseISO('2019-12-25')
+    };
+    const expected = { ...testTimers };
+    delete expected.ff88t99er;
+    const action = timerRemoved({ timer });
+    expect(reducer({ ...initialState, loading: true, ids: testTimerIds, entities: testTimers }, action)).toEqual({
+      ...initialState,
+      loading: false,
+      ids: [testTimerIds[0], testTimerIds[1], testTimerIds[3]],
+      entities: expected
+    });
+  });
+});
+
+function initializeTestData() {
+  testTimerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
+  testTimers = {
+    asdf1234: {
+      id: 'asdf1234',
+      title: 'Help someone do something',
+      customer: 'Ace Hardware',
+      type: 'Advisory',
+      minutes: 0,
+      date: parseISO('2019-07-17')
     },
-    {
+    ff898gd: {
+      id: 'ff898gd',
+      title: 'Uhg, this is so ugly',
+      customer: 'Ace Hardware',
+      type: 'Code Review',
+      task: '#22950',
+      minutes: 27,
+      date: parseISO('2019-12-25')
+    },
+    ff88t99er: {
+      id: 'ff88t99er',
+      title: 'I feel them crawling under my skin',
+      customer: 'Wal-Mart',
+      type: 'General',
+      task: '#22953',
+      bugFound: true,
+      startTime: 188359,
+      minutes: 42,
+      date: parseISO('2019-12-25')
+    },
+    '1849gasdf': {
       id: '1849gasdf',
       title: 'Help someone do something',
       customer: 'Mc Donalds',
       type: 'Advisory',
       minutes: 93,
-      date: new Date()
+      date: parseISO('2019-11-19')
     }
-  ];
+  };
 }
