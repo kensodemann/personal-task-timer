@@ -1,6 +1,6 @@
 export interface Timer {
   id?: string;
-  date: Date;
+  date: string;
   title: string;
   customer: string;
   type: string;

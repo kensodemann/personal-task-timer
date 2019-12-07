@@ -20,7 +20,7 @@ export class TodayPage {
         customer: 'Ace Hardware',
         type: 'Advisory',
         minutes: 0,
-        date: new Date()
+        date: '2019-12-07'
       },
       {
         title: 'Uhg, this is so ugly',
@@ -28,7 +28,7 @@ export class TodayPage {
         type: 'Code Review',
         task: '#22950',
         minutes: 27,
-        date: new Date()
+        date: '2019-12-07'
       },
       {
         title: 'I feel them crawling under my skin',
@@ -38,14 +38,14 @@ export class TodayPage {
         bugFound: true,
         startTime: 188359,
         minutes: 42,
-        date: new Date()
+        date: '2019-12-07'
       },
       {
         title: 'Help someone do something',
         customer: 'Mc Donalds',
         type: 'Advisory',
         minutes: 93,
-        date: new Date()
+        date: '2019-12-07'
       }
     ];
   }
