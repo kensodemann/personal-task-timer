@@ -1,5 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityState, Dictionary } from '@ngrx/entity';
+// import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import * as TimerActions from '@app/store/actions/timer.actions';
 import { Timer } from '@app/models/timer';
@@ -15,7 +16,7 @@ export const initialState = adapter.getInitialState({ loading: false });
 
 const timerReducer = createReducer(
   initialState,
-  on(TimerActions.load, state => ({ ...state, loading: true, error: undefined })),
+  on(TimerActions.load, state => adapter.removeAll({ ...state, loading: true, error: undefined })),
   on(TimerActions.loadFailure, (state, { error }) => ({ ...state, error, loading: false })),
 
   on(TimerActions.create, state => ({ ...state, loading: true, error: undefined })),
@@ -38,3 +39,11 @@ const timerReducer = createReducer(
 export function reducer(state: TimersState | undefined, action: Action) {
   return timerReducer(state, action);
 }
+
+const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
+export const selectors = {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal
+};

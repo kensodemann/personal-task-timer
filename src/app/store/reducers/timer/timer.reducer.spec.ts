@@ -4,14 +4,10 @@ import { parseISO } from 'date-fns';
 import { initialState, reducer } from './timer.reducer';
 import {
   TimerActionTypes,
-  createSuccess,
   createFailure,
-  updateSuccess,
   updateFailure,
-  removeSuccess,
   removeFailure,
   loadFailure,
-  loadSuccess,
   timerAdded,
   timersAdded,
   timerModified,
@@ -31,9 +27,17 @@ it('returns the default state', () => {
 });
 
 describe(TimerActionTypes.load, () => {
-  it('sets loading true and undefines any error', () => {
+  it('sets loading true, removes any entities, and undefines any error', () => {
     expect(
-      reducer({ ...initialState, error: new Error('the last load failed') }, { type: TimerActionTypes.load })
+      reducer(
+        {
+          ...initialState,
+          ids: [...testTimerIds],
+          entities: { ...testTimers },
+          error: new Error('the last load failed')
+        },
+        { type: TimerActionTypes.load }
+      )
     ).toEqual({
       ...initialState,
       loading: true,
@@ -129,7 +133,7 @@ describe(TimerActionTypes.timerAdded, () => {
       title: 'I am a newly added timer',
       type: 'Advisory',
       minutes: 30,
-      date: parseISO('2019-11-25'),
+      date: '2019-11-25',
       customer: 'A & W'
     };
     const action = timerAdded({ timer });
@@ -142,7 +146,7 @@ describe(TimerActionTypes.timerAdded, () => {
           title: 'I am a newly added timer',
           type: 'Advisory',
           minutes: 30,
-          date: parseISO('2019-11-25'),
+          date: '2019-11-25',
           customer: 'A & W'
         }
       }
@@ -155,7 +159,7 @@ describe(TimerActionTypes.timerAdded, () => {
       title: 'I am a newly added timer',
       type: 'Advisory',
       minutes: 30,
-      date: parseISO('2019-07-25'),
+      date: '2019-07-25',
       customer: 'A & W'
     };
     const action = timerAdded({ timer });
@@ -170,7 +174,7 @@ describe(TimerActionTypes.timerAdded, () => {
           title: 'I am a newly added timer',
           type: 'Advisory',
           minutes: 30,
-          date: parseISO('2019-07-25'),
+          date: '2019-07-25',
           customer: 'A & W'
         }
       }
@@ -186,7 +190,7 @@ describe(TimerActionTypes.timersAdded, () => {
         title: 'I am a newly added timer',
         type: 'Advisory',
         minutes: 30,
-        date: parseISO('2019-11-25'),
+        date: '2019-11-25',
         customer: 'A & W'
       },
       {
@@ -194,7 +198,7 @@ describe(TimerActionTypes.timersAdded, () => {
         title: 'I am another newly added timer',
         type: 'Code Review',
         minutes: 180,
-        date: parseISO('2019-11-26'),
+        date: '2019-11-26',
         customer: 'Amys Arts'
       },
       {
@@ -202,7 +206,7 @@ describe(TimerActionTypes.timersAdded, () => {
         title: 'it is all ok',
         type: 'Advisory',
         minutes: 30,
-        date: parseISO('2019-11-25'),
+        date: '2019-11-25',
         customer: 'A & W'
       }
     ];
@@ -217,7 +221,7 @@ describe(TimerActionTypes.timersAdded, () => {
           title: 'I am a newly added timer',
           type: 'Advisory',
           minutes: 30,
-          date: parseISO('2019-11-25'),
+          date: '2019-11-25',
           customer: 'A & W'
         },
         fiiagoie92: {
@@ -225,7 +229,7 @@ describe(TimerActionTypes.timersAdded, () => {
           title: 'I am another newly added timer',
           type: 'Code Review',
           minutes: 180,
-          date: parseISO('2019-11-26'),
+          date: '2019-11-26',
           customer: 'Amys Arts'
         },
         figof003f3: {
@@ -233,7 +237,7 @@ describe(TimerActionTypes.timersAdded, () => {
           title: 'it is all ok',
           type: 'Advisory',
           minutes: 30,
-          date: parseISO('2019-11-25'),
+          date: '2019-11-25',
           customer: 'A & W'
         }
       }
@@ -247,7 +251,7 @@ describe(TimerActionTypes.timersAdded, () => {
         title: 'I am a newly added timer',
         type: 'Advisory',
         minutes: 30,
-        date: parseISO('2019-11-25'),
+        date: '2019-11-25',
         customer: 'A & W'
       },
       {
@@ -255,7 +259,7 @@ describe(TimerActionTypes.timersAdded, () => {
         title: 'I am another newly added timer',
         type: 'Code Review',
         minutes: 180,
-        date: parseISO('2019-11-26'),
+        date: '2019-11-26',
         customer: 'Amys Arts'
       },
       {
@@ -263,7 +267,7 @@ describe(TimerActionTypes.timersAdded, () => {
         title: 'it is all ok',
         type: 'Advisory',
         minutes: 30,
-        date: parseISO('2019-11-25'),
+        date: '2019-11-25',
         customer: 'A & W'
       }
     ];
@@ -279,7 +283,7 @@ describe(TimerActionTypes.timersAdded, () => {
           title: 'I am a newly added timer',
           type: 'Advisory',
           minutes: 30,
-          date: parseISO('2019-11-25'),
+          date: '2019-11-25',
           customer: 'A & W'
         },
         fiiagoie92: {
@@ -287,7 +291,7 @@ describe(TimerActionTypes.timersAdded, () => {
           title: 'I am another newly added timer',
           type: 'Code Review',
           minutes: 180,
-          date: parseISO('2019-11-26'),
+          date: '2019-11-26',
           customer: 'Amys Arts'
         },
         figof003f3: {
@@ -295,7 +299,7 @@ describe(TimerActionTypes.timersAdded, () => {
           title: 'it is all ok',
           type: 'Advisory',
           minutes: 30,
-          date: parseISO('2019-11-25'),
+          date: '2019-11-25',
           customer: 'A & W'
         }
       }
@@ -311,7 +315,7 @@ describe(TimerActionTypes.timerModified, () => {
       type: 'Advisory',
       minutes: 90,
       task: undefined,
-      date: parseISO('2019-12-15'),
+      date: '2019-12-15',
       customer: 'A & W'
     };
     const expected = { ...testTimers };
@@ -337,7 +341,7 @@ describe(TimerActionTypes.timerRemoved, () => {
       bugFound: true,
       startTime: 188359,
       minutes: 42,
-      date: parseISO('2019-12-25')
+      date: '2019-12-25'
     };
     const expected = { ...testTimers };
     delete expected.ff88t99er;
@@ -360,7 +364,7 @@ function initializeTestData() {
       customer: 'Ace Hardware',
       type: 'Advisory',
       minutes: 0,
-      date: parseISO('2019-07-17')
+      date: '2019-07-17'
     },
     ff898gd: {
       id: 'ff898gd',
@@ -369,7 +373,7 @@ function initializeTestData() {
       type: 'Code Review',
       task: '#22950',
       minutes: 27,
-      date: parseISO('2019-12-25')
+      date: '2019-12-25'
     },
     ff88t99er: {
       id: 'ff88t99er',
@@ -380,7 +384,7 @@ function initializeTestData() {
       bugFound: true,
       startTime: 188359,
       minutes: 42,
-      date: parseISO('2019-12-25')
+      date: '2019-12-25'
     },
     '1849gasdf': {
       id: '1849gasdf',
@@ -388,7 +392,7 @@ function initializeTestData() {
       customer: 'Mc Donalds',
       type: 'Advisory',
       minutes: 93,
-      date: parseISO('2019-11-19')
+      date: '2019-11-19'
     }
   };
 }

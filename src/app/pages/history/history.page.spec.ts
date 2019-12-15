@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 
 import { HistoryPage } from './history.page';
 import { logout } from '@app/store/actions/auth.actions';
+import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
 
 describe('HistoryPage', () => {
   let component: HistoryPage;
@@ -13,8 +15,12 @@ describe('HistoryPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HistoryPage],
-      imports: [IonicModule],
-      providers: [provideMockStore()]
+      imports: [IonicModule, TimerListItemComponentModule],
+      providers: [
+        provideMockStore<{ timers: TimersState }>({
+          initialState: { timers: { ids: [], entities: null, loading: false } }
+        })
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HistoryPage);

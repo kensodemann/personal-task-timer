@@ -22,23 +22,4 @@ export class TimersService extends FirestoreDataService<Timer> {
         .collection('timers');
     }
   }
-
-  // protected actionsToData(actions: Array<DocumentChangeAction<Timer>>): Array<Timer> {
-  //   return actions.map(a => {
-  //     const data = a.payload.doc.data();
-  //     const id = a.payload.doc.id;
-  //     return {
-  //       id,
-  //       beginDate: ((data as any).beginDate as firestore.Timestamp).toDate()
-  //     };
-  //   });
-  // }
-
-  // async get(id: string): Promise<Timer> {
-  //   const doc = await super.get(id);
-  //   if (doc && doc.beginDate) {
-  //     doc.beginDate = new Date((doc.beginDate as any).seconds * 1000);
-  //   }
-  //   return doc;
-  // }
 }

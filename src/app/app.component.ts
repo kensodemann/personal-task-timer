@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { State } from './store/reducers';
 import { loginChanged } from './store/actions/auth.actions';
+import { load } from './store/actions/timer.actions';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,8 @@ export class AppComponent implements OnInit {
       this.store.dispatch(loginChanged({ email: u && u.email }));
       if (!u) {
         this.navController.navigateRoot(['login']);
+      } else {
+        this.store.dispatch(load());
       }
     });
   }

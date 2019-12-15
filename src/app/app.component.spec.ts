@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { createAngularFireAuthMock, createNavControllerMock } from '@test/mocks';
 import { loginChanged } from './store/actions/auth.actions';
+import { load } from './store/actions/timer.actions';
 import { State } from './store/reducers';
 
 describe('AppComponent', () => {
@@ -43,13 +44,14 @@ describe('AppComponent', () => {
         expect(navController.navigateRoot).not.toHaveBeenCalled();
       });
 
-      it('dispatches the user change', () => {
+      it('dispatches the user change and load', () => {
         const angularFireAuth = TestBed.get(AngularFireAuth);
         const store = TestBed.get(Store);
         store.dispatch = jest.fn();
         angularFireAuth.authState.next({ id: 42, email: 'test@testty.com' });
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith(loginChanged({ email: 'test@testty.com' }));
+        expect(store.dispatch).toHaveBeenCalledWith(load());
       });
     });
 

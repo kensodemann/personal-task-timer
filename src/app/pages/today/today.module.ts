@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { TodayPage } from './today.page';
 import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
+import { TimerEditorComponentModule } from '@app/shared/timer-editor/timer-editor.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-
     CommonModule,
     FormsModule,
     RouterModule.forChild([{ path: '', component: TodayPage }]),
+    TimerEditorComponentModule,
     TimerListItemComponentModule
   ],
   declarations: [TodayPage]
