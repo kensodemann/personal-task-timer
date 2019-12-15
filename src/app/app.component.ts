@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store';
 
 import { State } from './store/reducers';
 import { loginChanged } from './store/actions/auth.actions';
-import { load } from './store/actions/timer.actions';
+import { load as loadTaskTypes } from './store/actions/task-type.actions';
+import { load as loadTimers } from './store/actions/timer.actions';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,13 @@ export class AppComponent implements OnInit {
   constructor(private afAuth: AngularFireAuth, private navController: NavController, private store: Store<State>) {}
 
   ngOnInit() {
+    this.store.dispatch(loadTaskTypes());
     this.afAuth.authState.subscribe(u => {
       this.store.dispatch(loginChanged({ email: u && u.email }));
       if (!u) {
         this.navController.navigateRoot(['login']);
       } else {
-        this.store.dispatch(load());
+        this.store.dispatch(loadTimers());
       }
     });
   }

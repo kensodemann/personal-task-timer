@@ -1,6 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { createEntityAdapter, EntityState, Dictionary } from '@ngrx/entity';
-// import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as TimerActions from '@app/store/actions/timer.actions';
 import { Timer } from '@app/models/timer';

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { formatISO } from 'date-fns';
 
 import { State } from '@app/store/reducers';
 import { create } from '@app/store/actions/timer.actions';
+import { selectAllTaskTypes } from '@app/store/selectors';
 
 @Component({
   selector: 'app-timer-editor',
@@ -12,6 +14,8 @@ import { create } from '@app/store/actions/timer.actions';
   styleUrls: ['./timer-editor.component.scss']
 })
 export class TimerEditorComponent implements OnInit {
+  taskTypes$: Observable<Array<string>>;
+
   customer: string;
   title: string;
   taskId: string;
@@ -22,6 +26,7 @@ export class TimerEditorComponent implements OnInit {
 
   ngOnInit() {
     this.minutes = 0;
+    this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
   }
 
   close() {

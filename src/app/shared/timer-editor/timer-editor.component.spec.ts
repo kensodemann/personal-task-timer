@@ -5,6 +5,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { TimerEditorComponent } from './timer-editor.component';
 import { createOverlayControllerMock } from '@test/mocks';
+import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
 
 describe('TimerEditorComponent', () => {
   let component: TimerEditorComponent;
@@ -14,7 +15,12 @@ describe('TimerEditorComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TimerEditorComponent],
       imports: [FormsModule, IonicModule],
-      providers: [provideMockStore(), { provide: ModalController, useFactory: () => createOverlayControllerMock() }]
+      providers: [
+        provideMockStore<{ taskTypes: TaskTypeState }>({
+          initialState: { taskTypes: { taskTypes: [] } }
+        }),
+        { provide: ModalController, useFactory: () => createOverlayControllerMock() }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimerEditorComponent);

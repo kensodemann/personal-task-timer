@@ -23,8 +23,10 @@
         <ion-input name="title" [(ngModel)]="title" #titleInput="ngModel" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Task Type</ion-label>
-        <ion-input name="taskType" [(ngModel)]="taskType" #taskTypeInput="ngModel" required></ion-input>
+        <ion-label>Task Type</ion-label>
+        <ion-select name="taskTypeSelect" [(ngModel)]="taskType" #taskTypeSelect="ngModel" required>
+          <ion-select-option *ngFor="let t of taskTypes$ | async" value="{{ t }}">{{ t }}</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Task ID</ion-label>
