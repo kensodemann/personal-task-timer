@@ -1,5 +1,4 @@
 import { Dictionary } from '@ngrx/entity';
-import { parseISO } from 'date-fns';
 
 import { initialState, reducer } from './timer.reducer';
 import {
