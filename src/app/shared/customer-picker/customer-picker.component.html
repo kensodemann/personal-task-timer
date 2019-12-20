@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-searchbar (ionChange)="onSearchbarChange($event.detail.value)"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let customer of customers$ | async" (click)="select(customer)">
+      <ion-label>{{ customer }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button color="secondary" expand="full" (click)="dismiss()">Close</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -4,25 +4,27 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { TimerEditorComponent } from './timer-editor.component';
-import { createOverlayControllerMock } from '@test/mocks';
+import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
 import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
 import { Store } from '@ngrx/store';
-import { selectAllTaskTypes } from '@app/store/selectors';
 import { create } from '@app/store/actions/timer.actions';
+import { CustomerPickerComponent } from '../customer-picker/customer-picker.component';
 
 describe('TimerEditorComponent', () => {
   let component: TimerEditorComponent;
+  let modal;
   let fixture: ComponentFixture<TimerEditorComponent>;
 
   beforeEach(async(() => {
+    modal = createOverlayElementMock();
     TestBed.configureTestingModule({
       declarations: [TimerEditorComponent],
       imports: [FormsModule, IonicModule],
       providers: [
         provideMockStore<{ taskTypes: TaskTypeState }>({
-          initialState: { taskTypes: { taskTypes: [] } }
+          initialState: { taskTypes: { taskTypes: ['Architecture Review', 'Code Review', 'Working Session'] } }
         }),
-        { provide: ModalController, useFactory: () => createOverlayControllerMock() }
+        { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
       ]
     }).compileComponents();
 
@@ -38,10 +40,6 @@ describe('TimerEditorComponent', () => {
   it('subscribes to the task types', () => {
     let taskTypes: Array<string>;
     component.taskTypes$.subscribe(t => (taskTypes = t));
-    const store = TestBed.get(Store);
-    store.overrideSelector(selectAllTaskTypes, ['Architecture Review', 'Code Review', 'Working Session']);
-    store.refreshState();
-    fixture.detectChanges();
     expect(taskTypes).toEqual(['Architecture Review', 'Code Review', 'Working Session']);
   });
 
@@ -50,6 +48,36 @@ describe('TimerEditorComponent', () => {
       const modalController = TestBed.get(ModalController);
       component.close();
       expect(modalController.dismiss).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('find customer', () => {
+    beforeEach(() => {
+      modal.onDidDismiss.mockResolvedValue({ role: 'cancel' });
+    });
+
+    it('presents a customer picker modal', async () => {
+      const modalController = TestBed.get(ModalController);
+      await component.findCustomer();
+      expect(modalController.create).toHaveBeenCalledTimes(1);
+      expect(modalController.create).toHaveBeenCalledWith({
+        component: CustomerPickerComponent,
+        backdropDismiss: false
+      });
+      expect(modal.present).toHaveBeenCalledTimes(1);
+    });
+
+    it('does nothing if the user cancels the modal', async () => {
+      component.customer = 'Ace Software';
+      await component.findCustomer();
+      expect(component.customer).toEqual('Ace Software');
+    });
+
+    it('copies the customer if the user selects one', async () => {
+      modal.onDidDismiss.mockResolvedValue({ role: 'select', data: 'Tubbs Bathhouse' });
+      component.customer = 'Ace Software';
+      await component.findCustomer();
+      expect(component.customer).toEqual('Tubbs Bathhouse');
     });
   });
 

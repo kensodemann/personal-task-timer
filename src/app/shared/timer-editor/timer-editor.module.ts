@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { TimerEditorComponent } from './timer-editor.component';
+import { CustomerPickerComponentModule } from '../customer-picker/customer-picker.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule],
+  imports: [CommonModule, CustomerPickerComponentModule, FormsModule, IonicModule],
   declarations: [TimerEditorComponent],
   entryComponents: [TimerEditorComponent],
   exports: [TimerEditorComponent]

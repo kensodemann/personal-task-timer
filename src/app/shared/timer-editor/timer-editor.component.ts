@@ -7,6 +7,7 @@ import { formatISO } from 'date-fns';
 import { State } from '@app/store/reducers';
 import { create } from '@app/store/actions/timer.actions';
 import { selectAllTaskTypes } from '@app/store/selectors';
+import { CustomerPickerComponent } from '../customer-picker/customer-picker.component';
 
 @Component({
   selector: 'app-timer-editor',
@@ -47,5 +48,14 @@ export class TimerEditorComponent implements OnInit {
       })
     );
     this.modalController.dismiss();
+  }
+
+  async findCustomer() {
+    const modal = await this.modalController.create({ component: CustomerPickerComponent, backdropDismiss: false });
+    await modal.present();
+    const result = await modal.onDidDismiss();
+    if (result.role === 'select') {
+      this.customer = result.data;
+    }
   }
 }
