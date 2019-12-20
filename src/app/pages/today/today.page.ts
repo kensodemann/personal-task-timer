@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -14,10 +14,12 @@ import { selectTodayTimers } from '@app/store/selectors';
   templateUrl: 'today.page.html',
   styleUrls: ['today.page.scss']
 })
-export class TodayPage {
+export class TodayPage implements OnInit {
   timers$: Observable<Array<Timer>>;
 
-  constructor(private modalController: ModalController, private store: Store<State>) {
+  constructor(private modalController: ModalController, private store: Store<State>) {}
+
+  ngOnInit() {
     this.timers$ = this.store.pipe(select(selectTodayTimers));
   }
 

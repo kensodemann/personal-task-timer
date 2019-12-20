@@ -9,6 +9,8 @@ import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.comp
 import { logout } from '@app/store/actions/auth.actions';
 import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { selectTodayTimers } from '@app/store/selectors';
+import { Timer } from '@app/models';
 
 describe('TodayPage', () => {
   let component: TodayPage;
@@ -35,6 +37,58 @@ describe('TodayPage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('subscribes to the timers for today', () => {
+    let timers: Array<Timer>;
+    component.timers$.subscribe(t => (timers = t));
+    const store = TestBed.get(Store);
+    store.overrideSelector(selectTodayTimers, [
+      {
+        id: 'ff898gd',
+        title: 'Uhg, this is so ugly',
+        customer: 'Ace Hardware',
+        type: 'Code Review',
+        task: '#22950',
+        minutes: 27,
+        date: '2019-12-25'
+      },
+      {
+        id: 'ff88t99er',
+        title: 'I feel them crawling under my skin',
+        customer: 'Wal-Mart',
+        type: 'General',
+        task: '#22953',
+        bugFound: true,
+        startTime: 188359,
+        minutes: 42,
+        date: '2019-12-25'
+      }
+    ]);
+    store.refreshState();
+    fixture.detectChanges();
+    expect(timers).toEqual([
+      {
+        id: 'ff898gd',
+        title: 'Uhg, this is so ugly',
+        customer: 'Ace Hardware',
+        type: 'Code Review',
+        task: '#22950',
+        minutes: 27,
+        date: '2019-12-25'
+      },
+      {
+        id: 'ff88t99er',
+        title: 'I feel them crawling under my skin',
+        customer: 'Wal-Mart',
+        type: 'General',
+        task: '#22953',
+        bugFound: true,
+        startTime: 188359,
+        minutes: 42,
+        date: '2019-12-25'
+      }
+    ]);
   });
 
   describe('add', () => {
