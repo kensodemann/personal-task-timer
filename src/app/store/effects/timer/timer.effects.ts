@@ -7,7 +7,6 @@ import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import { TimersService } from '@app/services/firestore-data';
 import * as timerActions from '@app/store/actions/timer.actions';
-import * as customerActions from '@app/store/actions/customer.actions';
 import { Timer } from '@app/models';
 
 interface TimerChangeAction {
@@ -26,7 +25,7 @@ export class TimerEffects {
       mergeMap(() =>
         this.timersService.observeChanges().pipe(
           mergeMap(actions => this.unpackActions(actions)),
-          mergeMap(action => this.timerAction(action))
+          map(action => this.timerAction(action))
         )
       )
     )
@@ -101,25 +100,19 @@ export class TimerEffects {
     };
   }
 
-  private timerAction(action: TimerChangeAction): Array<Action> {
+  private timerAction(action: TimerChangeAction): Action {
     switch (action.type) {
       case 'added many':
-        return [
-          timerActions.timersAdded({ timers: action.timers }),
-          customerActions.addMany({ customers: action.timers.map(t => t.customer) })
-        ];
+        return timerActions.timersAdded({ timers: action.timers });
 
       case 'added':
-        return [
-          timerActions.timerAdded({ timer: action.timer }),
-          customerActions.add({ customer: action.timer.customer })
-        ];
+        return timerActions.timerAdded({ timer: action.timer });
 
       case 'modified':
-        return [timerActions.timerModified({ timer: action.timer })];
+        return timerActions.timerModified({ timer: action.timer });
 
       case 'removed':
-        return [timerActions.timerRemoved({ timer: action.timer })];
+        return timerActions.timerRemoved({ timer: action.timer });
 
       /* istanbul ignore next */
       default:

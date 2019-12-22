@@ -7,7 +7,6 @@ import { TimerEffects } from './timer.effects';
 import { createTimersServiceMock } from '@app/services/firestore-data/mocks';
 import { TimersService } from '@app/services/firestore-data';
 import * as timerActions from '@app/store/actions/timer.actions';
-import * as customerActions from '@app/store/actions/customer.actions';
 import { Timer } from '@app/models';
 
 let actions$: Observable<any>;
@@ -301,10 +300,6 @@ describe('load$', () => {
             });
             break;
 
-          case 3:
-            expected = customerActions.addMany({ customers: ['A & W', 'A & W', 'A & W'] });
-            break;
-
           default:
             break;
         }
@@ -312,7 +307,7 @@ describe('load$', () => {
         calls++;
         tick();
       });
-      expect(calls).toEqual(4);
+      expect(calls).toEqual(3);
     }));
   });
 

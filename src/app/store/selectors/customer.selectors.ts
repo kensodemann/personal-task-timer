@@ -1,5 +1,8 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { CustomerState } from '@app/store/reducers/customer/customer.reducer';
+import { selectTimers, selectAllTimers } from './timer.selectors';
+import { TimersState } from '../reducers/timer/timer.reducer';
+import { Timer } from '@app/models';
 
-export const selectCustomers = createFeatureSelector('customers');
-export const selectAllCustomers = createSelector(selectCustomers, (state: CustomerState) => state.customers);
+export const selectAllCustomers = createSelector(selectAllTimers, (timers: Array<Timer>) =>
+  Array.from(new Set(timers.map(t => t.customer))).sort()
+);
