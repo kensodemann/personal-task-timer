@@ -2,9 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
 import { Timer } from '@app/models/timer';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { State } from '@app/store/reducers';
-import { remove } from '@app/store/actions/timer.actions';
+import { remove, stop, start } from '@app/store/actions/timer.actions';
+import { selectAllActiveTimers } from '@app/store/selectors';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer-list-item',
@@ -36,5 +38,20 @@ export class TimerListItemComponent {
 
   async edit(): Promise<void> {}
 
-  async toggle(): Promise<void> {}
+  async toggle(): Promise<void> {
+    if (!this.disableToggle) {
+      if (this.timer.startTime) {
+        this.store.dispatch(stop({ timer: this.timer }));
+      } else {
+        this.stopAllActiveTimers();
+        this.store.dispatch(start({ timer: this.timer }));
+      }
+    }
+  }
+
+  private stopAllActiveTimers() {
+    const activeTimers = this.store
+      .pipe(select(selectAllActiveTimers), take(1))
+      .subscribe(timers => timers.forEach(timer => this.store.dispatch(stop({ timer }))));
+  }
 }

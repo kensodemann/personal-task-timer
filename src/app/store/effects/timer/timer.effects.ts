@@ -67,6 +67,30 @@ export class TimerEffects {
     )
   );
 
+  start$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(timerActions.start),
+      mergeMap(action =>
+        from(this.timersService.start(action.timer.id)).pipe(
+          map(() => timerActions.startSuccess()),
+          catchError(error => of(timerActions.startFailure({ error })))
+        )
+      )
+    )
+  );
+
+  stop$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(timerActions.stop),
+      mergeMap(action =>
+        from(this.timersService.stop(action.timer.id)).pipe(
+          map(() => timerActions.stopSuccess()),
+          catchError(error => of(timerActions.stopFailure({ error })))
+        )
+      )
+    )
+  );
+
   private unpackActions(actions: Array<DocumentChangeAction<Timer>>): Array<TimerChangeAction> {
     let mainActions: Array<DocumentChangeAction<Timer>>;
     let groupedActions: Array<DocumentChangeAction<Timer>>;

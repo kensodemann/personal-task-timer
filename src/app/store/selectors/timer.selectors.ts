@@ -9,6 +9,7 @@ export const selectTodayTimers = createSelector(selectAllTimers, timers => {
   const dt = formatISO(new Date(Date.now()), { representation: 'date' });
   return timers.filter(t => t.date === dt);
 });
+export const selectAllActiveTimers = createSelector(selectAllTimers, timers => timers.filter(t => !!t.startTime));
 export const selectTimerCount = createSelector(selectTimers, selectors.selectTotal);
 export const selectTimerIds = createSelector(selectTimers, selectors.selectIds);
 export const selectTimerLoading = createSelector(selectTimers, (state: TimersState) => state.loading);

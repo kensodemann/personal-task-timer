@@ -448,7 +448,7 @@ describe('remove$', () => {
     });
   });
 
-  it('dispatches remove errors', done => {
+  it('dispatches remove failure', done => {
     const service = TestBed.get(TimersService);
     service.delete.mockRejectedValue(new Error('The remove failed'));
     actions$ = of(timerActions.remove({ timer }));
@@ -466,5 +466,105 @@ describe('remove$', () => {
     actions$ = of(timerActions.update({ timer }));
     effects.remove$.subscribe(() => {});
     expect(service.delete).not.toHaveBeenCalled();
+  });
+});
+
+describe('$start', () => {
+  let timer: Timer;
+  beforeEach(() => {
+    timer = {
+      id: 'fkkfig0939r',
+      title: 'I am a timer',
+      type: 'Advisory',
+      minutes: 30,
+      date: '2019-11-25',
+      customer: 'A & W'
+    };
+  });
+
+  it('calls the service', () => {
+    const service = TestBed.get(TimersService);
+    actions$ = of(timerActions.start({ timer }));
+    effects.start$.subscribe(() => {});
+    expect(service.start).toHaveBeenCalledTimes(1);
+    expect(service.start).toHaveBeenCalledWith('fkkfig0939r');
+  });
+
+  it('dispatches timer started success', done => {
+    actions$ = of(timerActions.start({ timer }));
+    effects.start$.subscribe(action => {
+      expect(action).toEqual({ type: timerActions.TimerActionTypes.startSuccess });
+      done();
+    });
+  });
+
+  it('dispatches timer started failure', done => {
+    const service = TestBed.get(TimersService);
+    service.start.mockRejectedValue(new Error('The start failed'));
+    actions$ = of(timerActions.start({ timer }));
+    effects.start$.subscribe(action => {
+      expect(action).toEqual({
+        type: timerActions.TimerActionTypes.startFailure,
+        error: new Error('The start failed')
+      });
+      done();
+    });
+  });
+
+  it('does nothing for other actions', () => {
+    const service = TestBed.get(TimersService);
+    actions$ = of(timerActions.update({ timer }));
+    effects.start$.subscribe(() => {});
+    expect(service.start).not.toHaveBeenCalled();
+  });
+});
+
+describe('$stop', () => {
+  let timer: Timer;
+  beforeEach(() => {
+    timer = {
+      id: 'fkkfig0939r',
+      title: 'I am a timer',
+      type: 'Advisory',
+      minutes: 30,
+      date: '2019-11-25',
+      customer: 'A & W'
+    };
+  });
+
+  it('calls the service', () => {
+    const service = TestBed.get(TimersService);
+    actions$ = of(timerActions.stop({ timer }));
+    effects.stop$.subscribe(() => {});
+    expect(service.stop).toHaveBeenCalledTimes(1);
+    expect(service.stop).toHaveBeenCalledWith('fkkfig0939r');
+  });
+
+  it('dispatches timer stopped success', done => {
+    actions$ = of(timerActions.stop({ timer }));
+    effects.stop$.subscribe(action => {
+      expect(action).toEqual({ type: timerActions.TimerActionTypes.stopSuccess });
+      done();
+    });
+  });
+
+  it('dispatches timer stopped failure', done => {
+    const service = TestBed.get(TimersService);
+    service.stop.mockRejectedValue(new Error('The stop failed'));
+    actions$ = of(timerActions.stop({ timer }));
+    effects.stop$.subscribe(action => {
+      expect(action).toEqual({
+        type: timerActions.TimerActionTypes.stopFailure,
+        error: new Error('The stop failed')
+      });
+      done();
+    });
+  });
+
+  it('does nothing for other actions', () => {
+    const service = TestBed.get(TimersService);
+    actions$ = of(timerActions.update({ timer }));
+    effects.stop$.subscribe(() => {});
+    expect(service.stop).not.toHaveBeenCalled();
   });
 });

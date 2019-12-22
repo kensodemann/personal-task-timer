@@ -1,5 +1,5 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { selectTimers, selectAllTimers } from './timer.selectors';
+import { createSelector } from '@ngrx/store';
+import { selectAllTimers } from './timer.selectors';
 import { TimersState } from '../reducers/timer/timer.reducer';
 import { Timer } from '@app/models';
 

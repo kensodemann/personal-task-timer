@@ -6,18 +6,21 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TimerListItemComponent } from './timer-list-item.component';
 import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
 import { Timer } from '@app/models';
-import { remove } from '@app/store/actions/timer.actions';
+import { remove, stop, start } from '@app/store/actions/timer.actions';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { selectAllActiveTimers } from '@app/store/selectors';
 
 describe('TimerListItemComponent', () => {
-  let alert = createOverlayElementMock();
-  let modal = createOverlayElementMock();
+  let alert;
+  let modal;
   let component: TimerListItemComponent;
   let fixture: ComponentFixture<TimerListItemComponent>;
   let store;
   let testTimer: Timer;
 
   beforeEach(async(() => {
+    alert = createOverlayElementMock();
+    modal = createOverlayElementMock();
     testTimer = {
       id: '249950kd995sd',
       title: 'Go to the Foo Bar',
@@ -97,13 +100,77 @@ describe('TimerListItemComponent', () => {
         testTimer.startTime = 1577102400000;
       });
 
-      it('stops the timer', () => {});
+      it('stops the timer', () => {
+        component.toggle();
+        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledWith(stop({ timer: testTimer }));
+      });
     });
 
     describe('when the timer is currently stopped', () => {
-      it('stops other currently running timers', () => {});
+      it('stops other currently running timers', () => {
+        store.overrideSelector(selectAllActiveTimers, [
+          {
+            id: 'ff898gd',
+            title: 'Uhg, this is so ugly',
+            customer: 'Ace Hardware',
+            type: 'Code Review',
+            task: '#22950',
+            minutes: 27,
+            date: '2019-12-25',
+            startTime: 4299402593
+          },
+          {
+            id: 'ff88t99er',
+            title: 'I feel them crawling under my skin',
+            customer: 'Wal-Mart',
+            type: 'General',
+            task: '#22953',
+            bugFound: true,
+            startTime: 188359,
+            minutes: 42,
+            date: '2019-12-25'
+          }
+        ]);
+        component.toggle();
+        expect(store.dispatch).toHaveBeenCalledTimes(3);
+        expect(store.dispatch).toHaveBeenCalledWith(
+          stop({
+            timer: {
+              id: 'ff898gd',
+              title: 'Uhg, this is so ugly',
+              customer: 'Ace Hardware',
+              type: 'Code Review',
+              task: '#22950',
+              minutes: 27,
+              date: '2019-12-25',
+              startTime: 4299402593
+            }
+          })
+        );
+        expect(store.dispatch).toHaveBeenCalledWith(
+          stop({
+            timer: {
+              id: 'ff88t99er',
+              title: 'I feel them crawling under my skin',
+              customer: 'Wal-Mart',
+              type: 'General',
+              task: '#22953',
+              bugFound: true,
+              startTime: 188359,
+              minutes: 42,
+              date: '2019-12-25'
+            }
+          })
+        );
+        expect(store.dispatch).toHaveBeenCalledWith(start({ timer: testTimer }));
+      });
 
-      it('starts the timer', () => {});
+      it('starts the timer', () => {
+        component.toggle();
+        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledWith(start({ timer: testTimer }));
+      });
     });
 
     it('does nothing if disableToggle is true', () => {

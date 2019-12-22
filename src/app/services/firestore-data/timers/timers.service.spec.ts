@@ -6,13 +6,14 @@ import {
   createAngularFirestoreMock,
   createAngularFirestoreCollectionMock,
   createAngularFireAuthMock,
-  createAngularFirestoreDocumentMock
+  createAngularFirestoreDocumentMock,
+  createDocumentSnapshotMock
 } from '@test/mocks';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 describe('TimersService', () => {
   let collection;
-  let doc;
+  let document;
   let timers: TimersService;
 
   beforeEach(() => {
@@ -23,10 +24,10 @@ describe('TimersService', () => {
       ]
     });
     const angularFirestore = TestBed.get(AngularFirestore);
-    doc = createAngularFirestoreDocumentMock();
+    document = createAngularFirestoreDocumentMock();
     collection = createAngularFirestoreCollectionMock();
-    collection.doc.mockReturnValue(doc);
-    doc.collection.mockReturnValue(collection);
+    collection.doc.mockReturnValue(document);
+    document.collection.mockReturnValue(collection);
     angularFirestore.collection.mockReturnValue(collection);
   });
 
@@ -48,7 +49,60 @@ describe('TimersService', () => {
     expect(angularFirestore.collection).toHaveBeenCalledWith('users');
     expect(collection.doc).toHaveBeenCalledTimes(1);
     expect(collection.doc).toHaveBeenCalledWith('123abc');
-    expect(doc.collection).toHaveBeenCalledTimes(1);
-    expect(doc.collection).toHaveBeenCalledWith('timers');
+    expect(document.collection).toHaveBeenCalledTimes(1);
+    expect(document.collection).toHaveBeenCalledWith('timers');
+  });
+
+  describe('start', () => {
+    it('gets a reference to the document', () => {
+      timers.start('49950399KT');
+      expect(collection.doc).toHaveBeenCalledTimes(2);
+      expect(collection.doc).toHaveBeenCalledWith('123abc');
+      expect(collection.doc).toHaveBeenCalledWith('49950399KT');
+    });
+
+    it('updates the document with the current time', () => {
+      Date.now = jest.fn(() => 1577102400000);
+      timers.start('49950399KT');
+      expect(document.update).toHaveBeenCalledTimes(1);
+      expect(document.update).toHaveBeenCalledWith({
+        startTime: 1577102400000
+      });
+      (Date.now as any).mockRestore();
+    });
+  });
+
+  describe('stop', () => {
+    beforeEach(() => {
+      const snapshot = createDocumentSnapshotMock();
+      snapshot.data.mockReturnValue({
+        id: '49950399KT',
+        title: 'Uhg, this is so ugly',
+        customer: 'Ace Hardware',
+        type: 'Code Review',
+        task: '#22950',
+        minutes: 27,
+        startTime: 1577102400000,
+        date: '2019-12-23'
+      });
+      document.ref.get.mockResolvedValue(snapshot);
+    });
+
+    it('gets a reference to the document', () => {
+      timers.stop('49950399KT');
+      expect(collection.doc).toHaveBeenCalledTimes(2);
+      expect(collection.doc).toHaveBeenCalledWith('123abc');
+      expect(collection.doc).toHaveBeenCalledWith('49950399KT');
+    });
+
+    it('updates the minutes and clears the start time', async () => {
+      Date.now = jest.fn(() => 1577103480000);
+      await timers.stop('49950399KT');
+      expect(document.update).toHaveBeenCalledTimes(1);
+      expect(document.update).toHaveBeenCalledWith({
+        startTime: null,
+        minutes: 45
+      });
+    });
   });
 });

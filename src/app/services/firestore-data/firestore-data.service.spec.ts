@@ -98,7 +98,7 @@ describe('FirestoreDataService', () => {
         description: 'Some guy named Joe who sells week on my street corner',
         isActive: false
       });
-      document.ref.get.mockReturnValue(snapshot);
+      document.ref.get.mockResolvedValue(snapshot);
       expect(await dataService.get('199405fkkgi59')).toEqual({
         id: '199405fkkgi59',
         name: 'Joe',
