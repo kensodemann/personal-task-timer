@@ -9,8 +9,8 @@ export function createNavControllerMock() {
 export function createOverlayElementMock() {
   return {
     dismiss: jest.fn(() => Promise.resolve()),
-    onDidDismiss: jest.fn(() => Promise.resolve()),
-    onWillDismiss: jest.fn(() => Promise.resolve()),
+    onDidDismiss: jest.fn(() => Promise.resolve({})),
+    onWillDismiss: jest.fn(() => Promise.resolve({})),
     present: jest.fn(() => Promise.resolve())
   };
 }
