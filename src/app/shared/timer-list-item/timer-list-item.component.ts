@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 
 import { Timer } from '@app/models/timer';
 import { Store, select } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { State } from '@app/store/reducers';
 import { remove, stop, start } from '@app/store/actions/timer.actions';
 import { selectAllActiveTimers } from '@app/store/selectors';
 import { take } from 'rxjs/operators';
+import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 
 @Component({
   selector: 'app-timer-list-item',
@@ -17,7 +18,11 @@ export class TimerListItemComponent {
   @Input() timer: Timer;
   @Input() disableToggle: boolean;
 
-  constructor(private alertController: AlertController, private store: Store<State>) {}
+  constructor(
+    private alertController: AlertController,
+    private modalController: ModalController,
+    private store: Store<State>
+  ) {}
 
   async delete(): Promise<void> {
     const alert = await this.alertController.create({
@@ -36,7 +41,13 @@ export class TimerListItemComponent {
     }
   }
 
-  async edit(): Promise<void> {}
+  async edit(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: TimerEditorComponent,
+      componentProps: { timer: this.timer }
+    });
+    modal.present();
+  }
 
   async toggle(): Promise<void> {
     if (!this.disableToggle) {

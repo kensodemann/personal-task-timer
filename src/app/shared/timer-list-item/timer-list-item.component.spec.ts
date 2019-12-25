@@ -9,6 +9,7 @@ import { Timer } from '@app/models';
 import { remove, stop, start } from '@app/store/actions/timer.actions';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { selectAllActiveTimers } from '@app/store/selectors';
+import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 
 describe('TimerListItemComponent', () => {
   let alert;
@@ -91,7 +92,16 @@ describe('TimerListItemComponent', () => {
   });
 
   describe('edit', () => {
-    it('displays the timer in the editor modal', () => {});
+    it('displays the timer in the editor modal', async () => {
+      const modalController = TestBed.get(ModalController);
+      await component.edit();
+      expect(modalController.create).toHaveBeenCalledTimes(1);
+      expect(modalController.create).toHaveBeenCalledWith({
+        component: TimerEditorComponent,
+        componentProps: { timer: testTimer }
+      });
+      expect(modal.present).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('toggle', () => {
