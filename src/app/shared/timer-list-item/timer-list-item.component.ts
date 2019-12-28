@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
+import { differenceInMinutes } from 'date-fns';
 
 import { Timer } from '@app/models/timer';
 import { Store, select } from '@ngrx/store';
@@ -14,15 +15,30 @@ import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
   templateUrl: './timer-list-item.component.html',
   styleUrls: ['./timer-list-item.component.scss']
 })
-export class TimerListItemComponent {
+export class TimerListItemComponent implements OnInit, OnDestroy {
+  private intervalID: any;
+
   @Input() timer: Timer;
   @Input() disableToggle: boolean;
+
+  runningMinutes: number;
 
   constructor(
     private alertController: AlertController,
     private modalController: ModalController,
     private store: Store<State>
   ) {}
+
+  ngOnInit() {
+    if (this.timer.startTime) {
+      this.initRecalcInterval();
+    }
+    this.calculateRunningMinutes();
+  }
+
+  ngOnDestroy() {
+    this.clearRecalcInterval();
+  }
 
   async delete(): Promise<void> {
     const alert = await this.alertController.create({
@@ -53,10 +69,27 @@ export class TimerListItemComponent {
     if (!this.disableToggle) {
       if (this.timer.startTime) {
         this.store.dispatch(stop({ timer: this.timer }));
+        this.clearRecalcInterval();
       } else {
         this.stopAllActiveTimers();
         this.store.dispatch(start({ timer: this.timer }));
+        this.initRecalcInterval();
       }
+    }
+  }
+
+  private initRecalcInterval() {
+    this.intervalID = setInterval(() => this.calculateRunningMinutes(), 5000);
+  }
+
+  private calculateRunningMinutes() {
+    this.runningMinutes = this.timer.startTime ? differenceInMinutes(Date.now(), this.timer.startTime) : 0;
+  }
+
+  private clearRecalcInterval() {
+    if (this.intervalID) {
+      clearInterval(this.intervalID);
+      this.intervalID = undefined;
     }
   }
 

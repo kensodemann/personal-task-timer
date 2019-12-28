@@ -10,7 +10,7 @@
 			</div>
 		</ion-label>
 		<ion-button color="secondary" slot="end" [fill]="timer.startTime ? 'solid' : 'outline'" (click)="toggle()">
-			{{ timer.minutes }}</ion-button>
+			{{ timer.minutes + runningMinutes }}</ion-button>
 	</ion-item>
 
 	<ion-item-options>
