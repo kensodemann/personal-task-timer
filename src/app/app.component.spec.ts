@@ -11,6 +11,8 @@ import { loginChanged } from './store/actions/auth.actions';
 import { load as loadTimers } from './store/actions/timer.actions';
 import { load as loadTaskTypes } from './store/actions/task-type.actions';
 import { State } from './store/reducers';
+import { ApplicationService } from '@app/services';
+import { createApplicationServiceMock } from '@app/services/mocks';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -19,6 +21,7 @@ describe('AppComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
+        { provide: ApplicationService, useFactory: createApplicationServiceMock },
         { provide: NavController, useFactory: createNavControllerMock },
         provideMockStore<State>()
       ]
@@ -38,6 +41,14 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith(loadTaskTypes());
+  });
+
+  it('registers for updates', () => {
+    const application = TestBed.get(ApplicationService);
+    const fixture = TestBed.createComponent(AppComponent);
+    expect(application.registerForUpdates).not.toHaveBeenCalled();
+    fixture.detectChanges();
+    expect(application.registerForUpdates).toHaveBeenCalledTimes(1);
   });
 
   describe('changing the user', () => {

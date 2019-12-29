@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "personal-task-timer",
+    "production": "personal-task-timer",
     "development": "test-functions-3c8de"
   }
 }
