@@ -1,40 +1,10 @@
-# [1.0.0](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-3...v1.0.0) (2019-12-29)
-
-
-
-# [1.0.0-3](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-2...v1.0.0-3) (2019-12-29)
-
-
-### Bug Fixes
-
-* **customers:** make the header color darker ([d0d0201](https://github.com/kensodemann/personal-task-timer/commit/d0d02015ad722347fce030e15b9b3222f9ee3fb5))
-
-
-
-# [1.0.0-2](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-1...v1.0.0-2) (2019-12-29)
-
-
-### Bug Fixes
-
-* **timer:** update the customer search to look better on iOS ([555f99e](https://github.com/kensodemann/personal-task-timer/commit/555f99e03ebb94c333eabae7806a783ab739430b))
-
-
-
-# [1.0.0-1](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-0...v1.0.0-1) (2019-12-29)
-
-
-### Features
-
-* **app:** add the PWA items ([81b5820](https://github.com/kensodemann/personal-task-timer/commit/81b5820cb973b9360b7bedd9b9f1f9e14862dac4))
-
-
-
-# 1.0.0-0 (2019-12-29)
-
+# 1.0.0 (2019-12-29)
 
 ### Bug Fixes
 
 * **customers:** make customers a derived state ([cd8093c](https://github.com/kensodemann/personal-task-timer/commit/cd8093c7848bb21ab43b9d4f33f9ba53ebcc866f))
+* **timer:** update the customer search to look better on iOS ([555f99e](https://github.com/kensodemann/personal-task-timer/commit/555f99e03ebb94c333eabae7806a783ab739430b))
+* **customers:** make the header color darker ([d0d0201](https://github.com/kensodemann/personal-task-timer/commit/d0d02015ad722347fce030e15b9b3222f9ee3fb5))
 
 
 ### Features
@@ -62,6 +32,4 @@
 * **timers:** create a timer editor ([c8e53f0](https://github.com/kensodemann/personal-task-timer/commit/c8e53f076f36e21ac409ef1363b4ec8f05c4a358))
 * **timers:** start and stop timers ([44c3e4d](https://github.com/kensodemann/personal-task-timer/commit/44c3e4dcac30ddda193df2f5965dbc3ad1862b24))
 * **timers:** updates displayed minutes as timer runs ([86b9c41](https://github.com/kensodemann/personal-task-timer/commit/86b9c419f91e89d28b32b14fab392fbb6ba7affe))
-
-
-
+* **app:** add the PWA items ([81b5820](https://github.com/kensodemann/personal-task-timer/commit/81b5820cb973b9360b7bedd9b9f1f9e14862dac4))
