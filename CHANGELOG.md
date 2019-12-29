@@ -1,3 +1,7 @@
+# [1.0.0](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-3...v1.0.0) (2019-12-29)
+
+
+
 # [1.0.0-3](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-2...v1.0.0-3) (2019-12-29)
 
 
