@@ -6,7 +6,7 @@
   "scripts": {
     "bump": "node scripts/bump-version.js",
     "build": "ng build",
-    "build: web": "ionic build --engine=browser --prod -- --stats-json",
+    "build:web": "ionic build --engine=browser --prod -- --stats-json",
     "bundle-report": "webpack-bundle-analyzer www/stats.json",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "e2e": "ng e2e",
@@ -34,7 +34,7 @@
     "core-js": "~3.6.1",
     "date-fns": "~2.8.1",
     "firebase": "~7.6.1",
-    "rxjs": "~6.5.1",
+    "rxjs": "~6.5.4",
     "tslib": "~1.10.0",
     "zone.js": "~0.10.2"
   },

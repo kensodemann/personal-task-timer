@@ -79,15 +79,21 @@ export class TimerEditorComponent implements OnInit {
   }
 
   private createTimer(): Timer {
-    return {
+    const timer: Timer = {
       customer: this.customer,
       title: this.title,
       task: this.taskId,
       type: this.taskType,
       minutes: this.minutes,
-      date: this.timer ? this.timer.date : formatISO(new Date(Date.now()), { representation: 'date' }),
-      id: this.timer && this.timer.id,
-      startTime: this.timer && this.timer.startTime
+      date: this.timer ? this.timer.date : formatISO(new Date(Date.now()), { representation: 'date' })
     };
+    if (this.timer && this.timer.startTime) {
+      timer.startTime = this.timer.startTime;
+    }
+    if (this.timer && this.timer.id) {
+      timer.id = this.timer.id;
+    }
+
+    return timer;
   }
 }
