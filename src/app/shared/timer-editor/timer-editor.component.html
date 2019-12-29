@@ -21,7 +21,7 @@
 			<ion-item class="ion-align-items-center">
 				<ion-label position="floating">Customer</ion-label>
 				<ion-input name="customer" [(ngModel)]="customer" #customerInput="ngModel" required></ion-input>
-				<ion-button slot="end" fill="clear" style="margin-top: 16px;" (click)="findCustomer()">
+				<ion-button class="search-button" slot="end" fill="clear" (click)="findCustomer()">
 					<ion-icon name="search" slot="icon-only"></ion-icon>
 				</ion-button>
 			</ion-item>

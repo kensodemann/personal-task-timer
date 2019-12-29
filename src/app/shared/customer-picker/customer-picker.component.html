@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-searchbar (ionChange)="onSearchbarChange($event.detail.value)"></ion-searchbar>
+  <ion-toolbar color="light">
+    <ion-title>Customers</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-searchbar (ionChange)="onSearchbarChange($event.detail.value)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let customer of customers$ | async" (click)="select(customer)">
       <ion-label>{{ customer }}</ion-label>
