@@ -1,3 +1,12 @@
+# [1.0.0-1](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-0...v1.0.0-1) (2019-12-29)
+
+
+### Features
+
+* **app:** add the PWA items ([81b5820](https://github.com/kensodemann/personal-task-timer/commit/81b5820cb973b9360b7bedd9b9f1f9e14862dac4))
+
+
+
 # 1.0.0-0 (2019-12-29)
 
 
