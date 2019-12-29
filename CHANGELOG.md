@@ -1,3 +1,12 @@
+# [1.0.0-2](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-1...v1.0.0-2) (2019-12-29)
+
+
+### Bug Fixes
+
+* **timer:** update the customer search to look better on iOS ([555f99e](https://github.com/kensodemann/personal-task-timer/commit/555f99e03ebb94c333eabae7806a783ab739430b))
+
+
+
 # [1.0.0-1](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0-0...v1.0.0-1) (2019-12-29)
 
 
