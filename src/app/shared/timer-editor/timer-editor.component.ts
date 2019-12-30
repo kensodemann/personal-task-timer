@@ -82,11 +82,13 @@ export class TimerEditorComponent implements OnInit {
     const timer: Timer = {
       customer: this.customer,
       title: this.title,
-      task: this.taskId,
       type: this.taskType,
       minutes: this.minutes,
       date: this.timer ? this.timer.date : formatISO(new Date(Date.now()), { representation: 'date' })
     };
+    if (this.taskId) {
+      timer.task = this.taskId;
+    }
     if (this.timer && this.timer.startTime) {
       timer.startTime = this.timer.startTime;
     }

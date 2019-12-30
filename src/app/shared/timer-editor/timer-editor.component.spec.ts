@@ -201,7 +201,6 @@ describe('TimerEditorComponent', () => {
         component.customer = 'Ace Software';
         component.title = 'Stuff is not working';
         component.taskId = '239945';
-        component.taskId = '239945';
         component.taskType = 'Consulting';
         component.minutes = 32;
         Date.now = jest.fn(() => 1577102400000);
@@ -214,7 +213,31 @@ describe('TimerEditorComponent', () => {
               task: '239945',
               type: 'Consulting',
               date: '2019-12-23',
-              minutes: 32
+              minutes: 32,
+            }
+          })
+        );
+        store.dispatch.mockRestore();
+        (Date.now as any).mockRestore();
+      });
+
+      it('does not include the task if there is no taskId', () => {
+        const store = TestBed.get(Store);
+        store.dispatch = jest.fn();
+        component.customer = 'Ace Software';
+        component.title = 'Stuff is not working';
+        component.taskType = 'Consulting';
+        component.minutes = 32;
+        Date.now = jest.fn(() => 1577102400000);
+        component.save();
+        expect(store.dispatch).toHaveBeenCalledWith(
+          create({
+            timer: {
+              customer: 'Ace Software',
+              title: 'Stuff is not working',
+              type: 'Consulting',
+              date: '2019-12-23',
+              minutes: 32,
             }
           })
         );
