@@ -214,6 +214,7 @@ describe('TimerEditorComponent', () => {
               type: 'Consulting',
               date: '2019-12-23',
               minutes: 32,
+              startTime: null
             }
           })
         );
@@ -221,7 +222,7 @@ describe('TimerEditorComponent', () => {
         (Date.now as any).mockRestore();
       });
 
-      it('does not include the task if there is no taskId', () => {
+      it('sets the task to null if there is no taskId', () => {
         const store = TestBed.get(Store);
         store.dispatch = jest.fn();
         component.customer = 'Ace Software';
@@ -238,6 +239,8 @@ describe('TimerEditorComponent', () => {
               type: 'Consulting',
               date: '2019-12-23',
               minutes: 32,
+              startTime: null,
+              task: null
             }
           })
         );
