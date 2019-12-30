@@ -1,8 +1,8 @@
 {
   "name": "Personal Task Timer",
   "short_name": "TaskTimer",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#ff5b1a",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
