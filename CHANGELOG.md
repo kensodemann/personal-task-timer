@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0...v1.0.1) (2019-12-30)
+
+
+### Bug Fixes
+
+* **timer:** do not include any optional field as "undefined" ([7c8dbcd](https://github.com/kensodemann/personal-task-timer/commit/7c8dbcd3bd46037985312e5e6b528a5691e15148))
+
+
+
 # 1.0.0 (2019-12-29)
 
 ### Bug Fixes
