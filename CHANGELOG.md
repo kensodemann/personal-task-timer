@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/kensodemann/personal-task-timer/compare/v1.0.1...v1.0.2) (2019-12-30)
+
+
+### Bug Fixes
+
+* **timer:** use null for optional fields ([73c9e49](https://github.com/kensodemann/personal-task-timer/commit/73c9e49f884490bbdd187243900d557dcf03efb5))
+
+
+
 ## [1.0.1](https://github.com/kensodemann/personal-task-timer/compare/v1.0.0...v1.0.1) (2019-12-30)
 
 
