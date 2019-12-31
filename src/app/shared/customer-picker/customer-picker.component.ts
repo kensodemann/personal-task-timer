@@ -4,8 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 
-import { State } from '@app/store/reducers';
-import { selectAllCustomers } from '@app/store/selectors';
+import { selectAllCustomers, State } from '@app/store';
 
 @Component({
   selector: 'app-customer-picker',

@@ -4,8 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { State } from '@app/store/reducers';
-import { selectAuthEmail, selectAuthError, selectAuthLoading, selectAuthMessage } from '@app/store/selectors';
+import { selectAuthEmail, selectAuthError, selectAuthLoading, selectAuthMessage, State } from '@app/store';
 import { login, resetPassword } from '@app/store/actions/auth.actions';
 
 @Component({

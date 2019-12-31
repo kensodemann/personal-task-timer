@@ -4,9 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { formatISO } from 'date-fns';
 
-import { State } from '@app/store/reducers';
 import { create, update } from '@app/store/actions/timer.actions';
-import { selectAllTaskTypes } from '@app/store/selectors';
+import { selectAllTaskTypes, State } from '@app/store';
 import { CustomerPickerComponent } from '../customer-picker/customer-picker.component';
 import { Timer } from '@app/models';
 

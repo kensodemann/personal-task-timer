@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { State } from '@app/store/reducers';
 import { logout } from '@app/store/actions/auth.actions';
-import { selectAllTimers } from '@app/store/selectors';
+import { selectAllTimers, State } from '@app/store';
 import { Timer } from '@app/models';
 
 @Component({

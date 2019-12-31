@@ -9,8 +9,7 @@ import { createNavControllerMock, createOverlayControllerMock, createOverlayElem
 import { LoginPage } from './login.page';
 import { login, resetPassword } from '@app/store/actions/auth.actions';
 import { AuthState } from '@app/store/reducers/auth/auth.reducer';
-import { selectAuthLoading, selectAuthEmail, selectAuthError, selectAuthMessage } from '@app/store/selectors';
-import { State } from '@app/store/reducers';
+import { selectAuthLoading, selectAuthEmail, selectAuthError, selectAuthMessage, State } from '@app/store';
 
 describe('LoginPage', () => {
   let alert;

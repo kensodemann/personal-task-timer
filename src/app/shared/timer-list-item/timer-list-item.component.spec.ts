@@ -8,7 +8,7 @@ import { createOverlayControllerMock, createOverlayElementMock } from '@test/moc
 import { Timer } from '@app/models';
 import { remove, stop, start } from '@app/store/actions/timer.actions';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
-import { selectAllActiveTimers } from '@app/store/selectors';
+import { selectAllActiveTimers } from '@app/store';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 
 describe('TimerListItemComponent', () => {

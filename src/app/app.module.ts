@@ -12,7 +12,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '@env/environment';
-import { reducers, metaReducers } from '@app/store/reducers';
+import { reducers, metaReducers } from '@app/store';
 import { AuthEffects, TimerEffects } from '@app/store/effects';
 import { ServiceWorkerModule } from '@angular/service-worker';
 

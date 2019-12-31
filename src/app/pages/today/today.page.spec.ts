@@ -9,7 +9,7 @@ import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.comp
 import { logout } from '@app/store/actions/auth.actions';
 import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
-import { selectTodayTimers } from '@app/store/selectors';
+import { selectTodayTimers } from '@app/store';
 import { Timer } from '@app/models';
 
 describe('TodayPage', () => {

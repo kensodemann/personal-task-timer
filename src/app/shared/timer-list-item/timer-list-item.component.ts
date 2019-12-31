@@ -4,9 +4,8 @@ import { differenceInMinutes } from 'date-fns';
 
 import { Timer } from '@app/models/timer';
 import { Store, select } from '@ngrx/store';
-import { State } from '@app/store/reducers';
 import { remove, stop, start } from '@app/store/actions/timer.actions';
-import { selectAllActiveTimers } from '@app/store/selectors';
+import { selectAllActiveTimers, State } from '@app/store';
 import { take } from 'rxjs/operators';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 

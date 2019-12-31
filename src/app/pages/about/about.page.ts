@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { version } from '@app/default-data/version';
 import { Version } from '@app/models/version';
-import { State } from '@app/store/reducers';
+import { State } from '@app/store';
 import { logout } from '@app/store/actions/auth.actions';
 
 @Component({

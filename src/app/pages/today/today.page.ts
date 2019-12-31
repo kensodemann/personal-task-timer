@@ -5,9 +5,8 @@ import { Observable } from 'rxjs';
 
 import { Timer } from '@app/models/timer';
 import { logout } from '@app/store/actions/auth.actions';
-import { State } from '@app/store/reducers';
 import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.component';
-import { selectTodayTimers } from '@app/store/selectors';
+import { selectTodayTimers, State } from '@app/store';
 
 @Component({
   selector: 'app-tab1',
