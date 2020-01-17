@@ -3,7 +3,7 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
 import { Action } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of, from } from 'rxjs';
-import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { TimersService } from '@app/services/firestore-data';
 import * as timerActions from '@app/store/actions/timer.actions';

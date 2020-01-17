@@ -243,7 +243,7 @@ describe(TimerActionTypes.timersAdded, () => {
     });
   });
 
-  it('adds the timers to an empty state', () => {
+  it('adds the timers to the existing ones', () => {
     const timers: Array<Timer> = [
       {
         id: '194309fkadsfoi',

@@ -2,11 +2,9 @@ import { inject, TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { of } from 'rxjs';
 
 import { FirestoreDataService } from './firestore-data.service';
 import {
-  createAction,
   createAngularFirestoreMock,
   createAngularFirestoreCollectionMock,
   createAngularFirestoreDocumentMock,
@@ -59,7 +57,7 @@ describe('FirestoreDataService', () => {
     expect(dataService).toBeTruthy();
   });
 
-  describe('all', () => {
+  describe('observe changes', () => {
     it('grabs a references to the data collection', () => {
       const angularFirestore = TestBed.get(AngularFirestore);
       dataService.observeChanges();
