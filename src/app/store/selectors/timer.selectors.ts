@@ -8,10 +8,10 @@ export const selectTimerEntities = createSelector(selectTimers, selectors.select
 export const selectAllTimers = createSelector(selectTimers, selectors.selectAll);
 export const selectAllTimersSortedByDate = createSelector(selectAllTimers, timers =>
   timers.sort((t1, t2) => {
-    if (t1.date < t2.date) {
+    if (t1.date > t2.date) {
       return -1;
     }
-    if (t1.date > t2.date) {
+    if (t1.date < t2.date) {
       return 1;
     }
     return 0;
