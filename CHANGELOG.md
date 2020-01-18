@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/kensodemann/personal-task-timer/compare/v1.1.0...v1.1.1) (2020-01-18)
+
+
+### Bug Fixes
+
+* **history:** display the most recent first ([579aa14](https://github.com/kensodemann/personal-task-timer/commit/579aa1453cbfaaa6ca6d68e5b932496abbf8dee5))
+
+
+
 # 1.1.0 (2020-01-17)
 
 
