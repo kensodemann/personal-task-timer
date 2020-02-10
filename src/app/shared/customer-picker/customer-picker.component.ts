@@ -36,6 +36,10 @@ export class CustomerPickerComponent implements OnInit {
     );
   }
 
+  create() {
+    this.modalController.dismiss(this.searchText, 'create');
+  }
+
   dismiss() {
     this.modalController.dismiss(undefined, 'cancel');
   }

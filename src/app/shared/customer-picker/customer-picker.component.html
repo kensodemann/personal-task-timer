@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar color="medium">
     <ion-title>Customers</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -15,6 +20,6 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button color="secondary" expand="full" (click)="dismiss()">Close</ion-button>
+    <ion-button color="secondary" expand="full" (click)="create()" [disabled]="!searchText">Create</ion-button>
   </ion-toolbar>
 </ion-footer>

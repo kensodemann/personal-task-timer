@@ -56,7 +56,7 @@ export class TimerEditorComponent implements OnInit {
     const modal = await this.modalController.create({ component: CustomerPickerComponent, backdropDismiss: false });
     await modal.present();
     const result = await modal.onDidDismiss();
-    if (result.role === 'select') {
+    if (result.role === 'select' || result.role === 'create') {
       this.customer = result.data;
     }
   }

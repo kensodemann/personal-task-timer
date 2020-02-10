@@ -173,6 +173,13 @@ describe('TimerEditorComponent', () => {
       await component.findCustomer();
       expect(component.customer).toEqual('Tubbs Bathhouse');
     });
+
+    it('copies the customer if the user creates one', async () => {
+      modal.onDidDismiss.mockResolvedValue({ role: 'create', data: 'Bobs Butts' });
+      component.customer = 'Ace Software';
+      await component.findCustomer();
+      expect(component.customer).toEqual('Bobs Butts');
+    });
   });
 
   describe('save', () => {

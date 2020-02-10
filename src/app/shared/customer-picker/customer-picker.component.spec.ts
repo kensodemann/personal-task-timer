@@ -57,6 +57,21 @@ describe('CustomerPickerComponent', () => {
     });
   });
 
+  describe('create', () => {
+    it('dismisses the dialog', () => {
+      const modalController = TestBed.get(ModalController);
+      component.create();
+      expect(modalController.dismiss).toHaveBeenCalledTimes(1);
+    });
+
+    it('dismisses with the create role and the entered name', () => {
+      const modalController = TestBed.get(ModalController);
+      component.searchText = 'FooBar';
+      component.create();
+      expect(modalController.dismiss).toHaveBeenCalledWith('FooBar', 'create');
+    });
+  });
+
   describe('select', () => {
     it('dismisses the dialog', () => {
       const modalController = TestBed.get(ModalController);
