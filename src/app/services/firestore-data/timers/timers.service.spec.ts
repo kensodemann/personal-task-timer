@@ -23,19 +23,19 @@ describe('TimersService', () => {
         { provide: AngularFirestore, useFactory: createAngularFirestoreMock }
       ]
     });
-    const angularFirestore = TestBed.get(AngularFirestore);
+    const angularFirestore = TestBed.inject(AngularFirestore);
     document = createAngularFirestoreDocumentMock();
     collection = createAngularFirestoreCollectionMock();
     collection.doc.mockReturnValue(document);
     document.collection.mockReturnValue(collection);
-    angularFirestore.collection.mockReturnValue(collection);
+    (angularFirestore.collection as any).mockReturnValue(collection);
   });
 
   beforeEach(inject([TimersService], (service: TimersService) => {
     timers = service;
-    const afAuth = TestBed.get(AngularFireAuth);
-    afAuth.auth.currentUser = { uid: '123abc' };
-    afAuth.authState.next();
+    const afAuth = TestBed.inject(AngularFireAuth);
+    (afAuth.auth as any).currentUser = { uid: '123abc' };
+    (afAuth.authState as any).next();
   }));
 
   it('should be created', () => {
@@ -43,7 +43,7 @@ describe('TimersService', () => {
   });
 
   it('grabs a references to the exercises collection', () => {
-    const angularFirestore = TestBed.get(AngularFirestore);
+    const angularFirestore = TestBed.inject(AngularFirestore);
     timers.observeChanges();
     expect(angularFirestore.collection).toHaveBeenCalledTimes(1);
     expect(angularFirestore.collection).toHaveBeenCalledWith('users');

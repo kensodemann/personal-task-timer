@@ -45,7 +45,7 @@ describe('TimerListItemComponent', () => {
     fixture = TestBed.createComponent(TimerListItemComponent);
     component = fixture.componentInstance;
     component.timer = testTimer;
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     store.dispatch = jest.fn();
   }));
 
@@ -71,7 +71,7 @@ describe('TimerListItemComponent', () => {
 
     describe('delete', () => {
       it('asks the user if they would like to delete the timer', async () => {
-        const alertController = TestBed.get(AlertController);
+        const alertController = TestBed.inject(AlertController);
         await component.delete();
         expect(alertController.create).toHaveBeenCalledTimes(1);
         expect(alertController.create).toHaveBeenCalledWith({
@@ -108,7 +108,7 @@ describe('TimerListItemComponent', () => {
 
     describe('edit', () => {
       it('displays the timer in the editor modal', async () => {
-        const modalController = TestBed.get(ModalController);
+        const modalController = TestBed.inject(ModalController);
         await component.edit();
         expect(modalController.create).toHaveBeenCalledTimes(1);
         expect(modalController.create).toHaveBeenCalledWith({

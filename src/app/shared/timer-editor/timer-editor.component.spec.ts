@@ -138,7 +138,7 @@ describe('TimerEditorComponent', () => {
     });
 
     it('dismisses the modal', () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       component.close();
       expect(modalController.dismiss).toHaveBeenCalledTimes(1);
     });
@@ -151,7 +151,7 @@ describe('TimerEditorComponent', () => {
     });
 
     it('presents a customer picker modal', async () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       await component.findCustomer();
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
@@ -189,21 +189,21 @@ describe('TimerEditorComponent', () => {
       });
 
       it('dismisses the modal', () => {
-        const modalController = TestBed.get(ModalController);
+        const modalController = TestBed.inject(ModalController);
         component.save();
         expect(modalController.dismiss).toHaveBeenCalledTimes(1);
       });
 
       it('dispatches a create action', () => {
-        const store = TestBed.get(Store);
+        const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.save();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-        store.dispatch.mockRestore();
+        (store.dispatch as any).mockRestore();
       });
 
       it('passes the entered data', () => {
-        const store = TestBed.get(Store);
+        const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.customer = 'Ace Software';
         component.title = 'Stuff is not working';
@@ -225,12 +225,12 @@ describe('TimerEditorComponent', () => {
             }
           })
         );
-        store.dispatch.mockRestore();
+        (store.dispatch as any).mockRestore();
         (Date.now as any).mockRestore();
       });
 
       it('sets the task to null if there is no taskId', () => {
-        const store = TestBed.get(Store);
+        const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.customer = 'Ace Software';
         component.title = 'Stuff is not working';
@@ -251,7 +251,7 @@ describe('TimerEditorComponent', () => {
             }
           })
         );
-        store.dispatch.mockRestore();
+        (store.dispatch as any).mockRestore();
         (Date.now as any).mockRestore();
       });
     });
@@ -272,21 +272,21 @@ describe('TimerEditorComponent', () => {
       });
 
       it('dismisses the modal', () => {
-        const modalController = TestBed.get(ModalController);
+        const modalController = TestBed.inject(ModalController);
         component.save();
         expect(modalController.dismiss).toHaveBeenCalledTimes(1);
       });
 
       it('dispatches a create action', () => {
-        const store = TestBed.get(Store);
+        const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.save();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-        store.dispatch.mockRestore();
+        (store.dispatch as any).mockRestore();
       });
 
       it('passes the entered data', () => {
-        const store = TestBed.get(Store);
+        const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.customer = 'Ace Software';
         component.title = 'Stuff is not working';
@@ -310,7 +310,7 @@ describe('TimerEditorComponent', () => {
             }
           })
         );
-        store.dispatch.mockRestore();
+        (store.dispatch as any).mockRestore();
         (Date.now as any).mockRestore();
       });
     });

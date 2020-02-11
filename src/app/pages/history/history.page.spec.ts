@@ -34,7 +34,7 @@ describe('HistoryPage', () => {
 
   describe('logout', () => {
     it('dispatches the logout action', () => {
-      const store = TestBed.get(Store);
+      const store = TestBed.inject(Store);
       store.dispatch = jest.fn();
       component.logout();
       expect(store.dispatch).toHaveBeenCalledTimes(1);

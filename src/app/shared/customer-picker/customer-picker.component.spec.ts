@@ -45,13 +45,13 @@ describe('CustomerPickerComponent', () => {
 
   describe('dismiss', () => {
     it('dismisses the dialog', () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       component.dismiss();
       expect(modalController.dismiss).toHaveBeenCalledTimes(1);
     });
 
     it('dismisses with the cancel role and no data', () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       component.dismiss();
       expect(modalController.dismiss).toHaveBeenCalledWith(undefined, 'cancel');
     });
@@ -59,13 +59,13 @@ describe('CustomerPickerComponent', () => {
 
   describe('create', () => {
     it('dismisses the dialog', () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       component.create();
       expect(modalController.dismiss).toHaveBeenCalledTimes(1);
     });
 
     it('dismisses with the create role and the entered name', () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       component.searchText = 'FooBar';
       component.create();
       expect(modalController.dismiss).toHaveBeenCalledWith('FooBar', 'create');
@@ -74,13 +74,13 @@ describe('CustomerPickerComponent', () => {
 
   describe('select', () => {
     it('dismisses the dialog', () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       component.select('Ace Software');
       expect(modalController.dismiss).toHaveBeenCalledTimes(1);
     });
 
     it('dismisses with the select role and the customer name', () => {
-      const modalController = TestBed.get(ModalController);
+      const modalController = TestBed.inject(ModalController);
       component.select('Ace Software');
       expect(modalController.dismiss).toHaveBeenCalledWith('Ace Software', 'select');
     });
