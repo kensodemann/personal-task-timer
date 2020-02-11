@@ -1,3 +1,17 @@
+## [1.1.3](https://github.com/kensodemann/personal-task-timer/compare/v1.1.2...v1.1.3) (2020-02-11)
+
+
+### Bug Fixes
+
+* **app:** remove lint warnings ([0295075](https://github.com/kensodemann/personal-task-timer/commit/02950754754e0ec0bf28e365b2645d4d0d19d717))
+
+
+### Features
+
+* **customers:** create customer from picker ([e6eff26](https://github.com/kensodemann/personal-task-timer/commit/e6eff26b71286778c6cd5df76082ed1c277d4180))
+
+
+
 ## [1.1.2](https://github.com/kensodemann/personal-task-timer/compare/v1.1.1...v1.1.2) (2020-02-09)
 
 
