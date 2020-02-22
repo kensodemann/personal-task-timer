@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule, ModalController, IonSearchbar } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
 import { provideMockStore } from '@ngrx/store/testing';
 
@@ -12,6 +12,7 @@ import { Timer } from '@app/models';
 describe('CustomerPickerComponent', () => {
   let component: CustomerPickerComponent;
   let fixture: ComponentFixture<CustomerPickerComponent>;
+  let searchElement;
 
   let testTimerIds: Array<string>;
   let testTimers: Dictionary<Timer>;
@@ -30,11 +31,17 @@ describe('CustomerPickerComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(CustomerPickerComponent);
     component = fixture.componentInstance;
+    searchElement = { focus: jest.fn() };
+    component.searchBar.getInputElement = jest.fn(() => Promise.resolve(searchElement));
     fixture.detectChanges();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('focuses the search element', () => {
+    expect(searchElement.focus).toHaveBeenCalledTimes(1);
   });
 
   it('selects all customers', () => {

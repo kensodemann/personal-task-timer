@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+import { IonSearchbar, ModalController } from '@ionic/angular';
 import { Store, select } from '@ngrx/store';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
@@ -11,14 +11,20 @@ import { selectAllCustomers, State } from '@app/store';
   templateUrl: './customer-picker.component.html',
   styleUrls: ['./customer-picker.component.scss']
 })
-export class CustomerPickerComponent implements OnInit {
+export class CustomerPickerComponent implements AfterContentInit, OnInit {
   private searchTextChanged: BehaviorSubject<void>;
+  @ViewChild(IonSearchbar, { static: true }) searchBar: IonSearchbar;
   searchText: string;
 
   customers$: Observable<Array<string>>;
 
   constructor(private modalController: ModalController, private store: Store<State>) {
     this.searchTextChanged = new BehaviorSubject(undefined);
+  }
+
+  async ngAfterContentInit() {
+    const el = await this.searchBar.getInputElement();
+    setTimeout(() => el.focus());
   }
 
   ngOnInit() {
