@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Timer } from '@app/models/timer';
+import { Timer } from '@app/models';
 
 export enum TimerActionTypes {
   create = '[Timer Editor] add timer',

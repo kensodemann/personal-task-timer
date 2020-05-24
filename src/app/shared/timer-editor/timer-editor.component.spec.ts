@@ -8,7 +8,6 @@ import { createOverlayControllerMock, createOverlayElementMock } from '@test/moc
 import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
 import { Store } from '@ngrx/store';
 import { create, update } from '@app/store/actions/timer.actions';
-import { CustomerPickerComponent } from '../customer-picker/customer-picker.component';
 
 describe('TimerEditorComponent', () => {
   let component: TimerEditorComponent;
@@ -141,44 +140,6 @@ describe('TimerEditorComponent', () => {
       const modalController = TestBed.inject(ModalController);
       component.close();
       expect(modalController.dismiss).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('find customer', () => {
-    beforeEach(() => {
-      modal.onDidDismiss.mockResolvedValue({ role: 'cancel' });
-      fixture.detectChanges();
-    });
-
-    it('presents a customer picker modal', async () => {
-      const modalController = TestBed.inject(ModalController);
-      await component.findCustomer();
-      expect(modalController.create).toHaveBeenCalledTimes(1);
-      expect(modalController.create).toHaveBeenCalledWith({
-        component: CustomerPickerComponent,
-        backdropDismiss: false
-      });
-      expect(modal.present).toHaveBeenCalledTimes(1);
-    });
-
-    it('does nothing if the user cancels the modal', async () => {
-      component.customer = 'Ace Software';
-      await component.findCustomer();
-      expect(component.customer).toEqual('Ace Software');
-    });
-
-    it('copies the customer if the user selects one', async () => {
-      modal.onDidDismiss.mockResolvedValue({ role: 'select', data: 'Tubbs Bathhouse' });
-      component.customer = 'Ace Software';
-      await component.findCustomer();
-      expect(component.customer).toEqual('Tubbs Bathhouse');
-    });
-
-    it('copies the customer if the user creates one', async () => {
-      modal.onDidDismiss.mockResolvedValue({ role: 'create', data: 'Bobs Butts' });
-      component.customer = 'Ace Software';
-      await component.findCustomer();
-      expect(component.customer).toEqual('Bobs Butts');
     });
   });
 

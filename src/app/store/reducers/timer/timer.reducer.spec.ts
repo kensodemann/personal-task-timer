@@ -12,7 +12,7 @@ import {
   timerModified,
   timerRemoved
 } from '@app/store/actions/timer.actions';
-import { Timer } from '@app/models/timer';
+import { Timer } from '@app/models';
 
 let testTimers: Dictionary<Timer>;
 let testTimerIds: Array<string>;

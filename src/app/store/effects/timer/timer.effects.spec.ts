@@ -39,7 +39,7 @@ describe('load$', () => {
   describe('added change', () => {
     it('dispaches and added timer action', done => {
       const timersService = TestBed.inject(TimersService);
-      timersService.observeChanges.mockReturnValue(
+      (timersService.observeChanges as any).mockReturnValue(
         of([
           {
             type: 'added',
@@ -79,7 +79,7 @@ describe('load$', () => {
   describe('modified change', () => {
     it('dispaches and modified timer action', done => {
       const timersService = TestBed.inject(TimersService);
-      timersService.observeChanges.mockReturnValue(
+      (timersService.observeChanges as any).mockReturnValue(
         of([
           {
             type: 'modified',
@@ -119,7 +119,7 @@ describe('load$', () => {
   describe('removed change', () => {
     it('dispaches and removed timer action', done => {
       const timersService = TestBed.inject(TimersService);
-      timersService.observeChanges.mockReturnValue(
+      (timersService.observeChanges as any).mockReturnValue(
         of([
           {
             type: 'removed',
@@ -159,7 +159,7 @@ describe('load$', () => {
   describe('multiple changes', () => {
     it('dispaches the adds as a unit', fakeAsync(() => {
       const timersService = TestBed.inject(TimersService);
-      timersService.observeChanges.mockReturnValue(
+      (timersService.observeChanges as any).mockReturnValue(
         of([
           {
             type: 'added',
@@ -469,7 +469,7 @@ describe('remove$', () => {
   });
 });
 
-describe('$start', () => {
+describe('start$', () => {
   let timer: Timer;
   beforeEach(() => {
     timer = {
@@ -519,7 +519,7 @@ describe('$start', () => {
   });
 });
 
-describe('$stop', () => {
+describe('stop$', () => {
   let timer: Timer;
   beforeEach(() => {
     timer = {

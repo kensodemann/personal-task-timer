@@ -1,7 +1,6 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { selectors, TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { formatISO } from 'date-fns';
-import { Timer } from '@app/models';
 
 export const selectTimers = createFeatureSelector('timers');
 export const selectTimerEntities = createSelector(selectTimers, selectors.selectEntities);

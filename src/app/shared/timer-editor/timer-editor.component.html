@@ -14,9 +14,8 @@
 <ion-content>
   <form #timerForm="ngForm">
     <ion-list>
-      <ion-item (click)="findCustomer()">
-        <ion-label *ngIf="!customer">Customer</ion-label>
-        <ion-label position="floating" *ngIf="customer">Customer</ion-label>
+      <ion-item>
+        <ion-label position="floating">Customer</ion-label>
         <ion-input name="customer" [(ngModel)]="customer" #customerInput="ngModel" required></ion-input>
       </ion-item>
       <ion-item>

@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '@env/environment';
 import { reducers, metaReducers } from '@app/store';
-import { AuthEffects, TimerEffects } from '@app/store/effects';
+import { AuthEffects, TimerEffects, CustomerEffects } from '@app/store/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +33,7 @@ import { AuthEffects, TimerEffects } from '@app/store/effects';
         strictActionImmutability: true
       }
     }),
-    EffectsModule.forRoot([AuthEffects, TimerEffects]),
+    EffectsModule.forRoot([AuthEffects, CustomerEffects, TimerEffects]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
