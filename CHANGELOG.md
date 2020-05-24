@@ -1,3 +1,21 @@
+## [1.1.5](https://github.com/kensodemann/personal-task-timer/compare/v1.0.2...v1.1.5) (2020-05-24)
+
+
+### Bug Fixes
+
+* **app:** remove lint warnings ([0295075](https://github.com/kensodemann/personal-task-timer/commit/02950754754e0ec0bf28e365b2645d4d0d19d717))
+* **app:** support dark mode ([7c9f421](https://github.com/kensodemann/personal-task-timer/commit/7c9f4214471941509b2789dc4f8c0e54eb42e58e))
+* **customer-finder:** focus the search ([1d6d048](https://github.com/kensodemann/personal-task-timer/commit/1d6d0486652a0da91f33b90d28fa4eec18df9881))
+* **history:** display the most recent first ([579aa14](https://github.com/kensodemann/personal-task-timer/commit/579aa1453cbfaaa6ca6d68e5b932496abbf8dee5))
+
+
+### Features
+
+* **customers:** create customer from picker ([e6eff26](https://github.com/kensodemann/personal-task-timer/commit/e6eff26b71286778c6cd5df76082ed1c277d4180))
+* **history:** sort by date ([87238bf](https://github.com/kensodemann/personal-task-timer/commit/87238bf558ffce9bea5e4c8c3331c160c957ce8c))
+
+
+
 ## [1.1.4](https://github.com/kensodemann/personal-task-timer/compare/v1.1.3...v1.1.4) (2020-02-22)
 
 
