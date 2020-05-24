@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
-import { firestore } from 'firebase/app';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { FirestoreDataService } from '../firestore-data.service';
 import { Timer } from '@app/models';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { differenceInMinutes } from 'date-fns';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TimersService extends FirestoreDataService<Timer> {
   constructor(private ngFirestore: AngularFirestore, afAuth: AngularFireAuth) {
@@ -25,7 +24,7 @@ export class TimersService extends FirestoreDataService<Timer> {
   async start(id: string): Promise<void> {
     const user = await this.afAuth.currentUser;
     return this.getCollection(user).doc(id).update({
-      startTime: Date.now(),
+      startTime: Date.now()
     });
   }
 
