@@ -8,30 +8,30 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { differenceInMinutes } from 'date-fns';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TimersService extends FirestoreDataService<Timer> {
-  constructor(private ngFirestore: AngularFirestore, private afAuth: AngularFireAuth) {
-    super();
+  constructor(private ngFirestore: AngularFirestore, afAuth: AngularFireAuth) {
+    super(afAuth);
   }
 
-  protected getCollection(): AngularFirestoreCollection<Timer> {
-    if (this.afAuth.auth.currentUser) {
-      return this.ngFirestore
-        .collection('users')
-        .doc(this.afAuth.auth.currentUser.uid)
-        .collection('timers');
-    }
+  getCollection(user: firebase.User): AngularFirestoreCollection<Timer> {
+    return this.ngFirestore
+      .collection('users')
+      .doc((user && user.uid) || 'unknown')
+      .collection('timers');
   }
 
-  start(id: string): Promise<void> {
-    return this.collection.doc(id).update({
-      startTime: Date.now()
+  async start(id: string): Promise<void> {
+    const user = await this.afAuth.currentUser;
+    return this.getCollection(user).doc(id).update({
+      startTime: Date.now(),
     });
   }
 
   async stop(id: string): Promise<void> {
-    const document = this.collection.doc(id);
+    const user = await this.afAuth.currentUser;
+    const document = this.getCollection(user).doc(id);
     const snapshot = await document.ref.get();
     const timer = snapshot.data();
     const minutes = (timer.minutes || 0) + differenceInMinutes(Date.now(), timer.startTime);

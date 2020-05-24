@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     this.application.registerForUpdates();
     this.store.dispatch(loadTaskTypes());
     this.afAuth.authState.subscribe(u => {
-      this.store.dispatch(loginChanged({ email: u && u.email }));
+      this.store.dispatch(loginChanged({ email: u && u.email, userId: u && u.uid }));
       if (!u) {
         this.navController.navigateRoot(['login']);
       } else {

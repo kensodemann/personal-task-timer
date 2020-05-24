@@ -3,6 +3,7 @@ import * as AuthActions from '@app/store/actions/auth.actions';
 
 export interface AuthState {
   email: string;
+  userId: string;
   loading: boolean;
   message?: string;
   error?: Error;
@@ -10,12 +11,13 @@ export interface AuthState {
 
 export const initialState: AuthState = {
   email: '',
+  userId: '',
   loading: false
 };
 
 const authReducer = createReducer(
   initialState,
-  on(AuthActions.loginChanged, (state, { email }) => ({ ...state, email })),
+  on(AuthActions.loginChanged, (state, { email, userId }) => ({ ...state, email, userId })),
   on(AuthActions.login, state => ({ ...state, loading: true, message: undefined, error: undefined })),
   on(AuthActions.loginSuccess, state => ({ ...state, loading: false })),
   on(AuthActions.loginFailure, (state, { error }) => ({ ...state, loading: false, error })),

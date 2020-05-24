@@ -25,21 +25,21 @@ describe('AuthenticationService', () => {
     it('calls the signin with email and password', () => {
       const angularFireAuth = TestBed.inject(AngularFireAuth);
       authenticationService.login('test@test.com', 'testpassword');
-      expect(angularFireAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
+      expect(angularFireAuth.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
     });
 
     it('passes the email and password', () => {
       const angularFireAuth = TestBed.inject(AngularFireAuth);
       authenticationService.login('test@test.com', 'testpassword');
-      expect(angularFireAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledWith('test@test.com', 'testpassword');
-    });
+      expect(angularFireAuth.signInWithEmailAndPassword).toHaveBeenCalledWith('test@test.com', 'testpassword');
+    }
   });
 
   describe('logout', () => {
     it('calls the signOut', () => {
       const angularFireAuth = TestBed.inject(AngularFireAuth);
       authenticationService.logout();
-      expect(angularFireAuth.auth.signOut).toHaveBeenCalledTimes(1);
+      expect(angularFireAuth.signOut).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -47,13 +47,13 @@ describe('AuthenticationService', () => {
     it('calls the firebase setPaswordResetEmail', () => {
       const angularFireAuth = TestBed.inject(AngularFireAuth);
       authenticationService.sendPasswordResetEmail('test@testme.org');
-      expect(angularFireAuth.auth.sendPasswordResetEmail).toHaveBeenCalledTimes(1);
+      expect(angularFireAuth.sendPasswordResetEmail).toHaveBeenCalledTimes(1);
     });
 
     it('passes the email', () => {
       const angularFireAuth = TestBed.inject(AngularFireAuth);
       authenticationService.sendPasswordResetEmail('test@testme.org');
-      expect(angularFireAuth.auth.sendPasswordResetEmail).toHaveBeenCalledWith('test@testme.org');
+      expect(angularFireAuth.sendPasswordResetEmail).toHaveBeenCalledWith('test@testme.org');
     });
   });
 });

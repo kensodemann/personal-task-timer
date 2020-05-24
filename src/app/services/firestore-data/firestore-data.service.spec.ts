@@ -2,6 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { of } from 'rxjs';
 
 import { FirestoreDataService } from './firestore-data.service';
 import {
@@ -9,7 +10,7 @@ import {
   createAngularFirestoreCollectionMock,
   createAngularFirestoreDocumentMock,
   createAngularFireAuthMock,
-  createDocumentSnapshotMock
+  createDocumentSnapshotMock,
 } from '@test/mocks';
 
 interface DataType {
@@ -21,11 +22,11 @@ interface DataType {
 
 @Injectable()
 class TestService extends FirestoreDataService<DataType> {
-  constructor(private firestore: AngularFirestore) {
-    super();
+  constructor(private firestore: AngularFirestore, afAuth: AngularFireAuth) {
+    super(afAuth);
   }
 
-  protected getCollection(): AngularFirestoreCollection<DataType> {
+  getCollection(): AngularFirestoreCollection<DataType> {
     return this.firestore.collection('data-collection');
   }
 }
@@ -39,8 +40,8 @@ describe('FirestoreDataService', () => {
       providers: [
         { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
         { provide: AngularFirestore, useFactory: createAngularFirestoreMock },
-        TestService
-      ]
+        TestService,
+      ],
     });
     const angularFirestore = TestBed.inject(AngularFirestore);
     collection = createAngularFirestoreCollectionMock();
@@ -50,6 +51,8 @@ describe('FirestoreDataService', () => {
   beforeEach(inject([TestService], (service: TestService) => {
     dataService = service;
     const afAuth = TestBed.inject(AngularFireAuth);
+    (afAuth as any).currentUser = Promise.resolve({ uid: '123abc' });
+    (afAuth as any).user = of({ uid: '123abc' });
     (afAuth.authState as any).next();
   }));
 
@@ -60,13 +63,13 @@ describe('FirestoreDataService', () => {
   describe('observe changes', () => {
     it('grabs a references to the data collection', () => {
       const angularFirestore = TestBed.inject(AngularFirestore);
-      dataService.observeChanges();
+      dataService.observeChanges().subscribe();
       expect(angularFirestore.collection).toHaveBeenCalledTimes(1);
       expect(angularFirestore.collection).toHaveBeenCalledWith('data-collection');
     });
 
     it('looks for state changes', () => {
-      dataService.observeChanges();
+      dataService.observeChanges().subscribe();
       expect(collection.stateChanges).toHaveBeenCalledTimes(1);
     });
   });
@@ -78,14 +81,14 @@ describe('FirestoreDataService', () => {
       collection.doc.mockReturnValue(document);
     });
 
-    it('gets a references to the document', () => {
-      dataService.get('199405fkkgi59');
+    it('gets a references to the document', async () => {
+      await dataService.get('199405fkkgi59');
       expect(collection.doc).toHaveBeenCalledTimes(1);
       expect(collection.doc).toHaveBeenCalledWith('199405fkkgi59');
     });
 
-    it('gets the value of the document', () => {
-      dataService.get('199405fkkgi59');
+    it('gets the value of the document', async () => {
+      await dataService.get('199405fkkgi59');
       expect(document.ref.get).toHaveBeenCalledTimes(1);
     });
 
@@ -94,30 +97,30 @@ describe('FirestoreDataService', () => {
       snapshot.data.mockReturnValue({
         name: 'Joe',
         description: 'Some guy named Joe who sells week on my street corner',
-        isActive: false
+        isActive: false,
       });
       document.ref.get.mockResolvedValue(snapshot);
       expect(await dataService.get('199405fkkgi59')).toEqual({
         id: '199405fkkgi59',
         name: 'Joe',
         description: 'Some guy named Joe who sells week on my street corner',
-        isActive: false
+        isActive: false,
       });
     });
   });
 
   describe('add', () => {
-    it('adds the item to the collection', () => {
-      dataService.add({
+    it('adds the item to the collection', async () => {
+      await dataService.add({
         name: 'Fred Flintstone',
         description: 'Head of a modnern stone-age family',
-        isActive: true
+        isActive: true,
       });
       expect(collection.add).toHaveBeenCalledTimes(1);
       expect(collection.add).toHaveBeenCalledWith({
         name: 'Fred Flintstone',
         description: 'Head of a modnern stone-age family',
-        isActive: true
+        isActive: true,
       });
     });
   });
@@ -129,23 +132,23 @@ describe('FirestoreDataService', () => {
       collection.doc.mockReturnValue(document);
     });
 
-    it('gets a reference to the document', () => {
-      dataService.delete({
+    it('gets a reference to the document', async () => {
+      await dataService.delete({
         id: '49950399KT',
         name: 'shiny',
         description: 'Make them extra shiny',
-        isActive: true
+        isActive: true,
       });
       expect(collection.doc).toHaveBeenCalledTimes(1);
       expect(collection.doc).toHaveBeenCalledWith('49950399KT');
     });
 
-    it('deletes the document', () => {
-      dataService.delete({
+    it('deletes the document', async () => {
+      await dataService.delete({
         id: '49950399KT',
         name: 'shiny',
         description: 'Make them extra shiny',
-        isActive: true
+        isActive: true,
       });
       expect(document.delete).toHaveBeenCalledTimes(1);
     });
@@ -158,29 +161,29 @@ describe('FirestoreDataService', () => {
       collection.doc.mockReturnValue(document);
     });
 
-    it('gets a reference to the document', () => {
-      dataService.update({
+    it('gets a reference to the document', async () => {
+      await dataService.update({
         id: '49950399KT',
         name: 'Kyle',
         description: 'some kid in South Park',
-        isActive: true
+        isActive: true,
       });
       expect(collection.doc).toHaveBeenCalledTimes(1);
       expect(collection.doc).toHaveBeenCalledWith('49950399KT');
     });
 
-    it('sets the document data', () => {
-      dataService.update({
+    it('sets the document data', async () => {
+      await dataService.update({
         id: '49950399KT',
         name: 'Kyle',
         description: 'some kid in South Park',
-        isActive: true
+        isActive: true,
       });
       expect(document.set).toHaveBeenCalledTimes(1);
       expect(document.set).toHaveBeenCalledWith({
         name: 'Kyle',
         description: 'some kid in South Park',
-        isActive: true
+        isActive: true,
       });
     });
   });

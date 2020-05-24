@@ -1,5 +1,6 @@
-import { inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { of } from 'rxjs';
 
 import { TimersService } from './timers.service';
 import {
@@ -34,7 +35,8 @@ describe('TimersService', () => {
   beforeEach(inject([TimersService], (service: TimersService) => {
     timers = service;
     const afAuth = TestBed.inject(AngularFireAuth);
-    (afAuth.auth as any).currentUser = { uid: '123abc' };
+    (afAuth as any).currentUser = Promise.resolve({ uid: '123abc' });
+    (afAuth as any).user = of({ uid: '123abc' });
     (afAuth.authState as any).next();
   }));
 
@@ -42,9 +44,9 @@ describe('TimersService', () => {
     expect(timers).toBeTruthy();
   });
 
-  it('grabs a references to the exercises collection', () => {
+  it('grabs a references to the timers collection', () => {
     const angularFirestore = TestBed.inject(AngularFirestore);
-    timers.observeChanges();
+    timers.observeChanges().subscribe();
     expect(angularFirestore.collection).toHaveBeenCalledTimes(1);
     expect(angularFirestore.collection).toHaveBeenCalledWith('users');
     expect(collection.doc).toHaveBeenCalledTimes(1);
@@ -54,16 +56,16 @@ describe('TimersService', () => {
   });
 
   describe('start', () => {
-    it('gets a reference to the document', () => {
-      timers.start('49950399KT');
+    it('gets a reference to the document', async () => {
+      await timers.start('49950399KT');
       expect(collection.doc).toHaveBeenCalledTimes(2);
       expect(collection.doc).toHaveBeenCalledWith('123abc');
       expect(collection.doc).toHaveBeenCalledWith('49950399KT');
     });
 
-    it('updates the document with the current time', () => {
+    it('updates the document with the current time', async () => {
       Date.now = jest.fn(() => 1577102400000);
-      timers.start('49950399KT');
+      await timers.start('49950399KT');
       expect(document.update).toHaveBeenCalledTimes(1);
       expect(document.update).toHaveBeenCalledWith({
         startTime: 1577102400000
@@ -88,8 +90,8 @@ describe('TimersService', () => {
       document.ref.get.mockResolvedValue(snapshot);
     });
 
-    it('gets a reference to the document', () => {
-      timers.stop('49950399KT');
+    it('gets a reference to the document', async () => {
+      await timers.stop('49950399KT');
       expect(collection.doc).toHaveBeenCalledTimes(2);
       expect(collection.doc).toHaveBeenCalledWith('123abc');
       expect(collection.doc).toHaveBeenCalledWith('49950399KT');

@@ -1,36 +1,38 @@
 import { AngularFirestoreCollection, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth/auth';
 
 import { Observable } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
 
 export abstract class FirestoreDataService<T extends { id?: string }> {
-  get collection(): AngularFirestoreCollection<T> {
-    return this.getCollection();
-  }
-
-  constructor() {}
+  constructor(protected afAuth: AngularFireAuth) {}
 
   observeChanges(): Observable<Array<DocumentChangeAction<T>>> {
-    return this.collection.stateChanges();
+    return this.afAuth.user.pipe(flatMap(user => this.getCollection(user).stateChanges()));
   }
 
   async get(id: string): Promise<T> {
-    const doc = await this.collection.doc<T>(id).ref.get();
+    const user = await this.afAuth.currentUser;
+    const doc = await this.getCollection(user).doc<T>(id).ref.get();
     return { id, ...(doc && doc.data()) } as T;
   }
 
-  add(item: T): Promise<DocumentReference> {
-    return this.collection.add(item);
+  async add(item: T): Promise<DocumentReference> {
+    const user = await this.afAuth.currentUser;
+    return this.getCollection(user).add(item);
   }
 
-  delete(item: T): Promise<void> {
-    return this.collection.doc(item.id).delete();
+  async delete(item: T): Promise<void> {
+    const user = await this.afAuth.currentUser;
+    return this.getCollection(user).doc(item.id).delete();
   }
 
-  update(item: T): Promise<void> {
+  async update(item: T): Promise<void> {
+    const user = await this.afAuth.currentUser;
     const data = { ...(item as object) } as T;
     delete data.id;
-    return this.collection.doc(item.id).set(data);
+    return this.getCollection(user).doc(item.id).set(data);
   }
 
-  protected abstract getCollection(): AngularFirestoreCollection<T>;
+  abstract getCollection(user?: firebase.User): AngularFirestoreCollection<T>;
 }
