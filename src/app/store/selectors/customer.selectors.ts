@@ -6,10 +6,12 @@ export const selectCustomerEntities = createSelector(selectCustomers, selectors.
 export const selectAllCustomers = createSelector(selectCustomers, selectors.selectAll);
 export const selectAllCustomersSortedByName = createSelector(selectAllCustomers, customers =>
   customers.sort((t1, t2) => {
-    if (t1.name < t2.name) {
+    const name1 = t1.name.toLowerCase();
+    const name2 = t2.name.toLowerCase();
+    if (name1 < name2) {
       return -1;
     }
-    if (t1.name > t2.name) {
+    if (name1 > name2) {
       return 1;
     }
     return 0;

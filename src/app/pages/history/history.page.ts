@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { logout } from '@app/store/actions/auth.actions';
-import { State, selectAllTimersSortedByDate } from '@app/store';
+import { State, selectPeriodTimersSortedByDate } from '@app/store';
 import { Timer } from '@app/models';
 
 @Component({
@@ -17,7 +17,7 @@ export class HistoryPage implements OnInit {
   constructor(private store: Store<State>) {}
 
   ngOnInit() {
-    this.timers$ = this.store.pipe(select(selectAllTimersSortedByDate));
+    this.timers$ = this.store.pipe(select(selectPeriodTimersSortedByDate, { days: 30 }));
   }
 
   logout() {
