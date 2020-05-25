@@ -15,8 +15,10 @@
   <form #timerForm="ngForm">
     <ion-list>
       <ion-item>
-        <ion-label position="floating">Customer</ion-label>
-        <ion-input name="customer" [(ngModel)]="customer" #customerInput="ngModel" required></ion-input>
+        <ion-label>Customer</ion-label>
+        <ion-select name="customerSelect" [(ngModel)]="customerId" #customerSelect="ngModel" required>
+          <ion-select-option *ngFor="let c of customers$ | async" value="{{ c.id }}">{{ c.name }}</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Title</ion-label>

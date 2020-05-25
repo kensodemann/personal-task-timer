@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 import { formatISO } from 'date-fns';
 
 import { create, update } from '@app/store/actions/timer.actions';
-import { selectAllTaskTypes, State } from '@app/store';
-import { Timer } from '@app/models';
+import { selectAllTaskTypes, State, selectAllCustomersSortedByName, selectCustomer } from '@app/store';
+import { Customer, Timer } from '@app/models';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer-editor',
@@ -16,11 +17,12 @@ import { Timer } from '@app/models';
 export class TimerEditorComponent implements OnInit {
   @Input() timer: Timer;
 
+  customers$: Observable<Array<Customer>>;
   taskTypes$: Observable<Array<string>>;
   editorTitle: string;
   disableMinutes: boolean;
 
-  customer: string;
+  customerId: string;
   title: string;
   taskId: string;
   taskType: string;
@@ -34,6 +36,7 @@ export class TimerEditorComponent implements OnInit {
     } else {
       this.initializeCreate();
     }
+    this.customers$ = this.store.pipe(select(selectAllCustomersSortedByName));
     this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
   }
 
@@ -42,13 +45,14 @@ export class TimerEditorComponent implements OnInit {
   }
 
   save() {
-    const timer = this.createTimer();
-    if (this.timer) {
-      this.store.dispatch(update({ timer }));
-    } else {
-      this.store.dispatch(create({ timer }));
-    }
-    this.modalController.dismiss();
+    this.createTimer().subscribe(timer => {
+      if (this.timer) {
+        this.store.dispatch(update({ timer }));
+      } else {
+        this.store.dispatch(create({ timer }));
+      }
+      this.modalController.dismiss();
+    });
   }
 
   private initializeCreate() {
@@ -59,7 +63,7 @@ export class TimerEditorComponent implements OnInit {
 
   private initializeUpdate() {
     this.editorTitle = 'Update Timer';
-    this.customer = this.timer.customer;
+    this.customerId = this.timer.customerId;
     this.title = this.timer.title;
     this.taskId = this.timer.task;
     this.taskType = this.timer.type;
@@ -67,20 +71,27 @@ export class TimerEditorComponent implements OnInit {
     this.disableMinutes = !!this.timer.startTime;
   }
 
-  private createTimer(): Timer {
-    const timer: Timer = {
-      customer: this.customer,
-      title: this.title,
-      type: this.taskType,
-      minutes: this.minutes,
-      date: this.timer ? this.timer.date : formatISO(new Date(Date.now()), { representation: 'date' }),
-      startTime: (this.timer && this.timer.startTime) || null,
-      task: this.taskId || null
-    };
-    if (this.timer && this.timer.id) {
-      timer.id = this.timer.id;
-    }
+  private createTimer(): Observable<Timer> {
+    return this.store.pipe(
+      select(selectCustomer, { id: this.customerId }),
+      take(1),
+      map(customer => {
+        const timer: Timer = {
+          customerName: customer.name,
+          customerId: customer.id,
+          title: this.title,
+          type: this.taskType,
+          minutes: this.minutes,
+          date: this.timer ? this.timer.date : formatISO(new Date(Date.now()), { representation: 'date' }),
+          startTime: (this.timer && this.timer.startTime) || null,
+          task: this.taskId || null
+        };
+        if (this.timer && this.timer.id) {
+          timer.id = this.timer.id;
+        }
 
-    return timer;
+        return timer;
+      })
+    );
   }
 }

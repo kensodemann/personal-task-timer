@@ -1,27 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
+import { Dictionary } from '@ngrx/entity';
 
 import { TimerEditorComponent } from './timer-editor.component';
 import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
 import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
 import { Store } from '@ngrx/store';
 import { create, update } from '@app/store/actions/timer.actions';
+import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
+import { Customer } from '@app/models';
 
 describe('TimerEditorComponent', () => {
   let component: TimerEditorComponent;
   let modal;
   let fixture: ComponentFixture<TimerEditorComponent>;
 
+  let testCustomers: Dictionary<Customer>;
+  let testCustomerIds: Array<string>;
+
   beforeEach(async(() => {
+    initializeTestData();
     modal = createOverlayElementMock();
     TestBed.configureTestingModule({
       declarations: [TimerEditorComponent],
       imports: [FormsModule, IonicModule],
       providers: [
-        provideMockStore<{ taskTypes: TaskTypeState }>({
-          initialState: { taskTypes: { taskTypes: ['Architecture Review', 'Code Review', 'Working Session'] } }
+        provideMockStore<{
+          customers: CustomersState;
+          taskTypes: TaskTypeState;
+        }>({
+          initialState: {
+            customers: { ids: testCustomerIds, entities: testCustomers, loading: false },
+            taskTypes: { taskTypes: ['Architecture Review', 'Code Review', 'Working Session'] }
+          }
         }),
         { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
       ]
@@ -48,6 +61,29 @@ describe('TimerEditorComponent', () => {
         expect(taskTypes).toEqual(['Architecture Review', 'Code Review', 'Working Session']);
       });
 
+      it('gets a snaphot of the customers', () => {
+        let customers: Array<Customer>;
+        component.customers$.subscribe(t => (customers = t));
+        expect(customers).toEqual([
+          {
+            id: 'asdf1234',
+            name: 'Ace Hardware'
+          },
+          {
+            id: 'ff898gd',
+            name: 'Fred Salvage'
+          },
+          {
+            id: '1849gasdf',
+            name: 'Mc Donalds'
+          },
+          {
+            id: 'ff88t99er',
+            name: 'Wal-Mart'
+          }
+        ]);
+      });
+
       it('sets the editor title', () => {
         expect(component.editorTitle).toEqual('Create Timer');
       });
@@ -65,7 +101,8 @@ describe('TimerEditorComponent', () => {
       beforeEach(() => {
         component.timer = {
           id: '40049503950',
-          customer: 'Ace Software',
+          customerId: testCustomers.asdf1234.id,
+          customerName: testCustomers.asdf1234.name,
           title: 'Stuff is not working',
           task: '239945',
           type: 'Consulting',
@@ -89,8 +126,8 @@ describe('TimerEditorComponent', () => {
         expect(component.editorTitle).toEqual('Update Timer');
       });
 
-      it('sets the customer', () => {
-        expect(component.customer).toEqual('Ace Software');
+      it('sets the customer ID', () => {
+        expect(component.customerId).toEqual(testCustomers.asdf1234.id);
       });
 
       it('sets the title', () => {
@@ -114,7 +151,8 @@ describe('TimerEditorComponent', () => {
       beforeEach(() => {
         component.timer = {
           id: '40049503950',
-          customer: 'Ace Software',
+          customerId: testCustomers.asdf1234.id,
+          customerName: testCustomers.asdf1234.name,
           title: 'Stuff is not working',
           task: '239945',
           type: 'Consulting',
@@ -151,6 +189,7 @@ describe('TimerEditorComponent', () => {
 
       it('dismisses the modal', () => {
         const modalController = TestBed.inject(ModalController);
+        component.customerId = testCustomers.ff898gd.id;
         component.save();
         expect(modalController.dismiss).toHaveBeenCalledTimes(1);
       });
@@ -158,6 +197,7 @@ describe('TimerEditorComponent', () => {
       it('dispatches a create action', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
+        component.customerId = testCustomers.ff898gd.id;
         component.save();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         (store.dispatch as any).mockRestore();
@@ -166,7 +206,7 @@ describe('TimerEditorComponent', () => {
       it('passes the entered data', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
-        component.customer = 'Ace Software';
+        component.customerId = testCustomers.ff898gd.id;
         component.title = 'Stuff is not working';
         component.taskId = '239945';
         component.taskType = 'Consulting';
@@ -176,7 +216,8 @@ describe('TimerEditorComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(
           create({
             timer: {
-              customer: 'Ace Software',
+              customerName: testCustomers.ff898gd.name,
+              customerId: testCustomers.ff898gd.id,
               title: 'Stuff is not working',
               task: '239945',
               type: 'Consulting',
@@ -193,7 +234,7 @@ describe('TimerEditorComponent', () => {
       it('sets the task to null if there is no taskId', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
-        component.customer = 'Ace Software';
+        component.customerId = testCustomers.ff88t99er.id;
         component.title = 'Stuff is not working';
         component.taskType = 'Consulting';
         component.minutes = 32;
@@ -202,7 +243,8 @@ describe('TimerEditorComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(
           create({
             timer: {
-              customer: 'Ace Software',
+              customerName: testCustomers.ff88t99er.name,
+              customerId: testCustomers.ff88t99er.id,
               title: 'Stuff is not working',
               type: 'Consulting',
               date: '2019-12-23',
@@ -221,7 +263,8 @@ describe('TimerEditorComponent', () => {
       beforeEach(() => {
         component.timer = {
           id: '40049503950',
-          customer: 'Butts and Nuts',
+          customerName: testCustomers.ff88t99er.name,
+          customerId: testCustomers.ff88t99er.id,
           title: 'Whatever',
           task: '384953',
           type: 'Code Review',
@@ -234,13 +277,15 @@ describe('TimerEditorComponent', () => {
 
       it('dismisses the modal', () => {
         const modalController = TestBed.inject(ModalController);
+        component.customerId = testCustomers.ff898gd.id;
         component.save();
         expect(modalController.dismiss).toHaveBeenCalledTimes(1);
       });
 
-      it('dispatches a create action', () => {
+      it('dispatches an update action', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
+        component.customerId = testCustomers.ff898gd.id;
         component.save();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         (store.dispatch as any).mockRestore();
@@ -249,7 +294,7 @@ describe('TimerEditorComponent', () => {
       it('passes the entered data', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
-        component.customer = 'Ace Software';
+        component.customerId = testCustomers.ff898gd.id;
         component.title = 'Stuff is not working';
         component.taskId = '239945';
         component.taskId = '239945';
@@ -261,7 +306,8 @@ describe('TimerEditorComponent', () => {
           update({
             timer: {
               id: '40049503950',
-              customer: 'Ace Software',
+              customerName: testCustomers.ff898gd.name,
+              customerId: testCustomers.ff898gd.id,
               title: 'Stuff is not working',
               task: '239945',
               type: 'Consulting',
@@ -276,4 +322,26 @@ describe('TimerEditorComponent', () => {
       });
     });
   });
+
+  function initializeTestData() {
+    testCustomerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
+    testCustomers = {
+      asdf1234: {
+        id: 'asdf1234',
+        name: 'Ace Hardware'
+      },
+      ff898gd: {
+        id: 'ff898gd',
+        name: 'Fred Salvage'
+      },
+      ff88t99er: {
+        id: 'ff88t99er',
+        name: 'Wal-Mart'
+      },
+      '1849gasdf': {
+        id: '1849gasdf',
+        name: 'Mc Donalds'
+      }
+    };
+  }
 });
