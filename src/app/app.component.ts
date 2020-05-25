@@ -8,7 +8,7 @@ import { loginChanged } from './store/actions/auth.actions';
 import { load as loadCustomers } from './store/actions/customer.actions';
 import { load as loadTaskTypes } from './store/actions/task-type.actions';
 import { load as loadTimers } from './store/actions/timer.actions';
-import { ApplicationService } from '@app/services';
+import { ApplicationService, ConversionService } from '@app/services';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private application: ApplicationService,
+    private conversion: ConversionService,
     private navController: NavController,
     private store: Store<State>
   ) {}
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
       if (!u) {
         this.navController.navigateRoot(['login']);
       } else {
+        this.conversion.customers(u);
         this.store.dispatch(loadCustomers());
         this.store.dispatch(loadTimers());
       }
