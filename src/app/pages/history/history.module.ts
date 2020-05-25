@@ -17,4 +17,4 @@ import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-
   ],
   declarations: [HistoryPage]
 })
-export class Tab2PageModule {}
+export class HistoryPageModule {}

@@ -9,4 +9,4 @@ import { AboutPage } from './about.page';
   imports: [IonicModule, CommonModule, FormsModule, RouterModule.forChild([{ path: '', component: AboutPage }])],
   declarations: [AboutPage]
 })
-export class Tab3PageModule {}
+export class AboutPageModule {}
