@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 
@@ -15,7 +16,7 @@ describe('CustomerEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CustomerEditorComponent],
-      imports: [IonicModule],
+      imports: [FormsModule, IonicModule],
       providers: [
         provideMockStore<{
           customers: CustomersState;
@@ -24,7 +25,7 @@ describe('CustomerEditorComponent', () => {
             customers: { ids: [], entities: {}, loading: false }
           }
         }),
-        { provide: ModalController, useFactory: () => createOverlayControllerMock('ModalController') }
+        { provide: ModalController, useFactory: () => createOverlayControllerMock() }
       ]
     }).compileComponents();
 

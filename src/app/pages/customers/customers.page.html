@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Customers</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button id="logout-button" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +15,10 @@
       <ion-label>{{customer.name}}</ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button id="add-button" color="secondary" (click)="add()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
