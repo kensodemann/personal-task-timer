@@ -61,7 +61,7 @@ describe('TimerEditorComponent', () => {
         expect(taskTypes).toEqual(['Architecture Review', 'Code Review', 'Working Session']);
       });
 
-      it('gets a snaphot of the customers', () => {
+      it('subscribes to the customers', () => {
         let customers: Array<Customer>;
         component.customers$.subscribe(t => (customers = t));
         expect(customers).toEqual([
@@ -116,6 +116,29 @@ describe('TimerEditorComponent', () => {
         let taskTypes: Array<string>;
         component.taskTypes$.subscribe(t => (taskTypes = t));
         expect(taskTypes).toEqual(['Architecture Review', 'Code Review', 'Working Session']);
+      });
+
+      it('subscribes to the customers', () => {
+        let customers: Array<Customer>;
+        component.customers$.subscribe(t => (customers = t));
+        expect(customers).toEqual([
+          {
+            id: 'asdf1234',
+            name: 'Ace Hardware'
+          },
+          {
+            id: 'ff898gd',
+            name: 'Fred Salvage'
+          },
+          {
+            id: '1849gasdf',
+            name: 'Mc Donalds'
+          },
+          {
+            id: 'ff88t99er',
+            name: 'Wal-Mart'
+          }
+        ]);
       });
 
       it('enable minute editing', () => {
