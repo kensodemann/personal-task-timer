@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Customer Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="customer$ | async as customer">
+    <h1>{{customer.name}}</h1>
+
+    <h2>Task Breakdown</h2>
+    <ion-list class="ion-padding">
+      <app-customer-task-summary
+        *ngFor="let taskType of taskTypes$ | async"
+        [taskType]="taskType"
+        [customerId]="customerId"
+      >
+      </app-customer-task-summary>
+      <app-customer-task-summary [customerId]="customerId"></app-customer-task-summary>
+    </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button id="add-button" color="secondary" (click)="edit()">
+        <ion-icon name="pencil-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>

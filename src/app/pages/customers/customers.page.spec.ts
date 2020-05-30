@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
@@ -18,7 +19,7 @@ describe('CustomersPage', () => {
     modal = createOverlayElementMock();
     TestBed.configureTestingModule({
       declarations: [CustomersPage],
-      imports: [IonicModule],
+      imports: [IonicModule, RouterTestingModule],
       providers: [
         provideMockStore<{ customers: CustomersState }>({
           initialState: { customers: { ids: [], entities: null, loading: false } }

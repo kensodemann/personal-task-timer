@@ -34,7 +34,7 @@ describe('LoginPage', () => {
           useFactory: () => createOverlayControllerMock(loading)
         },
         { provide: NavController, useFactory: createNavControllerMock },
-        provideMockStore<{ auth: AuthState }>({ initialState: { auth: { email: '', loading: false } } })
+        provideMockStore<{ auth: AuthState }>({ initialState: { auth: { email: '', userId: '', loading: false } } })
       ]
     }).compileComponents();
   }));

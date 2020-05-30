@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { formatISO } from 'date-fns';
 
 import { create, update } from '@app/store/actions/timer.actions';
-import { selectAllTaskTypes, State, selectAllCustomersSortedByName, selectCustomer } from '@app/store';
+import { selectAllTaskTypes, State, selectAllCustomersSorted, selectCustomer } from '@app/store';
 import { Customer, Timer } from '@app/models';
 import { take, map } from 'rxjs/operators';
 
@@ -36,7 +36,7 @@ export class TimerEditorComponent implements OnInit {
     } else {
       this.initializeCreate();
     }
-    this.customers$ = this.store.pipe(select(selectAllCustomersSortedByName));
+    this.customers$ = this.store.pipe(select(selectAllCustomersSorted));
     this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
   }
 
@@ -73,7 +73,7 @@ export class TimerEditorComponent implements OnInit {
 
   private createTimer(): Observable<Timer> {
     return this.store.pipe(
-      select(selectCustomer, { id: this.customerId }),
+      select(selectCustomer, { customerId: this.customerId }),
       take(1),
       map(customer => {
         const timer: Timer = {
