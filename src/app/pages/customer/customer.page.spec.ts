@@ -1,28 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
 
 import { CustomerTaskSummaryModule } from '@app/shared/customer-task-summary/customer-task-summary.module';
 
 import { CustomerPage } from './customer.page';
 import { ActivatedRoute } from '@angular/router';
-import { createActivatedRouteMock } from '@test/mocks';
+import { createActivatedRouteMock, createOverlayElementMock, createOverlayControllerMock } from '@test/mocks';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Customer } from '@app/models';
 import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
 import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
 
 describe('CustomerPage', () => {
   let component: CustomerPage;
   let fixture: ComponentFixture<CustomerPage>;
 
+  let modal;
   let testCustomers: Dictionary<Customer>;
   let testCustomerIds: Array<string>;
 
   beforeEach(async(() => {
     initializeTestData();
+    modal = createOverlayElementMock();
     TestBed.configureTestingModule({
       declarations: [CustomerPage],
       imports: [IonicModule, RouterTestingModule, CustomerTaskSummaryModule],
@@ -34,7 +37,8 @@ describe('CustomerPage', () => {
             taskTypes: { taskTypes: ['Code Review', 'Architecture Review', 'Consulting', 'Bug'] }
           }
         }),
-        { provide: ActivatedRoute, useFactory: createActivatedRouteMock }
+        { provide: ActivatedRoute, useFactory: createActivatedRouteMock },
+        { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
       ]
     }).compileComponents();
 
@@ -69,6 +73,26 @@ describe('CustomerPage', () => {
     fixture.detectChanges();
     component.customer$.subscribe(c => (customer = c));
     expect(customer.name).toEqual('Fred Salvage');
+  });
+
+  describe('edit', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('displays the editor', async () => {
+      const modalController = TestBed.inject(ModalController);
+      await component.edit(testCustomers.ff898gd);
+      expect(modalController.create).toHaveBeenCalledTimes(1);
+      expect(modalController.create).toHaveBeenCalledWith({
+        component: CustomerEditorComponent,
+        componentProps: {
+          customer: testCustomers.ff898gd
+        },
+        backdropDismiss: false
+      });
+      expect(modal.present).toHaveBeenCalledTimes(1);
+    });
   });
 
   function initializeTestData() {

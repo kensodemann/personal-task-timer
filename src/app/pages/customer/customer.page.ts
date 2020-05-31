@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Store, select } from '@ngrx/store';
-import { State, selectAllTaskTypes, selectCustomer } from '@app/store';
 import { Observable } from 'rxjs';
+
+import { State, selectAllTaskTypes, selectCustomer } from '@app/store';
 import { Customer } from '@app/models';
+import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
 
 @Component({
   selector: 'app-customer',
@@ -15,7 +18,7 @@ export class CustomerPage implements OnInit {
   customer$: Observable<Customer>;
   taskTypes$: Observable<Array<string>>;
 
-  constructor(private route: ActivatedRoute, private store: Store<State>) {}
+  constructor(private route: ActivatedRoute, private modalController: ModalController, private store: Store<State>) {}
 
   ngOnInit() {
     this.customerId = this.route.snapshot.paramMap.get('id');
@@ -23,5 +26,12 @@ export class CustomerPage implements OnInit {
     this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
   }
 
-  edit() {}
+  async edit(customer: Customer) {
+    const modal = await this.modalController.create({
+      component: CustomerEditorComponent,
+      componentProps: { customer },
+      backdropDismiss: false
+    });
+    modal.present();
+  }
 }
