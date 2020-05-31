@@ -7,12 +7,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
   <div *ngIf="customer$ | async as customer">
-    <h1>{{customer.name}}</h1>
+    <h1 class="ion-padding">{{customer.name}}</h1>
 
-    <h2>Task Breakdown</h2>
-    <ion-list class="ion-padding">
+    <ion-list>
+      <ion-list-header>Task Breakdown</ion-list-header>
       <app-customer-task-summary
         *ngFor="let taskType of taskTypes$ | async"
         [taskType]="taskType"
