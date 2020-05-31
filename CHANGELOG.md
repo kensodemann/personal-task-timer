@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/kensodemann/personal-task-timer/compare/v2.0.0...v2.1.0) (2020-05-31)
+
+### Features
+
+- **customers:** add the hours pipe ([921288d](https://github.com/kensodemann/personal-task-timer/commit/921288dd31bdaf45251b496b3c124d493318cfb6))
+- **customers:** allow the customer to be edited ([78cdd88](https://github.com/kensodemann/personal-task-timer/commit/78cdd8837826ae1f255af989f68cdf9fa8c7f410))
+- **customers:** create customer details page ([36e65e9](https://github.com/kensodemann/personal-task-timer/commit/36e65e9204bda1012041a77e783d24207fb21bf2))
+- **history:** limit history to 30 days ([25dcd5b](https://github.com/kensodemann/personal-task-timer/commit/25dcd5bd1ec14c79342d0ba1f2165569de561d60))
+
 # [2.0.0](https://github.com/kensodemann/personal-task-timer/compare/v1.1.5...v2.0.0) (2020-05-25)
 
 ### Features
