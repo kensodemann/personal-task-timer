@@ -12,6 +12,15 @@
     <h1 class="ion-padding">{{customer.name}}</h1>
 
     <ion-list>
+      <ion-list-header>Customer Contract</ion-list-header>
+      <app-info-item label="Support Hours per Year" value="{{customer.supportHours}}"></app-info-item>
+      <app-info-item *ngIf="customer.hasAdvisory" label="Advisor" value="{{customer.primaryAdvisor}}"></app-info-item>
+      <app-info-item *ngIf="customer.hasCapacitor" label="Capacitor"></app-info-item>
+      <app-info-item *ngIf="customer.hasAuthConnect" label="Auth Connect"></app-info-item>
+      <app-info-item *ngIf="customer.hasIdentityVault" label="Identity Vault"></app-info-item>
+      <app-info-item *ngIf="customer.hasOfflineStorage" label="Offline Storage"></app-info-item>
+      <app-info-item *ngIf="customer.hasStencil" label="Stencil"></app-info-item>
+
       <ion-list-header>Task Breakdown</ion-list-header>
       <app-customer-task-summary
         *ngFor="let taskType of taskTypes$ | async"

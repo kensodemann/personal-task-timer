@@ -18,6 +18,49 @@
         <ion-label position="floating">Name</ion-label>
         <ion-input name="nameInput" [(ngModel)]="name" #nameInput="ngModel" required></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label position="floating">Support Hours per Year</ion-label>
+        <ion-input
+          name="supportInput"
+          [(ngModel)]="supportHours"
+          #supportInput="ngModel"
+          required
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Has Advisory</ion-label>
+        <ion-toggle name="advisoryToggle" [(ngModel)]="hasAdvisory" #advisoryToggle="ngModel"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="hasAdvisory">
+        <ion-label position="floating">Primary Advisor</ion-label>
+        <ion-input
+          name="advisorInput"
+          [(ngModel)]="primaryAdvisor"
+          #advisorInput="ngModel"
+          [required]="hasAdvisory"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Has Capacitor</ion-label>
+        <ion-toggle name="capacitorToggle" [(ngModel)]="hasCapacitor" #capacitorToggle="ngModel"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Has Identity Vault</ion-label>
+        <ion-toggle name="ivToggle" [(ngModel)]="hasIdentityVault" #ivToggle="ngModel"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Has Auth Connect</ion-label>
+        <ion-toggle name="acToggle" [(ngModel)]="hasAuthConnect" #acToggle="ngModel"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Has Offline Storage</ion-label>
+        <ion-toggle name="osToggle" [(ngModel)]="hasOfflineStorage" #osToggle="ngModel"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Has Stencil</ion-label>
+        <ion-toggle name="stencilToggle" [(ngModel)]="hasStencil" #stencilToggle="ngModel"></ion-toggle>
+      </ion-item>
     </ion-list>
   </form>
 </ion-content>

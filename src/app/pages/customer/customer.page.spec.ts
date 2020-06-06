@@ -14,6 +14,7 @@ import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
 import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
+import { InfoItemComponentModule } from '@app/shared/info-item/info-item.module';
 
 describe('CustomerPage', () => {
   let component: CustomerPage;
@@ -28,7 +29,7 @@ describe('CustomerPage', () => {
     modal = createOverlayElementMock();
     TestBed.configureTestingModule({
       declarations: [CustomerPage],
-      imports: [IonicModule, RouterTestingModule, CustomerTaskSummaryModule],
+      imports: [IonicModule, RouterTestingModule, CustomerTaskSummaryModule, InfoItemComponentModule],
       providers: [
         provideMockStore<{ customers: CustomersState; taskTypes: TaskTypeState; timers: TimersState }>({
           initialState: {
@@ -100,19 +101,49 @@ describe('CustomerPage', () => {
     testCustomers = {
       asdf1234: {
         id: 'asdf1234',
-        name: 'Ace Hardware'
+        name: 'Ace Hardware',
+        hasAdvisory: false,
+        supportHours: 12,
+        hasCapacitor: false,
+        hasStencil: false,
+        hasAuthConnect: true,
+        hasIdentityVault: true,
+        hasOfflineStorage: false
       },
       ff898gd: {
         id: 'ff898gd',
-        name: 'Fred Salvage'
+        name: 'Fred Salvage',
+        hasAdvisory: true,
+        primaryAdvisor: 'Tom Jones',
+        supportHours: 40,
+        hasStencil: true,
+        hasCapacitor: true,
+        hasAuthConnect: true,
+        hasIdentityVault: true,
+        hasOfflineStorage: true
       },
       ff88t99er: {
         id: 'ff88t99er',
-        name: 'Wal-Mart'
+        name: 'Wal-Mart',
+        hasAdvisory: false,
+        supportHours: 12,
+        hasStencil: true,
+        hasCapacitor: false,
+        hasAuthConnect: false,
+        hasIdentityVault: false,
+        hasOfflineStorage: false
       },
       '1849gasdf': {
         id: '1849gasdf',
-        name: 'Mc Donalds'
+        name: 'Mc Donalds',
+        hasAdvisory: true,
+        primaryAdvisor: 'Jim Jones',
+        hasStencil: false,
+        supportHours: 34,
+        hasCapacitor: false,
+        hasAuthConnect: true,
+        hasIdentityVault: false,
+        hasOfflineStorage: true
       }
     };
   }

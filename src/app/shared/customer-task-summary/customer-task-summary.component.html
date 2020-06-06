@@ -1,4 +1,3 @@
-<ion-item *ngIf="minutes$ | async">
-  <ion-label>{{ taskType || 'Total' }}</ion-label>
-  <ion-note slot="end">{{ minutes$ | async | hours }} / {{ count$ | async }}</ion-note>
-</ion-item>
+<div *ngIf="minutes$ | async as minutes">
+  <app-info-item label="{{ taskType || 'Total' }}" value="{{ minutes | hours }} / {{ count$ | async }}"></app-info-item>
+</div>

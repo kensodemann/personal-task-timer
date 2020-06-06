@@ -4,10 +4,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { CustomerTaskSummaryComponent } from './customer-task-summary.component';
 import { HoursPipeModule } from '../hours/hours.module';
+import { InfoItemComponentModule } from '../info-item/info-item.module';
 
 @NgModule({
   declarations: [CustomerTaskSummaryComponent],
   exports: [CustomerTaskSummaryComponent],
-  imports: [CommonModule, IonicModule, HoursPipeModule]
+  imports: [CommonModule, IonicModule, HoursPipeModule, InfoItemComponentModule]
 })
 export class CustomerTaskSummaryModule {}

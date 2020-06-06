@@ -12,8 +12,8 @@ import { load as loadCustomers } from './store/actions/customer.actions';
 import { load as loadTimers } from './store/actions/timer.actions';
 import { load as loadTaskTypes } from './store/actions/task-type.actions';
 import { State } from './store/reducers';
-import { ApplicationService, ConversionService } from '@app/services';
-import { createApplicationServiceMock, createConversionServiceMock } from '@app/services/mocks';
+import { ApplicationService } from '@app/services';
+import { createApplicationServiceMock } from '@app/services/mocks';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -23,7 +23,6 @@ describe('AppComponent', () => {
       providers: [
         { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
         { provide: ApplicationService, useFactory: createApplicationServiceMock },
-        { provide: ConversionService, useFactory: createConversionServiceMock },
         { provide: NavController, useFactory: createNavControllerMock },
         provideMockStore<State>()
       ]
