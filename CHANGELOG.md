@@ -1,3 +1,13 @@
+# [2.2.0](https://github.com/kensodemann/personal-task-timer/compare/v2.1.0...v2.2.0) (2020-06-06)
+
+### Bug Fixes
+
+- **shared:** include module in test ([dafc958](https://github.com/kensodemann/personal-task-timer/commit/dafc958e2c5899d5f73fce237530c51a0b3fd8ae))
+
+### Features
+
+- **customers:** add more informational fields to the customer ([ac22bfc](https://github.com/kensodemann/personal-task-timer/commit/ac22bfcfef02b7a095a80e1c5396e0862240d296))
+
 # [2.1.0](https://github.com/kensodemann/personal-task-timer/compare/v2.0.0...v2.1.0) (2020-05-31)
 
 ### Features
