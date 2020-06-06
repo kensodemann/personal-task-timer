@@ -6,6 +6,7 @@ import { Dictionary } from '@ngrx/entity';
 import { HoursPipeModule } from '../hours/hours.module';
 
 import { CustomerTaskSummaryComponent } from './customer-task-summary.component';
+import { InfoItemComponentModule } from '../info-item/info-item.module';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { Timer } from '@app/models';
 
@@ -20,7 +21,7 @@ describe('CustomerTaskSummaryComponent', () => {
     initializeTestData();
     TestBed.configureTestingModule({
       declarations: [CustomerTaskSummaryComponent],
-      imports: [IonicModule, HoursPipeModule],
+      imports: [IonicModule, HoursPipeModule, InfoItemComponentModule],
       providers: [
         provideMockStore<{ timers: TimersState }>({
           initialState: { timers: { ids: testTimerIds, entities: testTimers, loading: false } }
