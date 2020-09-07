@@ -16,7 +16,7 @@ export enum AuthActionTypes {
   LogoutFailure = '[Auth API] logout failure'
 }
 
-export const loginChanged = createAction(AuthActionTypes.LoginChanged, props<{ email: string, userId: string }>());
+export const loginChanged = createAction(AuthActionTypes.LoginChanged, props<{ email: string; userId: string }>());
 
 export const login = createAction(AuthActionTypes.Login, props<{ email: string; password: string }>());
 export const loginSuccess = createAction(AuthActionTypes.LoginSuccess);

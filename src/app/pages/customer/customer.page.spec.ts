@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
@@ -20,32 +20,34 @@ describe('CustomerPage', () => {
   let component: CustomerPage;
   let fixture: ComponentFixture<CustomerPage>;
 
-  let modal;
+  let modal: HTMLIonModalElement;
   let testCustomers: Dictionary<Customer>;
   let testCustomerIds: Array<string>;
 
-  beforeEach(async(() => {
-    initializeTestData();
-    modal = createOverlayElementMock();
-    TestBed.configureTestingModule({
-      declarations: [CustomerPage],
-      imports: [IonicModule, RouterTestingModule, CustomerTaskSummaryModule, InfoItemComponentModule],
-      providers: [
-        provideMockStore<{ customers: CustomersState; taskTypes: TaskTypeState; timers: TimersState }>({
-          initialState: {
-            customers: { ids: testCustomerIds, entities: testCustomers, loading: false },
-            timers: { ids: [], entities: {}, loading: false },
-            taskTypes: { taskTypes: ['Code Review', 'Architecture Review', 'Consulting', 'Bug'] }
-          }
-        }),
-        { provide: ActivatedRoute, useFactory: createActivatedRouteMock },
-        { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      initializeTestData();
+      modal = createOverlayElementMock();
+      TestBed.configureTestingModule({
+        declarations: [CustomerPage],
+        imports: [IonicModule, RouterTestingModule, CustomerTaskSummaryModule, InfoItemComponentModule],
+        providers: [
+          provideMockStore<{ customers: CustomersState; taskTypes: TaskTypeState; timers: TimersState }>({
+            initialState: {
+              customers: { ids: testCustomerIds, entities: testCustomers, loading: false },
+              timers: { ids: [], entities: {}, loading: false },
+              taskTypes: { taskTypes: ['Code Review', 'Architecture Review', 'Consulting', 'Bug'] }
+            }
+          }),
+          { provide: ActivatedRoute, useFactory: createActivatedRouteMock },
+          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomerPage);
-    component = fixture.componentInstance;
-  }));
+      fixture = TestBed.createComponent(CustomerPage);
+      component = fixture.componentInstance;
+    })
+  );
 
   it('creates', () => {
     fixture.detectChanges();

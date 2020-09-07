@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Dictionary } from '@ngrx/entity';
@@ -17,21 +17,23 @@ describe('CustomerTaskSummaryComponent', () => {
   let testTimers: Dictionary<Timer>;
   let testTimerIds: Array<string>;
 
-  beforeEach(async(() => {
-    initializeTestData();
-    TestBed.configureTestingModule({
-      declarations: [CustomerTaskSummaryComponent],
-      imports: [IonicModule, HoursPipeModule, InfoItemComponentModule],
-      providers: [
-        provideMockStore<{ timers: TimersState }>({
-          initialState: { timers: { ids: testTimerIds, entities: testTimers, loading: false } }
-        })
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      initializeTestData();
+      TestBed.configureTestingModule({
+        declarations: [CustomerTaskSummaryComponent],
+        imports: [IonicModule, HoursPipeModule, InfoItemComponentModule],
+        providers: [
+          provideMockStore<{ timers: TimersState }>({
+            initialState: { timers: { ids: testTimerIds, entities: testTimers, loading: false } }
+          })
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomerTaskSummaryComponent);
-    component = fixture.componentInstance;
-  }));
+      fixture = TestBed.createComponent(CustomerTaskSummaryComponent);
+      component = fixture.componentInstance;
+    })
+  );
 
   it('should create', () => {
     fixture.detectChanges();

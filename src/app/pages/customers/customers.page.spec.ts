@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -13,25 +13,27 @@ import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-ed
 describe('CustomersPage', () => {
   let component: CustomersPage;
   let fixture: ComponentFixture<CustomersPage>;
-  let modal;
+  let modal: HTMLIonModalElement;
 
-  beforeEach(async(() => {
-    modal = createOverlayElementMock();
-    TestBed.configureTestingModule({
-      declarations: [CustomersPage],
-      imports: [IonicModule, RouterTestingModule],
-      providers: [
-        provideMockStore<{ customers: CustomersState }>({
-          initialState: { customers: { ids: [], entities: null, loading: false } }
-        }),
-        { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      modal = createOverlayElementMock();
+      TestBed.configureTestingModule({
+        declarations: [CustomersPage],
+        imports: [IonicModule, RouterTestingModule],
+        providers: [
+          provideMockStore<{ customers: CustomersState }>({
+            initialState: { customers: { ids: [], entities: null, loading: false } }
+          }),
+          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomersPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(CustomersPage);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    })
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();

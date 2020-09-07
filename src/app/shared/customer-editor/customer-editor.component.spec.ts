@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -13,25 +13,27 @@ describe('CustomerEditorComponent', () => {
   let component: CustomerEditorComponent;
   let fixture: ComponentFixture<CustomerEditorComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [CustomerEditorComponent],
-      imports: [FormsModule, IonicModule],
-      providers: [
-        provideMockStore<{
-          customers: CustomersState;
-        }>({
-          initialState: {
-            customers: { ids: [], entities: {}, loading: false }
-          }
-        }),
-        { provide: ModalController, useFactory: () => createOverlayControllerMock() }
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [CustomerEditorComponent],
+        imports: [FormsModule, IonicModule],
+        providers: [
+          provideMockStore<{
+            customers: CustomersState;
+          }>({
+            initialState: {
+              customers: { ids: [], entities: {}, loading: false }
+            }
+          }),
+          { provide: ModalController, useFactory: () => createOverlayControllerMock() }
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomerEditorComponent);
-    component = fixture.componentInstance;
-  }));
+      fixture = TestBed.createComponent(CustomerEditorComponent);
+      component = fixture.componentInstance;
+    })
+  );
 
   it('should create', () => {
     fixture.detectChanges();

@@ -2,13 +2,13 @@ import { AngularFirestoreCollection, DocumentChangeAction, DocumentReference } f
 import { AngularFireAuth } from '@angular/fire/auth/auth';
 
 import { Observable } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 
 export abstract class FirestoreDataService<T extends { id?: string }> {
   constructor(protected afAuth: AngularFireAuth) {}
 
   observeChanges(): Observable<Array<DocumentChangeAction<T>>> {
-    return this.afAuth.user.pipe(flatMap(user => this.getCollection(user).stateChanges()));
+    return this.afAuth.user.pipe(mergeMap(user => this.getCollection(user).stateChanges()));
   }
 
   async get(id: string): Promise<T> {

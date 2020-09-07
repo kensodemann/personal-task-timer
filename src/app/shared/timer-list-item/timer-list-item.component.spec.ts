@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, AlertController, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -12,42 +12,44 @@ import { selectAllActiveTimers } from '@app/store';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 
 describe('TimerListItemComponent', () => {
-  let alert;
-  let modal;
+  let alert: HTMLIonAlertElement;
+  let modal: HTMLIonModalElement;
   let component: TimerListItemComponent;
   let fixture: ComponentFixture<TimerListItemComponent>;
-  let store;
+  let store: Store;
   let testTimer: Timer;
 
-  beforeEach(async(() => {
-    alert = createOverlayElementMock();
-    modal = createOverlayElementMock();
-    testTimer = {
-      id: '249950kd995sd',
-      title: 'Go to the Foo Bar',
-      customer: 'bar',
-      type: 'Code Review',
-      minutes: 120,
-      date: '2019-12-26'
-    };
-    TestBed.configureTestingModule({
-      declarations: [TimerListItemComponent],
-      imports: [IonicModule],
-      providers: [
-        provideMockStore<{ timers: TimersState }>({
-          initialState: { timers: { ids: [], entities: null, loading: false } }
-        }),
-        { provide: AlertController, useFactory: () => createOverlayControllerMock(alert) },
-        { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      alert = createOverlayElementMock();
+      modal = createOverlayElementMock();
+      testTimer = {
+        id: '249950kd995sd',
+        title: 'Go to the Foo Bar',
+        customer: 'bar',
+        type: 'Code Review',
+        minutes: 120,
+        date: '2019-12-26'
+      };
+      TestBed.configureTestingModule({
+        declarations: [TimerListItemComponent],
+        imports: [IonicModule],
+        providers: [
+          provideMockStore<{ timers: TimersState }>({
+            initialState: { timers: { ids: [], entities: null, loading: false } }
+          }),
+          { provide: AlertController, useFactory: () => createOverlayControllerMock(alert) },
+          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(TimerListItemComponent);
-    component = fixture.componentInstance;
-    component.timer = testTimer;
-    store = TestBed.inject(Store);
-    store.dispatch = jest.fn();
-  }));
+      fixture = TestBed.createComponent(TimerListItemComponent);
+      component = fixture.componentInstance;
+      component.timer = testTimer;
+      store = TestBed.inject(Store);
+      store.dispatch = jest.fn();
+    })
+  );
 
   it('should create', () => {
     fixture.detectChanges();

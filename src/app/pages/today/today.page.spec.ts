@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
@@ -15,25 +15,27 @@ import { Timer } from '@app/models';
 describe('TodayPage', () => {
   let component: TodayPage;
   let fixture: ComponentFixture<TodayPage>;
-  let modal;
+  let modal: HTMLIonModalElement;
 
-  beforeEach(async(() => {
-    modal = createOverlayElementMock();
-    TestBed.configureTestingModule({
-      declarations: [TodayPage],
-      imports: [IonicModule, TimerListItemComponentModule],
-      providers: [
-        provideMockStore<{ timers: TimersState }>({
-          initialState: { timers: { ids: [], entities: null, loading: false } }
-        }),
-        { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      modal = createOverlayElementMock();
+      TestBed.configureTestingModule({
+        declarations: [TodayPage],
+        imports: [IonicModule, TimerListItemComponentModule],
+        providers: [
+          provideMockStore<{ timers: TimersState }>({
+            initialState: { timers: { ids: [], entities: null, loading: false } }
+          }),
+          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(TodayPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(TodayPage);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    })
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();

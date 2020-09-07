@@ -1,5 +1,5 @@
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AlertController, IonicModule, LoadingController, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
@@ -12,32 +12,34 @@ import { AuthState } from '@app/store/reducers/auth/auth.reducer';
 import { selectAuthLoading, selectAuthEmail, selectAuthError, selectAuthMessage, State } from '@app/store';
 
 describe('LoginPage', () => {
-  let alert;
-  let loading;
+  let alert: HTMLIonAlertElement;
+  let loading: HTMLIonLoadingElement;
   let page: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
 
-  beforeEach(async(() => {
-    alert = createOverlayElementMock();
-    loading = createOverlayElementMock();
-    TestBed.configureTestingModule({
-      imports: [FormsModule, IonicModule],
-      declarations: [LoginPage],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        {
-          provide: AlertController,
-          useFactory: () => createOverlayControllerMock(alert)
-        },
-        {
-          provide: LoadingController,
-          useFactory: () => createOverlayControllerMock(loading)
-        },
-        { provide: NavController, useFactory: createNavControllerMock },
-        provideMockStore<{ auth: AuthState }>({ initialState: { auth: { email: '', userId: '', loading: false } } })
-      ]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      alert = createOverlayElementMock();
+      loading = createOverlayElementMock();
+      TestBed.configureTestingModule({
+        imports: [FormsModule, IonicModule],
+        declarations: [LoginPage],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [
+          {
+            provide: AlertController,
+            useFactory: () => createOverlayControllerMock(alert)
+          },
+          {
+            provide: LoadingController,
+            useFactory: () => createOverlayControllerMock(loading)
+          },
+          { provide: NavController, useFactory: createNavControllerMock },
+          provideMockStore<{ auth: AuthState }>({ initialState: { auth: { email: '', userId: '', loading: false } } })
+        ]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginPage);

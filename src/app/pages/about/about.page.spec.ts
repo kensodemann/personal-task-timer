@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
@@ -10,17 +10,19 @@ describe('AboutPage', () => {
   let component: AboutPage;
   let fixture: ComponentFixture<AboutPage>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AboutPage],
-      imports: [IonicModule],
-      providers: [provideMockStore()]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AboutPage],
+        imports: [IonicModule],
+        providers: [provideMockStore()]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(AboutPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(AboutPage);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    })
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -32,7 +32,7 @@ describe('AuthenticationService', () => {
       const angularFireAuth = TestBed.inject(AngularFireAuth);
       authenticationService.login('test@test.com', 'testpassword');
       expect(angularFireAuth.signInWithEmailAndPassword).toHaveBeenCalledWith('test@test.com', 'testpassword');
-    }
+    });
   });
 
   describe('logout', () => {

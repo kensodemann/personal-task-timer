@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -14,35 +14,37 @@ import { Customer } from '@app/models';
 
 describe('TimerEditorComponent', () => {
   let component: TimerEditorComponent;
-  let modal;
+  let modal: HTMLIonModalElement;
   let fixture: ComponentFixture<TimerEditorComponent>;
 
   let testCustomers: Dictionary<Customer>;
   let testCustomerIds: Array<string>;
 
-  beforeEach(async(() => {
-    initializeTestData();
-    modal = createOverlayElementMock();
-    TestBed.configureTestingModule({
-      declarations: [TimerEditorComponent],
-      imports: [FormsModule, IonicModule],
-      providers: [
-        provideMockStore<{
-          customers: CustomersState;
-          taskTypes: TaskTypeState;
-        }>({
-          initialState: {
-            customers: { ids: testCustomerIds, entities: testCustomers, loading: false },
-            taskTypes: { taskTypes: ['Architecture Review', 'Code Review', 'Working Session'] }
-          }
-        }),
-        { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      initializeTestData();
+      modal = createOverlayElementMock();
+      TestBed.configureTestingModule({
+        declarations: [TimerEditorComponent],
+        imports: [FormsModule, IonicModule],
+        providers: [
+          provideMockStore<{
+            customers: CustomersState;
+            taskTypes: TaskTypeState;
+          }>({
+            initialState: {
+              customers: { ids: testCustomerIds, entities: testCustomers, loading: false },
+              taskTypes: { taskTypes: ['Architecture Review', 'Code Review', 'Working Session'] }
+            }
+          }),
+          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(TimerEditorComponent);
-    component = fixture.componentInstance;
-  }));
+      fixture = TestBed.createComponent(TimerEditorComponent);
+      component = fixture.componentInstance;
+    })
+  );
 
   it('should create', () => {
     fixture.detectChanges();

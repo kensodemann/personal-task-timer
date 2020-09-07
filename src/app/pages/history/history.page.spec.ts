@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
@@ -12,21 +12,23 @@ describe('HistoryPage', () => {
   let component: HistoryPage;
   let fixture: ComponentFixture<HistoryPage>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [HistoryPage],
-      imports: [IonicModule, TimerListItemComponentModule],
-      providers: [
-        provideMockStore<{ timers: TimersState }>({
-          initialState: { timers: { ids: [], entities: null, loading: false } }
-        })
-      ]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [HistoryPage],
+        imports: [IonicModule, TimerListItemComponentModule],
+        providers: [
+          provideMockStore<{ timers: TimersState }>({
+            initialState: { timers: { ids: [], entities: null, loading: false } }
+          })
+        ]
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(HistoryPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(HistoryPage);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    })
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();

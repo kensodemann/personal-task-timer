@@ -28,7 +28,7 @@ describe(AuthActionTypes.LoginChanged, () => {
     expect(reducer({ email: 'test@testy.com', userId: '1df2349950ea', loading: false }, action)).toEqual({
       email: undefined,
       userId: undefined,
-      loading: false,
+      loading: false
     });
   });
 });
@@ -38,7 +38,13 @@ describe(AuthActionTypes.Login, () => {
     const action = login({ email: 'test@testy.com', password: 'mysecret' });
     expect(
       reducer(
-        { email: '', userId: '', loading: false, message: 'this is random information', error: new Error('Invalid Password') },
+        {
+          email: '',
+          userId: '',
+          loading: false,
+          message: 'this is random information',
+          error: new Error('Invalid Password')
+        },
         action
       )
     ).toEqual({

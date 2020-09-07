@@ -10,7 +10,7 @@ import {
   createAngularFirestoreCollectionMock,
   createAngularFirestoreDocumentMock,
   createAngularFireAuthMock,
-  createDocumentSnapshotMock,
+  createDocumentSnapshotMock
 } from '@test/mocks';
 
 interface DataType {
@@ -40,8 +40,8 @@ describe('FirestoreDataService', () => {
       providers: [
         { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
         { provide: AngularFirestore, useFactory: createAngularFirestoreMock },
-        TestService,
-      ],
+        TestService
+      ]
     });
     const angularFirestore = TestBed.inject(AngularFirestore);
     collection = createAngularFirestoreCollectionMock();
@@ -97,14 +97,14 @@ describe('FirestoreDataService', () => {
       snapshot.data.mockReturnValue({
         name: 'Joe',
         description: 'Some guy named Joe who sells week on my street corner',
-        isActive: false,
+        isActive: false
       });
       document.ref.get.mockResolvedValue(snapshot);
       expect(await dataService.get('199405fkkgi59')).toEqual({
         id: '199405fkkgi59',
         name: 'Joe',
         description: 'Some guy named Joe who sells week on my street corner',
-        isActive: false,
+        isActive: false
       });
     });
   });
@@ -114,13 +114,13 @@ describe('FirestoreDataService', () => {
       await dataService.add({
         name: 'Fred Flintstone',
         description: 'Head of a modnern stone-age family',
-        isActive: true,
+        isActive: true
       });
       expect(collection.add).toHaveBeenCalledTimes(1);
       expect(collection.add).toHaveBeenCalledWith({
         name: 'Fred Flintstone',
         description: 'Head of a modnern stone-age family',
-        isActive: true,
+        isActive: true
       });
     });
   });
@@ -137,7 +137,7 @@ describe('FirestoreDataService', () => {
         id: '49950399KT',
         name: 'shiny',
         description: 'Make them extra shiny',
-        isActive: true,
+        isActive: true
       });
       expect(collection.doc).toHaveBeenCalledTimes(1);
       expect(collection.doc).toHaveBeenCalledWith('49950399KT');
@@ -148,7 +148,7 @@ describe('FirestoreDataService', () => {
         id: '49950399KT',
         name: 'shiny',
         description: 'Make them extra shiny',
-        isActive: true,
+        isActive: true
       });
       expect(document.delete).toHaveBeenCalledTimes(1);
     });
@@ -166,7 +166,7 @@ describe('FirestoreDataService', () => {
         id: '49950399KT',
         name: 'Kyle',
         description: 'some kid in South Park',
-        isActive: true,
+        isActive: true
       });
       expect(collection.doc).toHaveBeenCalledTimes(1);
       expect(collection.doc).toHaveBeenCalledWith('49950399KT');
@@ -177,13 +177,13 @@ describe('FirestoreDataService', () => {
         id: '49950399KT',
         name: 'Kyle',
         description: 'some kid in South Park',
-        isActive: true,
+        isActive: true
       });
       expect(document.set).toHaveBeenCalledTimes(1);
       expect(document.set).toHaveBeenCalledWith({
         name: 'Kyle',
         description: 'some kid in South Park',
-        isActive: true,
+        isActive: true
       });
     });
   });

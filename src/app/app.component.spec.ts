@@ -1,5 +1,5 @@
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavController } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -16,18 +16,20 @@ import { ApplicationService } from '@app/services';
 import { createApplicationServiceMock } from '@app/services/mocks';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
-        { provide: ApplicationService, useFactory: createApplicationServiceMock },
-        { provide: NavController, useFactory: createNavControllerMock },
-        provideMockStore<State>()
-      ]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AppComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [
+          { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
+          { provide: ApplicationService, useFactory: createApplicationServiceMock },
+          { provide: NavController, useFactory: createNavControllerMock },
+          provideMockStore<State>()
+        ]
+      }).compileComponents();
+    })
+  );
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
