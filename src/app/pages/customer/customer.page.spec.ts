@@ -103,47 +103,27 @@ describe('CustomerPage', () => {
         id: 'asdf1234',
         name: 'Ace Hardware',
         hasAdvisory: false,
-        supportHours: 12,
-        hasCapacitor: false,
-        hasStencil: false,
-        hasAuthConnect: true,
-        hasIdentityVault: true,
-        hasOfflineStorage: false
+        supportHours: 12
       },
       ff898gd: {
         id: 'ff898gd',
         name: 'Fred Salvage',
         hasAdvisory: true,
         primaryAdvisor: 'Tom Jones',
-        supportHours: 40,
-        hasStencil: true,
-        hasCapacitor: true,
-        hasAuthConnect: true,
-        hasIdentityVault: true,
-        hasOfflineStorage: true
+        supportHours: 40
       },
       ff88t99er: {
         id: 'ff88t99er',
         name: 'Wal-Mart',
         hasAdvisory: false,
-        supportHours: 12,
-        hasStencil: true,
-        hasCapacitor: false,
-        hasAuthConnect: false,
-        hasIdentityVault: false,
-        hasOfflineStorage: false
+        supportHours: 12
       },
       '1849gasdf': {
         id: '1849gasdf',
         name: 'Mc Donalds',
         hasAdvisory: true,
         primaryAdvisor: 'Jim Jones',
-        hasStencil: false,
-        supportHours: 34,
-        hasCapacitor: false,
-        hasAuthConnect: true,
-        hasIdentityVault: false,
-        hasOfflineStorage: true
+        supportHours: 34
       }
     };
   }

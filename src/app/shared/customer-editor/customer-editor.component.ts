@@ -20,11 +20,6 @@ export class CustomerEditorComponent implements OnInit {
   hasAdvisory: boolean;
   primaryAdvisor: string;
   supportHours: number;
-  hasStencil: boolean;
-  hasCapacitor: boolean;
-  hasIdentityVault: boolean;
-  hasAuthConnect: boolean;
-  hasOfflineStorage: boolean;
 
   constructor(private modalController: ModalController, private store: Store<State>) {}
 
@@ -55,12 +50,7 @@ export class CustomerEditorComponent implements OnInit {
       name: this.name,
       hasAdvisory: this.hasAdvisory || false,
       primaryAdvisor: this.hasAdvisory ? this.primaryAdvisor : null,
-      supportHours: this.supportHours,
-      hasStencil: this.hasStencil || false,
-      hasCapacitor: this.hasCapacitor || false,
-      hasAuthConnect: this.hasAuthConnect || false,
-      hasIdentityVault: this.hasIdentityVault || false,
-      hasOfflineStorage: this.hasOfflineStorage || false
+      supportHours: this.supportHours
     };
     if (this.customer && this.customer.id) {
       customer.id = this.customer.id;
@@ -75,23 +65,13 @@ export class CustomerEditorComponent implements OnInit {
     this.hasAdvisory = true;
     this.primaryAdvisor = '';
     this.supportHours = 0;
-    this.hasStencil = false;
-    this.hasCapacitor = false;
-    this.hasIdentityVault = false;
-    this.hasAuthConnect = false;
-    this.hasOfflineStorage = false;
   }
 
   private initializeUpdate() {
     this.editorTitle = 'Update Customer';
     this.name = this.customer.name;
-    this.hasStencil = this.customer.hasStencil;
     this.hasAdvisory = this.customer.hasAdvisory;
     this.primaryAdvisor = this.customer.primaryAdvisor;
     this.supportHours = this.customer.supportHours;
-    this.hasCapacitor = this.customer.hasCapacitor;
-    this.hasIdentityVault = this.customer.hasIdentityVault;
-    this.hasAuthConnect = this.customer.hasAuthConnect;
-    this.hasOfflineStorage = this.customer.hasOfflineStorage;
   }
 }

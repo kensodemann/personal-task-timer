@@ -63,26 +63,6 @@ describe('CustomerEditorComponent', () => {
       it('starts with a blank advisor', () => {
         expect(component.primaryAdvisor).toEqual('');
       });
-
-      it('assumes no Stencil', () => {
-        expect(component.hasStencil).toEqual(false);
-      });
-
-      it('assumes no Capacitor', () => {
-        expect(component.hasCapacitor).toEqual(false);
-      });
-
-      it('assumes no Identity Vault', () => {
-        expect(component.hasIdentityVault).toEqual(false);
-      });
-
-      it('assumes no Auth Connect', () => {
-        expect(component.hasAuthConnect).toEqual(false);
-      });
-
-      it('assumes no Offline Storage', () => {
-        expect(component.hasOfflineStorage).toEqual(false);
-      });
     });
 
     describe('with a specified customer', () => {
@@ -92,12 +72,7 @@ describe('CustomerEditorComponent', () => {
           name: 'We do Stuff',
           hasAdvisory: true,
           primaryAdvisor: 'Joe Anderson',
-          hasStencil: false,
-          supportHours: 42,
-          hasCapacitor: true,
-          hasIdentityVault: true,
-          hasAuthConnect: false,
-          hasOfflineStorage: true
+          supportHours: 42
         };
         fixture.detectChanges();
       });
@@ -120,26 +95,6 @@ describe('CustomerEditorComponent', () => {
 
       it('initializes the support hours', () => {
         expect(component.supportHours).toEqual(42);
-      });
-
-      it('initializes the Stencil flag', () => {
-        expect(component.hasStencil).toEqual(false);
-      });
-
-      it('initializes the Capacitor flag', () => {
-        expect(component.hasCapacitor).toEqual(true);
-      });
-
-      it('initializes the identity vault flag', () => {
-        expect(component.hasIdentityVault).toEqual(true);
-      });
-
-      it('initializes the auth connect flag', () => {
-        expect(component.hasAuthConnect).toEqual(false);
-      });
-
-      it('initializes the offline storage flag', () => {
-        expect(component.hasOfflineStorage).toEqual(true);
       });
     });
   });
@@ -184,11 +139,6 @@ describe('CustomerEditorComponent', () => {
         component.name = 'Fred Flintstone';
         component.hasAdvisory = true;
         component.primaryAdvisor = 'Sarah Trelles';
-        component.hasAuthConnect = false;
-        component.hasCapacitor = true;
-        component.hasIdentityVault = false;
-        component.hasStencil = false;
-        component.hasOfflineStorage = true;
         component.supportHours = 16;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
@@ -197,11 +147,6 @@ describe('CustomerEditorComponent', () => {
               name: 'Fred Flintstone',
               hasAdvisory: true,
               primaryAdvisor: 'Sarah Trelles',
-              hasStencil: false,
-              hasAuthConnect: false,
-              hasCapacitor: true,
-              hasIdentityVault: false,
-              hasOfflineStorage: true,
               supportHours: 16
             }
           })
@@ -215,11 +160,6 @@ describe('CustomerEditorComponent', () => {
         component.name = 'Fred Flintstone';
         component.hasAdvisory = false;
         component.primaryAdvisor = 'Sarah Trelles';
-        component.hasAuthConnect = false;
-        component.hasStencil = false;
-        component.hasCapacitor = true;
-        component.hasIdentityVault = false;
-        component.hasOfflineStorage = true;
         component.supportHours = 16;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
@@ -228,11 +168,6 @@ describe('CustomerEditorComponent', () => {
               name: 'Fred Flintstone',
               hasAdvisory: false,
               primaryAdvisor: null,
-              hasStencil: false,
-              hasAuthConnect: false,
-              hasCapacitor: true,
-              hasIdentityVault: false,
-              hasOfflineStorage: true,
               supportHours: 16
             }
           })
@@ -248,11 +183,6 @@ describe('CustomerEditorComponent', () => {
           name: 'Fred Flintstone',
           hasAdvisory: true,
           primaryAdvisor: 'Joe James',
-          hasStencil: false,
-          hasCapacitor: true,
-          hasIdentityVault: false,
-          hasAuthConnect: false,
-          hasOfflineStorage: true,
           supportHours: 42
         };
         fixture.detectChanges();
@@ -278,9 +208,6 @@ describe('CustomerEditorComponent', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.name = 'Spacely Sprockets';
-        component.hasIdentityVault = true;
-        component.hasAuthConnect = true;
-        component.hasOfflineStorage = false;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
           update({
@@ -289,11 +216,6 @@ describe('CustomerEditorComponent', () => {
               name: 'Spacely Sprockets',
               hasAdvisory: true,
               primaryAdvisor: 'Joe James',
-              hasStencil: false,
-              hasCapacitor: true,
-              hasIdentityVault: true,
-              hasAuthConnect: true,
-              hasOfflineStorage: false,
               supportHours: 42
             }
           })
@@ -305,11 +227,6 @@ describe('CustomerEditorComponent', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.hasAdvisory = undefined;
-        component.hasAuthConnect = undefined;
-        component.hasCapacitor = undefined;
-        component.hasIdentityVault = undefined;
-        component.hasOfflineStorage = undefined;
-        component.hasStencil = undefined;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
           update({
@@ -318,11 +235,6 @@ describe('CustomerEditorComponent', () => {
               name: 'Fred Flintstone',
               hasAdvisory: false,
               primaryAdvisor: null,
-              hasStencil: false,
-              hasCapacitor: false,
-              hasIdentityVault: false,
-              hasAuthConnect: false,
-              hasOfflineStorage: false,
               supportHours: 42
             }
           })
@@ -344,11 +256,6 @@ describe('CustomerEditorComponent', () => {
               name: 'Spacely Sprockets',
               hasAdvisory: false,
               primaryAdvisor: null,
-              hasStencil: false,
-              hasCapacitor: true,
-              hasIdentityVault: false,
-              hasAuthConnect: false,
-              hasOfflineStorage: true,
               supportHours: 18
             }
           })
