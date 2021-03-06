@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { differenceInMinutes } from 'date-fns';
 
@@ -12,7 +19,7 @@ import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 @Component({
   selector: 'app-timer-list-item',
   templateUrl: './timer-list-item.component.html',
-  styleUrls: ['./timer-list-item.component.scss']
+  styleUrls: ['./timer-list-item.component.scss'],
 })
 export class TimerListItemComponent implements OnInit, OnDestroy {
   private intervalID: any;
@@ -25,7 +32,7 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
   constructor(
     private alertController: AlertController,
     private modalController: ModalController,
-    private store: Store<State>
+    private store: Store<State>,
   ) {}
 
   ngOnInit() {
@@ -43,11 +50,12 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
     const alert = await this.alertController.create({
       header: 'Remove Timer?',
       subHeader: this.timer.title,
-      message: 'This action cannot be undone. Are you sure you want to continue?',
+      message:
+        'This action cannot be undone. Are you sure you want to continue?',
       buttons: [
         { text: 'Yes', role: 'confirm' },
-        { text: 'No', role: 'cancel' }
-      ]
+        { text: 'No', role: 'cancel' },
+      ],
     });
     await alert.present();
     const resp = await alert.onDidDismiss();
@@ -59,7 +67,7 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
   async edit(): Promise<void> {
     const modal = await this.modalController.create({
       component: TimerEditorComponent,
-      componentProps: { timer: this.timer }
+      componentProps: { timer: this.timer },
     });
     modal.present();
   }
@@ -82,7 +90,9 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
   }
 
   private calculateRunningMinutes() {
-    this.runningMinutes = this.timer.startTime ? differenceInMinutes(Date.now(), this.timer.startTime) : 0;
+    this.runningMinutes = this.timer.startTime
+      ? differenceInMinutes(Date.now(), this.timer.startTime)
+      : 0;
   }
 
   private clearRecalcInterval() {
@@ -95,6 +105,8 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
   private stopAllActiveTimers() {
     const activeTimers = this.store
       .pipe(select(selectAllActiveTimers), take(1))
-      .subscribe(timers => timers.forEach(timer => this.store.dispatch(stop({ timer }))));
+      .subscribe(timers =>
+        timers.forEach(timer => this.store.dispatch(stop({ timer }))),
+      );
   }
 }

@@ -17,7 +17,10 @@ interface CustomerChangeAction {
 
 @Injectable()
 export class CustomerEffects {
-  constructor(private actions$: Actions, private customersService: CustomersService) {}
+  constructor(
+    private actions$: Actions,
+    private customersService: CustomersService,
+  ) {}
 
   changes$ = createEffect(() =>
     this.actions$.pipe(
@@ -25,10 +28,10 @@ export class CustomerEffects {
       mergeMap(() =>
         this.customersService.observeChanges().pipe(
           mergeMap(actions => this.unpackActions(actions)),
-          map(action => this.customerAction(action))
-        )
-      )
-    )
+          map(action => this.customerAction(action)),
+        ),
+      ),
+    ),
   );
 
   create$ = createEffect(() =>
@@ -37,10 +40,10 @@ export class CustomerEffects {
       mergeMap(action =>
         from(this.customersService.add(action.customer)).pipe(
           map(() => customerActions.createSuccess()),
-          catchError(error => of(customerActions.createFailure({ error })))
-        )
-      )
-    )
+          catchError(error => of(customerActions.createFailure({ error }))),
+        ),
+      ),
+    ),
   );
 
   update$ = createEffect(() =>
@@ -49,10 +52,10 @@ export class CustomerEffects {
       mergeMap(action =>
         from(this.customersService.update(action.customer)).pipe(
           map(() => customerActions.updateSuccess()),
-          catchError(error => of(customerActions.updateFailure({ error })))
-        )
-      )
-    )
+          catchError(error => of(customerActions.updateFailure({ error }))),
+        ),
+      ),
+    ),
   );
 
   remove$ = createEffect(() =>
@@ -61,13 +64,15 @@ export class CustomerEffects {
       mergeMap(action =>
         from(this.customersService.delete(action.customer)).pipe(
           map(() => customerActions.removeSuccess()),
-          catchError(error => of(customerActions.removeFailure({ error })))
-        )
-      )
-    )
+          catchError(error => of(customerActions.removeFailure({ error }))),
+        ),
+      ),
+    ),
   );
 
-  private unpackActions(actions: Array<DocumentChangeAction<Customer>>): Array<CustomerChangeAction> {
+  private unpackActions(
+    actions: Array<DocumentChangeAction<Customer>>,
+  ): Array<CustomerChangeAction> {
     let mainActions: Array<DocumentChangeAction<Customer>>;
     let groupedActions: Array<DocumentChangeAction<Customer>>;
     if (actions.length > 1) {
@@ -78,25 +83,31 @@ export class CustomerEffects {
       mainActions = actions;
     }
 
-    const changeActions: Array<CustomerChangeAction> = mainActions.map(action => ({
-      type: action.type,
-      customer: this.docActionToCustomer(action)
-    }));
+    const changeActions: Array<CustomerChangeAction> = mainActions.map(
+      action => ({
+        type: action.type,
+        customer: this.docActionToCustomer(action),
+      }),
+    );
 
     if (groupedActions.length) {
       changeActions.push({
         type: 'added many',
-        customers: groupedActions.map(action => this.docActionToCustomer(action))
+        customers: groupedActions.map(action =>
+          this.docActionToCustomer(action),
+        ),
       });
     }
 
     return changeActions;
   }
 
-  private docActionToCustomer(action: DocumentChangeAction<Customer>): Customer {
+  private docActionToCustomer(
+    action: DocumentChangeAction<Customer>,
+  ): Customer {
     return {
       id: action.payload.doc.id,
-      ...(action.payload.doc.data() as Customer)
+      ...(action.payload.doc.data() as Customer),
     };
   }
 

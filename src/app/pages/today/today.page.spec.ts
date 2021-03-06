@@ -7,7 +7,10 @@ import { TodayPage } from './today.page';
 import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
 import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.component';
 import { logout } from '@app/store/actions/auth.actions';
-import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
+import {
+  createOverlayControllerMock,
+  createOverlayElementMock,
+} from '@test/mocks';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { selectTodayTimers, State } from '@app/store';
 import { Timer } from '@app/models';
@@ -15,7 +18,7 @@ import { Timer } from '@app/models';
 describe('TodayPage', () => {
   let component: TodayPage;
   let fixture: ComponentFixture<TodayPage>;
-  let modal: HTMLIonModalElement;
+  let modal: any;
 
   beforeEach(
     waitForAsync(() => {
@@ -25,16 +28,21 @@ describe('TodayPage', () => {
         imports: [IonicModule, TimerListItemComponentModule],
         providers: [
           provideMockStore<{ timers: TimersState }>({
-            initialState: { timers: { ids: [], entities: null, loading: false } }
+            initialState: {
+              timers: { ids: [], entities: null, loading: false },
+            },
           }),
-          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-        ]
+          {
+            provide: ModalController,
+            useFactory: () => createOverlayControllerMock(modal),
+          },
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(TodayPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    })
+    }),
   );
 
   it('should create', () => {
@@ -53,7 +61,7 @@ describe('TodayPage', () => {
         type: 'Code Review',
         task: '#22950',
         minutes: 27,
-        date: '2019-12-25'
+        date: '2019-12-25',
       },
       {
         id: 'ff88t99er',
@@ -64,8 +72,8 @@ describe('TodayPage', () => {
         bugFound: true,
         startTime: 188359,
         minutes: 42,
-        date: '2019-12-25'
-      }
+        date: '2019-12-25',
+      },
     ]);
     store.refreshState();
     fixture.detectChanges();
@@ -77,7 +85,7 @@ describe('TodayPage', () => {
         type: 'Code Review',
         task: '#22950',
         minutes: 27,
-        date: '2019-12-25'
+        date: '2019-12-25',
       },
       {
         id: 'ff88t99er',
@@ -88,8 +96,8 @@ describe('TodayPage', () => {
         bugFound: true,
         startTime: 188359,
         minutes: 42,
-        date: '2019-12-25'
-      }
+        date: '2019-12-25',
+      },
     ]);
   });
 
@@ -98,7 +106,10 @@ describe('TodayPage', () => {
       const modalController = TestBed.inject(ModalController);
       await component.add();
       expect(modalController.create).toHaveBeenCalledTimes(1);
-      expect(modalController.create).toHaveBeenCalledWith({ component: TimerEditorComponent, backdropDismiss: false });
+      expect(modalController.create).toHaveBeenCalledWith({
+        component: TimerEditorComponent,
+        backdropDismiss: false,
+      });
       expect(modal.present).toHaveBeenCalledTimes(1);
     });
   });

@@ -14,8 +14,13 @@
     <div class="title">Personal Task Timer</div>
     <ion-icon name="timer"></ion-icon>
     <div class="version">
-      <div><span class="label">Version: </span>{{ appVersion?.version }} - {{ appVersion?.name }}</div>
-      <div><span class="label">Released: </span>{{ appVersion?.date | date }}</div>
+      <div>
+        <span class="label">Version: </span>{{ appVersion?.version }} - {{
+        appVersion?.name }}
+      </div>
+      <div>
+        <span class="label">Released: </span>{{ appVersion?.date | date }}
+      </div>
     </div>
   </div>
 </ion-content>

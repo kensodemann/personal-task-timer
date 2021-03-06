@@ -10,7 +10,7 @@ import {
   logoutSuccess,
   resetPassword,
   resetPasswordSuccess,
-  resetPasswordFailure
+  resetPasswordFailure,
 } from '@app/store/actions/auth.actions';
 
 it('returns the default state', () => {
@@ -19,16 +19,28 @@ it('returns the default state', () => {
 
 describe(AuthActionTypes.LoginChanged, () => {
   it('sets the email and userId in the state', () => {
-    const action = loginChanged({ email: 'test@testy.com', userId: '1df2349950ea' });
-    expect(reducer(undefined, action)).toEqual({ email: 'test@testy.com', userId: '1df2349950ea', loading: false });
+    const action = loginChanged({
+      email: 'test@testy.com',
+      userId: '1df2349950ea',
+    });
+    expect(reducer(undefined, action)).toEqual({
+      email: 'test@testy.com',
+      userId: '1df2349950ea',
+      loading: false,
+    });
   });
 
   it('clears the email and userId in the state', () => {
     const action = loginChanged({ email: undefined, userId: undefined });
-    expect(reducer({ email: 'test@testy.com', userId: '1df2349950ea', loading: false }, action)).toEqual({
+    expect(
+      reducer(
+        { email: 'test@testy.com', userId: '1df2349950ea', loading: false },
+        action,
+      ),
+    ).toEqual({
       email: undefined,
       userId: undefined,
-      loading: false
+      loading: false,
     });
   });
 });
@@ -43,16 +55,16 @@ describe(AuthActionTypes.Login, () => {
           userId: '',
           loading: false,
           message: 'this is random information',
-          error: new Error('Invalid Password')
+          error: new Error('Invalid Password'),
         },
-        action
-      )
+        action,
+      ),
     ).toEqual({
       email: '',
       userId: '',
       loading: true,
       message: undefined,
-      error: undefined
+      error: undefined,
     });
   });
 });
@@ -60,25 +72,43 @@ describe(AuthActionTypes.Login, () => {
 describe(AuthActionTypes.LoginSuccess, () => {
   it('clears the loading flag', () => {
     const action = loginSuccess();
-    expect(reducer({ email: '', userId: '', loading: true, message: undefined, error: undefined }, action)).toEqual({
+    expect(
+      reducer(
+        {
+          email: '',
+          userId: '',
+          loading: true,
+          message: undefined,
+          error: undefined,
+        },
+        action,
+      ),
+    ).toEqual({
       email: '',
       userId: '',
       loading: false,
       message: undefined,
-      error: undefined
+      error: undefined,
     });
   });
 });
 
 describe(AuthActionTypes.LoginFailure, () => {
   it('clears the loading flag and sets the error', () => {
-    const action = loginFailure({ error: new Error('There was a failure, it was a mess') });
-    expect(reducer({ email: '', userId: '', loading: true, error: undefined }, action)).toEqual({
+    const action = loginFailure({
+      error: new Error('There was a failure, it was a mess'),
+    });
+    expect(
+      reducer(
+        { email: '', userId: '', loading: true, error: undefined },
+        action,
+      ),
+    ).toEqual({
       email: '',
       userId: '',
       loading: false,
       message: undefined,
-      error: new Error('There was a failure, it was a mess')
+      error: new Error('There was a failure, it was a mess'),
     });
   });
 });
@@ -93,16 +123,16 @@ describe(AuthActionTypes.Logout, () => {
           userId: '',
           loading: false,
           message: 'this is useless information',
-          error: new Error('How can you fail to logout?')
+          error: new Error('How can you fail to logout?'),
         },
-        action
-      )
+        action,
+      ),
     ).toEqual({
       email: '',
       userId: '',
       loading: true,
       message: undefined,
-      error: undefined
+      error: undefined,
     });
   });
 });
@@ -110,25 +140,49 @@ describe(AuthActionTypes.Logout, () => {
 describe(AuthActionTypes.LogoutSuccess, () => {
   it('clears the loading flag', () => {
     const action = logoutSuccess();
-    expect(reducer({ email: '', userId: '', loading: true, message: undefined, error: undefined }, action)).toEqual({
+    expect(
+      reducer(
+        {
+          email: '',
+          userId: '',
+          loading: true,
+          message: undefined,
+          error: undefined,
+        },
+        action,
+      ),
+    ).toEqual({
       email: '',
       userId: '',
       loading: false,
       message: undefined,
-      error: undefined
+      error: undefined,
     });
   });
 });
 
 describe(AuthActionTypes.LogoutFailure, () => {
   it('clears the loading flag and sets the error', () => {
-    const action = logoutFailure({ error: new Error('There was a failure, it was a mess') });
-    expect(reducer({ email: '', userId: '', loading: true, message: undefined, error: undefined }, action)).toEqual({
+    const action = logoutFailure({
+      error: new Error('There was a failure, it was a mess'),
+    });
+    expect(
+      reducer(
+        {
+          email: '',
+          userId: '',
+          loading: true,
+          message: undefined,
+          error: undefined,
+        },
+        action,
+      ),
+    ).toEqual({
       email: '',
       userId: '',
       loading: false,
       message: undefined,
-      error: new Error('There was a failure, it was a mess')
+      error: new Error('There was a failure, it was a mess'),
     });
   });
 });
@@ -143,16 +197,16 @@ describe(AuthActionTypes.ResetPassword, () => {
           userId: '',
           loading: false,
           message: 'this is useless information',
-          error: new Error('How can you fail to logout?')
+          error: new Error('How can you fail to logout?'),
         },
-        action
-      )
+        action,
+      ),
     ).toEqual({
       email: '',
       userId: '',
       loading: false,
       message: undefined,
-      error: undefined
+      error: undefined,
     });
   });
 });
@@ -160,25 +214,50 @@ describe(AuthActionTypes.ResetPassword, () => {
 describe(AuthActionTypes.ResetPasswordSuccess, () => {
   it('sets the message string', () => {
     const action = resetPasswordSuccess({ email: 'test@testtea.com' });
-    expect(reducer({ email: '', userId: '', loading: false, message: undefined, error: undefined }, action)).toEqual({
+    expect(
+      reducer(
+        {
+          email: '',
+          userId: '',
+          loading: false,
+          message: undefined,
+          error: undefined,
+        },
+        action,
+      ),
+    ).toEqual({
       email: '',
       userId: '',
       loading: false,
-      message: 'An e-mail has been sent to test@testtea.com with password reset instructions.',
-      error: undefined
+      message:
+        'An e-mail has been sent to test@testtea.com with password reset instructions.',
+      error: undefined,
     });
   });
 });
 
 describe(AuthActionTypes.ResetPasswordFailure, () => {
   it('sets the error', () => {
-    const action = resetPasswordFailure({ error: new Error('There was a failure, it was a mess') });
-    expect(reducer({ email: '', userId: '', loading: false, message: undefined, error: undefined }, action)).toEqual({
+    const action = resetPasswordFailure({
+      error: new Error('There was a failure, it was a mess'),
+    });
+    expect(
+      reducer(
+        {
+          email: '',
+          userId: '',
+          loading: false,
+          message: undefined,
+          error: undefined,
+        },
+        action,
+      ),
+    ).toEqual({
       email: '',
       userId: '',
       loading: false,
       message: undefined,
-      error: new Error('There was a failure, it was a mess')
+      error: new Error('There was a failure, it was a mess'),
     });
   });
 });

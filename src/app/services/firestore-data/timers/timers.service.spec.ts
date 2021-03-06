@@ -8,7 +8,7 @@ import {
   createAngularFirestoreCollectionMock,
   createAngularFireAuthMock,
   createAngularFirestoreDocumentMock,
-  createDocumentSnapshotMock
+  createDocumentSnapshotMock,
 } from '@test/mocks';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -21,8 +21,8 @@ describe('TimersService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
-        { provide: AngularFirestore, useFactory: createAngularFirestoreMock }
-      ]
+        { provide: AngularFirestore, useFactory: createAngularFirestoreMock },
+      ],
     });
     const angularFirestore = TestBed.inject(AngularFirestore);
     document = createAngularFirestoreDocumentMock();
@@ -68,7 +68,7 @@ describe('TimersService', () => {
       await timers.start('49950399KT');
       expect(document.update).toHaveBeenCalledTimes(1);
       expect(document.update).toHaveBeenCalledWith({
-        startTime: 1577102400000
+        startTime: 1577102400000,
       });
       (Date.now as any).mockRestore();
     });
@@ -85,7 +85,7 @@ describe('TimersService', () => {
         task: '#22950',
         minutes: 27,
         startTime: 1577102400000,
-        date: '2019-12-23'
+        date: '2019-12-23',
       });
       document.ref.get.mockResolvedValue(snapshot);
     });
@@ -103,7 +103,7 @@ describe('TimersService', () => {
       expect(document.update).toHaveBeenCalledTimes(1);
       expect(document.update).toHaveBeenCalledWith({
         startTime: null,
-        minutes: 45
+        minutes: 45,
       });
     });
   });

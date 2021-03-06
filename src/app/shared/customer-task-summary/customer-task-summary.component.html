@@ -1,3 +1,6 @@
 <div *ngIf="minutes$ | async as minutes">
-  <app-info-item label="{{ taskType || 'Total' }}" value="{{ minutes | hours }} / {{ count$ | async }}"></app-info-item>
+  <app-info-item
+    label="{{ taskType || 'Total' }}"
+    value="{{ minutes | hours }} / {{ count$ | async }}"
+  ></app-info-item>
 </div>

@@ -6,21 +6,22 @@ import { CustomersPage } from './customers.page';
 const routes: Routes = [
   {
     path: '',
-    component: CustomersPage
+    component: CustomersPage,
   },
   {
     path: 'customer',
     children: [
       {
         path: '',
-        loadChildren: () => import('../customer/customer.module').then(m => m.CustomerPageModule)
-      }
-    ]
-  }
+        loadChildren: () =>
+          import('../customer/customer.module').then(m => m.CustomerPageModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class CustomersPageRoutingModule {}

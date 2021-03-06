@@ -23,16 +23,19 @@ describe('CustomerEditorComponent', () => {
             customers: CustomersState;
           }>({
             initialState: {
-              customers: { ids: [], entities: {}, loading: false }
-            }
+              customers: { ids: [], entities: {}, loading: false },
+            },
           }),
-          { provide: ModalController, useFactory: () => createOverlayControllerMock() }
-        ]
+          {
+            provide: ModalController,
+            useFactory: () => createOverlayControllerMock(),
+          },
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(CustomerEditorComponent);
       component = fixture.componentInstance;
-    })
+    }),
   );
 
   it('should create', () => {
@@ -74,7 +77,7 @@ describe('CustomerEditorComponent', () => {
           name: 'We do Stuff',
           hasAdvisory: true,
           primaryAdvisor: 'Joe Anderson',
-          supportHours: 42
+          supportHours: 42,
         };
         fixture.detectChanges();
       });
@@ -149,9 +152,9 @@ describe('CustomerEditorComponent', () => {
               name: 'Fred Flintstone',
               hasAdvisory: true,
               primaryAdvisor: 'Sarah Trelles',
-              supportHours: 16
-            }
-          })
+              supportHours: 16,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
       });
@@ -170,9 +173,9 @@ describe('CustomerEditorComponent', () => {
               name: 'Fred Flintstone',
               hasAdvisory: false,
               primaryAdvisor: null,
-              supportHours: 16
-            }
-          })
+              supportHours: 16,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
       });
@@ -185,7 +188,7 @@ describe('CustomerEditorComponent', () => {
           name: 'Fred Flintstone',
           hasAdvisory: true,
           primaryAdvisor: 'Joe James',
-          supportHours: 42
+          supportHours: 42,
         };
         fixture.detectChanges();
       });
@@ -218,9 +221,9 @@ describe('CustomerEditorComponent', () => {
               name: 'Spacely Sprockets',
               hasAdvisory: true,
               primaryAdvisor: 'Joe James',
-              supportHours: 42
-            }
-          })
+              supportHours: 42,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
       });
@@ -237,9 +240,9 @@ describe('CustomerEditorComponent', () => {
               name: 'Fred Flintstone',
               hasAdvisory: false,
               primaryAdvisor: null,
-              supportHours: 42
-            }
-          })
+              supportHours: 42,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
       });
@@ -258,9 +261,9 @@ describe('CustomerEditorComponent', () => {
               name: 'Spacely Sprockets',
               hasAdvisory: false,
               primaryAdvisor: null,
-              supportHours: 18
-            }
-          })
+              supportHours: 18,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
       });

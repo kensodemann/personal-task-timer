@@ -10,6 +10,6 @@ import { CustomerEditorComponent } from './customer-editor.component';
   imports: [CommonModule, FormsModule, IonicModule],
   declarations: [CustomerEditorComponent],
   entryComponents: [CustomerEditorComponent],
-  exports: [CustomerEditorComponent]
+  exports: [CustomerEditorComponent],
 })
 export class CustomerEditorComponentModule {}

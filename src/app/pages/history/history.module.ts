@@ -13,8 +13,8 @@ import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-
     FormsModule,
     IonicModule,
     RouterModule.forChild([{ path: '', component: HistoryPage }]),
-    TimerListItemComponentModule
+    TimerListItemComponentModule,
   ],
-  declarations: [HistoryPage]
+  declarations: [HistoryPage],
 })
 export class HistoryPageModule {}

@@ -7,7 +7,11 @@ import { CustomerTaskSummaryModule } from '@app/shared/customer-task-summary/cus
 
 import { CustomerPage } from './customer.page';
 import { ActivatedRoute } from '@angular/router';
-import { createActivatedRouteMock, createOverlayElementMock, createOverlayControllerMock } from '@test/mocks';
+import {
+  createActivatedRouteMock,
+  createOverlayElementMock,
+  createOverlayControllerMock,
+} from '@test/mocks';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Customer } from '@app/models';
 import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
@@ -20,7 +24,7 @@ describe('CustomerPage', () => {
   let component: CustomerPage;
   let fixture: ComponentFixture<CustomerPage>;
 
-  let modal: HTMLIonModalElement;
+  let modal: any;
   let testCustomers: Dictionary<Customer>;
   let testCustomerIds: Array<string>;
 
@@ -30,23 +34,46 @@ describe('CustomerPage', () => {
       modal = createOverlayElementMock();
       TestBed.configureTestingModule({
         declarations: [CustomerPage],
-        imports: [IonicModule, RouterTestingModule, CustomerTaskSummaryModule, InfoItemComponentModule],
+        imports: [
+          IonicModule,
+          RouterTestingModule,
+          CustomerTaskSummaryModule,
+          InfoItemComponentModule,
+        ],
         providers: [
-          provideMockStore<{ customers: CustomersState; taskTypes: TaskTypeState; timers: TimersState }>({
+          provideMockStore<{
+            customers: CustomersState;
+            taskTypes: TaskTypeState;
+            timers: TimersState;
+          }>({
             initialState: {
-              customers: { ids: testCustomerIds, entities: testCustomers, loading: false },
+              customers: {
+                ids: testCustomerIds,
+                entities: testCustomers,
+                loading: false,
+              },
               timers: { ids: [], entities: {}, loading: false },
-              taskTypes: { taskTypes: ['Code Review', 'Architecture Review', 'Consulting', 'Bug'] }
-            }
+              taskTypes: {
+                taskTypes: [
+                  'Code Review',
+                  'Architecture Review',
+                  'Consulting',
+                  'Bug',
+                ],
+              },
+            },
           }),
           { provide: ActivatedRoute, useFactory: createActivatedRouteMock },
-          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-        ]
+          {
+            provide: ModalController,
+            useFactory: () => createOverlayControllerMock(modal),
+          },
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(CustomerPage);
       component = fixture.componentInstance;
-    })
+    }),
   );
 
   it('creates', () => {
@@ -66,7 +93,12 @@ describe('CustomerPage', () => {
     let taskTypes;
     fixture.detectChanges();
     component.taskTypes$.subscribe(t => (taskTypes = t));
-    expect(taskTypes).toEqual(['Code Review', 'Architecture Review', 'Consulting', 'Bug']);
+    expect(taskTypes).toEqual([
+      'Code Review',
+      'Architecture Review',
+      'Consulting',
+      'Bug',
+    ]);
   });
 
   it('obtains the customer data', () => {
@@ -90,9 +122,9 @@ describe('CustomerPage', () => {
       expect(modalController.create).toHaveBeenCalledWith({
         component: CustomerEditorComponent,
         componentProps: {
-          customer: testCustomers.ff898gd
+          customer: testCustomers.ff898gd,
         },
-        backdropDismiss: false
+        backdropDismiss: false,
       });
       expect(modal.present).toHaveBeenCalledTimes(1);
     });
@@ -101,32 +133,32 @@ describe('CustomerPage', () => {
   function initializeTestData() {
     testCustomerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
     testCustomers = {
-      asdf1234: {
+      'asdf1234': {
         id: 'asdf1234',
         name: 'Ace Hardware',
         hasAdvisory: false,
-        supportHours: 12
+        supportHours: 12,
       },
-      ff898gd: {
+      'ff898gd': {
         id: 'ff898gd',
         name: 'Fred Salvage',
         hasAdvisory: true,
         primaryAdvisor: 'Tom Jones',
-        supportHours: 40
+        supportHours: 40,
       },
-      ff88t99er: {
+      'ff88t99er': {
         id: 'ff88t99er',
         name: 'Wal-Mart',
         hasAdvisory: false,
-        supportHours: 12
+        supportHours: 12,
       },
       '1849gasdf': {
         id: '1849gasdf',
         name: 'Mc Donalds',
         hasAdvisory: true,
         primaryAdvisor: 'Jim Jones',
-        supportHours: 34
-      }
+        supportHours: 34,
+      },
     };
   }
 });

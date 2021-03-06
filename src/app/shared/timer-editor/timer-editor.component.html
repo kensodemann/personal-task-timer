@@ -16,23 +16,50 @@
     <ion-list>
       <ion-item>
         <ion-label>Customer</ion-label>
-        <ion-select name="customerSelect" [(ngModel)]="customerId" #customerSelect="ngModel" required>
-          <ion-select-option *ngFor="let c of customers$ | async" value="{{ c.id }}">{{ c.name }}</ion-select-option>
+        <ion-select
+          name="customerSelect"
+          [(ngModel)]="customerId"
+          #customerSelect="ngModel"
+          required
+        >
+          <ion-select-option
+            *ngFor="let c of customers$ | async"
+            value="{{ c.id }}"
+            >{{ c.name }}</ion-select-option
+          >
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Title</ion-label>
-        <ion-input name="title" [(ngModel)]="title" #titleInput="ngModel" required></ion-input>
+        <ion-input
+          name="title"
+          [(ngModel)]="title"
+          #titleInput="ngModel"
+          required
+        ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Task Type</ion-label>
-        <ion-select name="taskTypeSelect" [(ngModel)]="taskType" #taskTypeSelect="ngModel" required>
-          <ion-select-option *ngFor="let t of taskTypes$ | async" value="{{ t }}">{{ t }}</ion-select-option>
+        <ion-select
+          name="taskTypeSelect"
+          [(ngModel)]="taskType"
+          #taskTypeSelect="ngModel"
+          required
+        >
+          <ion-select-option
+            *ngFor="let t of taskTypes$ | async"
+            value="{{ t }}"
+            >{{ t }}</ion-select-option
+          >
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Task ID</ion-label>
-        <ion-input name="taskId" [(ngModel)]="taskId" #taskIdInput="ngModel"></ion-input>
+        <ion-input
+          name="taskId"
+          [(ngModel)]="taskId"
+          #taskIdInput="ngModel"
+        ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Minutes</ion-label>
@@ -52,6 +79,13 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="full" color="secondary" (click)="save()" [disabled]="!timerForm.form.valid"> Save </ion-button>
+    <ion-button
+      expand="full"
+      color="secondary"
+      (click)="save()"
+      [disabled]="!timerForm.form.valid"
+    >
+      Save
+    </ion-button>
   </ion-toolbar>
 </ion-footer>

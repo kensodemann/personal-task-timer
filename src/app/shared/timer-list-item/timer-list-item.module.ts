@@ -11,6 +11,6 @@ import { TimerEditorComponentModule } from '../timer-editor/timer-editor.module'
   imports: [CommonModule, FormsModule, IonicModule, TimerEditorComponentModule],
   declarations: [TimerListItemComponent],
   entryComponents: [TimerListItemComponent],
-  exports: [TimerListItemComponent]
+  exports: [TimerListItemComponent],
 })
 export class TimerListItemComponentModule {}

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 import { Customer } from '@app/models';
+import firebase from 'firebase/app';
 import { FirestoreDataService } from '../firestore-data.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CustomersService extends FirestoreDataService<Customer> {
   constructor(private ngFirestore: AngularFirestore, afAuth: AngularFireAuth) {

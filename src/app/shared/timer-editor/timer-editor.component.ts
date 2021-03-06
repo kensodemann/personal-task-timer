@@ -5,14 +5,19 @@ import { Observable } from 'rxjs';
 import { formatISO } from 'date-fns';
 
 import { create, update } from '@app/store/actions/timer.actions';
-import { selectAllTaskTypes, State, selectAllCustomersSorted, selectCustomer } from '@app/store';
+import {
+  selectAllTaskTypes,
+  State,
+  selectAllCustomersSorted,
+  selectCustomer,
+} from '@app/store';
 import { Customer, Timer } from '@app/models';
 import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer-editor',
   templateUrl: './timer-editor.component.html',
-  styleUrls: ['./timer-editor.component.scss']
+  styleUrls: ['./timer-editor.component.scss'],
 })
 export class TimerEditorComponent implements OnInit {
   @Input() timer: Timer;
@@ -28,7 +33,10 @@ export class TimerEditorComponent implements OnInit {
   taskType: string;
   minutes: number;
 
-  constructor(private modalController: ModalController, private store: Store<State>) {}
+  constructor(
+    private modalController: ModalController,
+    private store: Store<State>,
+  ) {}
 
   ngOnInit() {
     if (this.timer) {
@@ -82,16 +90,18 @@ export class TimerEditorComponent implements OnInit {
           title: this.title,
           type: this.taskType,
           minutes: this.minutes,
-          date: this.timer ? this.timer.date : formatISO(new Date(Date.now()), { representation: 'date' }),
+          date: this.timer
+            ? this.timer.date
+            : formatISO(new Date(Date.now()), { representation: 'date' }),
           startTime: (this.timer && this.timer.startTime) || null,
-          task: this.taskId || null
+          task: this.taskId || null,
         };
         if (this.timer && this.timer.id) {
           timer.id = this.timer.id;
         }
 
         return timer;
-      })
+      }),
     );
   }
 }

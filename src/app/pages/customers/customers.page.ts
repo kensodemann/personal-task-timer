@@ -11,19 +11,25 @@ import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-ed
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.page.html',
-  styleUrls: ['./customers.page.scss']
+  styleUrls: ['./customers.page.scss'],
 })
 export class CustomersPage implements OnInit {
   customers$: Observable<Array<Customer>>;
 
-  constructor(private modalController: ModalController, private store: Store<State>) {}
+  constructor(
+    private modalController: ModalController,
+    private store: Store<State>,
+  ) {}
 
   ngOnInit() {
     this.customers$ = this.store.pipe(select(selectAllCustomersSorted));
   }
 
   async add() {
-    const modal = await this.modalController.create({ component: CustomerEditorComponent, backdropDismiss: false });
+    const modal = await this.modalController.create({
+      component: CustomerEditorComponent,
+      backdropDismiss: false,
+    });
     modal.present();
   }
 

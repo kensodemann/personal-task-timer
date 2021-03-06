@@ -13,21 +13,23 @@ import { ApplicationService } from '@app/services';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private application: ApplicationService,
     private navController: NavController,
-    private store: Store<State>
+    private store: Store<State>,
   ) {}
 
   ngOnInit() {
     this.application.registerForUpdates();
     this.store.dispatch(loadTaskTypes());
     this.afAuth.authState.subscribe(u => {
-      this.store.dispatch(loginChanged({ email: u && u.email, userId: u && u.uid }));
+      this.store.dispatch(
+        loginChanged({ email: u && u.email, userId: u && u.uid }),
+      );
       if (!u) {
         this.navController.navigateRoot(['login']);
       } else {

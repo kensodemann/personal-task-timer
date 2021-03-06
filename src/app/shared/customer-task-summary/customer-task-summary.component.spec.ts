@@ -25,14 +25,20 @@ describe('CustomerTaskSummaryComponent', () => {
         imports: [IonicModule, HoursPipeModule, InfoItemComponentModule],
         providers: [
           provideMockStore<{ timers: TimersState }>({
-            initialState: { timers: { ids: testTimerIds, entities: testTimers, loading: false } }
-          })
-        ]
+            initialState: {
+              timers: {
+                ids: testTimerIds,
+                entities: testTimers,
+                loading: false,
+              },
+            },
+          }),
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(CustomerTaskSummaryComponent);
       component = fixture.componentInstance;
-    })
+    }),
   );
 
   it('should create', () => {
@@ -46,7 +52,7 @@ describe('CustomerTaskSummaryComponent', () => {
     { id: '1143we', type: 'Code Review', minutes: 180 },
     { id: 'bogus', type: 'Advisory', minutes: 0 },
     { id: 'bogus', type: undefined, minutes: 0 },
-    { id: 'aw132', type: undefined, minutes: 150 }
+    { id: 'aw132', type: undefined, minutes: 150 },
   ].forEach(test =>
     it(`gets the minutes for ${test.id}, ${test.type}`, () => {
       let minutes: number;
@@ -55,7 +61,7 @@ describe('CustomerTaskSummaryComponent', () => {
       fixture.detectChanges();
       component.minutes$.subscribe(m => (minutes = m));
       expect(minutes).toEqual(test.minutes);
-    })
+    }),
   );
 
   [
@@ -64,7 +70,7 @@ describe('CustomerTaskSummaryComponent', () => {
     { id: '1143we', type: 'Code Review', count: 1 },
     { id: 'bogus', type: 'Advisory', count: 0 },
     { id: 'bogus', type: undefined, count: 0 },
-    { id: 'aw132', type: undefined, count: 3 }
+    { id: 'aw132', type: undefined, count: 3 },
   ].forEach(test =>
     it(`gets the count for ${test.id}, ${test.type}`, () => {
       let count: number;
@@ -73,38 +79,38 @@ describe('CustomerTaskSummaryComponent', () => {
       fixture.detectChanges();
       component.count$.subscribe(c => (count = c));
       expect(count).toEqual(test.count);
-    })
+    }),
   );
 
   function initializeTestData() {
     testTimerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
     testTimers = {
-      asdf1234: {
+      'asdf1234': {
         id: 'asdf1234',
         title: 'I am a newly added timer',
         type: 'Advisory',
         minutes: 30,
         date: '2019-11-25',
         customerId: 'aw132',
-        customerName: 'A & W'
+        customerName: 'A & W',
       },
-      ff898gd: {
+      'ff898gd': {
         id: 'ff898gd',
         title: 'I am another newly added timer',
         type: 'Code Review',
         minutes: 180,
         date: '2019-11-26',
         customerId: '1143we',
-        customerName: 'Amys Arts'
+        customerName: 'Amys Arts',
       },
-      ff88t99er: {
+      'ff88t99er': {
         id: 'ff88t99er',
         title: 'it is all ok',
         type: 'Advisory',
         minutes: 75,
         date: '2019-11-25',
         customerId: 'aw132',
-        customerName: 'A & W'
+        customerName: 'A & W',
       },
       '1849gasdf': {
         id: '1849gasdf',
@@ -113,8 +119,8 @@ describe('CustomerTaskSummaryComponent', () => {
         minutes: 45,
         date: '2019-11-27',
         customerId: 'aw132',
-        customerName: 'A & W'
-      }
+        customerName: 'A & W',
+      },
     };
   }
 });

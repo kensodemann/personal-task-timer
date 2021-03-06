@@ -17,8 +17,8 @@ beforeEach(() => {
     providers: [
       TimerEffects,
       { provide: TimersService, useFactory: createTimersServiceMock },
-      provideMockActions(() => actions$)
-    ]
+      provideMockActions(() => actions$),
+    ],
   });
 
   effects = TestBed.inject<TimerEffects>(TimerEffects);
@@ -51,12 +51,12 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
-          }
-        ])
+                  customer: 'A & W',
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(timerActions.load());
       effects.changes$.subscribe(action => {
@@ -67,8 +67,8 @@ describe('load$', () => {
             type: 'Advisory',
             minutes: 30,
             date: '2019-11-25',
-            customer: 'A & W'
-          }
+            customer: 'A & W',
+          },
         });
         expect(action).toEqual(expected);
         done();
@@ -91,12 +91,12 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
-          }
-        ])
+                  customer: 'A & W',
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(timerActions.load());
       effects.changes$.subscribe(action => {
@@ -107,8 +107,8 @@ describe('load$', () => {
             type: 'Advisory',
             minutes: 30,
             date: '2019-11-25',
-            customer: 'A & W'
-          }
+            customer: 'A & W',
+          },
         });
         expect(action).toEqual(expected);
         done();
@@ -131,12 +131,12 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
-          }
-        ])
+                  customer: 'A & W',
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(timerActions.load());
       effects.changes$.subscribe(action => {
@@ -147,8 +147,8 @@ describe('load$', () => {
             type: 'Advisory',
             minutes: 30,
             date: '2019-11-25',
-            customer: 'A & W'
-          }
+            customer: 'A & W',
+          },
         });
         expect(action).toEqual(expected);
         done();
@@ -171,10 +171,10 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
+                  customer: 'A & W',
+                }),
+              },
+            },
           },
           {
             type: 'removed',
@@ -186,10 +186,10 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
+                  customer: 'A & W',
+                }),
+              },
+            },
           },
           {
             type: 'added',
@@ -201,10 +201,10 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
+                  customer: 'A & W',
+                }),
+              },
+            },
           },
           {
             type: 'added',
@@ -216,10 +216,10 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
+                  customer: 'A & W',
+                }),
+              },
+            },
           },
           {
             type: 'modified',
@@ -231,12 +231,12 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                })
-              }
-            }
-          }
-        ])
+                  customer: 'A & W',
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(timerActions.load());
       let calls = 0;
@@ -251,8 +251,8 @@ describe('load$', () => {
                 type: 'Advisory',
                 minutes: 30,
                 date: '2019-11-25',
-                customer: 'A & W'
-              }
+                customer: 'A & W',
+              },
             });
             break;
 
@@ -264,8 +264,8 @@ describe('load$', () => {
                 type: 'Advisory',
                 minutes: 30,
                 date: '2019-11-25',
-                customer: 'A & W'
-              }
+                customer: 'A & W',
+              },
             });
             break;
 
@@ -278,7 +278,7 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
+                  customer: 'A & W',
                 },
                 {
                   id: 'fkkfig0939r',
@@ -286,7 +286,7 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
+                  customer: 'A & W',
                 },
                 {
                   id: 'fiig0939034',
@@ -294,9 +294,9 @@ describe('load$', () => {
                   type: 'Advisory',
                   minutes: 30,
                   date: '2019-11-25',
-                  customer: 'A & W'
-                }
-              ]
+                  customer: 'A & W',
+                },
+              ],
             });
             break;
 
@@ -328,7 +328,7 @@ describe('create$', () => {
       type: 'Advisory',
       minutes: 30,
       date: '2019-11-25',
-      customer: 'A & W'
+      customer: 'A & W',
     };
   });
 
@@ -343,7 +343,9 @@ describe('create$', () => {
   it('dispatches create success', done => {
     actions$ = of(timerActions.create({ timer }));
     effects.create$.subscribe(action => {
-      expect(action).toEqual({ type: timerActions.TimerActionTypes.createSuccess });
+      expect(action).toEqual({
+        type: timerActions.TimerActionTypes.createSuccess,
+      });
       done();
     });
   });
@@ -355,7 +357,7 @@ describe('create$', () => {
     effects.create$.subscribe(action => {
       expect(action).toEqual({
         type: timerActions.TimerActionTypes.createFailure,
-        error: new Error('The create failed')
+        error: new Error('The create failed'),
       });
       done();
     });
@@ -378,7 +380,7 @@ describe('update$', () => {
       type: 'Advisory',
       minutes: 30,
       date: '2019-11-25',
-      customer: 'A & W'
+      customer: 'A & W',
     };
   });
 
@@ -393,7 +395,9 @@ describe('update$', () => {
   it('dispatches update success', done => {
     actions$ = of(timerActions.update({ timer }));
     effects.update$.subscribe(action => {
-      expect(action).toEqual({ type: timerActions.TimerActionTypes.updateSuccess });
+      expect(action).toEqual({
+        type: timerActions.TimerActionTypes.updateSuccess,
+      });
       done();
     });
   });
@@ -405,7 +409,7 @@ describe('update$', () => {
     effects.update$.subscribe(action => {
       expect(action).toEqual({
         type: timerActions.TimerActionTypes.updateFailure,
-        error: new Error('The update failed')
+        error: new Error('The update failed'),
       });
       done();
     });
@@ -428,7 +432,7 @@ describe('remove$', () => {
       type: 'Advisory',
       minutes: 30,
       date: '2019-11-25',
-      customer: 'A & W'
+      customer: 'A & W',
     };
   });
 
@@ -443,7 +447,9 @@ describe('remove$', () => {
   it('dispatches remove success', done => {
     actions$ = of(timerActions.remove({ timer }));
     effects.remove$.subscribe(action => {
-      expect(action).toEqual({ type: timerActions.TimerActionTypes.removeSuccess });
+      expect(action).toEqual({
+        type: timerActions.TimerActionTypes.removeSuccess,
+      });
       done();
     });
   });
@@ -455,7 +461,7 @@ describe('remove$', () => {
     effects.remove$.subscribe(action => {
       expect(action).toEqual({
         type: timerActions.TimerActionTypes.removeFailure,
-        error: new Error('The remove failed')
+        error: new Error('The remove failed'),
       });
       done();
     });
@@ -478,7 +484,7 @@ describe('start$', () => {
       type: 'Advisory',
       minutes: 30,
       date: '2019-11-25',
-      customer: 'A & W'
+      customer: 'A & W',
     };
   });
 
@@ -493,7 +499,9 @@ describe('start$', () => {
   it('dispatches timer started success', done => {
     actions$ = of(timerActions.start({ timer }));
     effects.start$.subscribe(action => {
-      expect(action).toEqual({ type: timerActions.TimerActionTypes.startSuccess });
+      expect(action).toEqual({
+        type: timerActions.TimerActionTypes.startSuccess,
+      });
       done();
     });
   });
@@ -505,7 +513,7 @@ describe('start$', () => {
     effects.start$.subscribe(action => {
       expect(action).toEqual({
         type: timerActions.TimerActionTypes.startFailure,
-        error: new Error('The start failed')
+        error: new Error('The start failed'),
       });
       done();
     });
@@ -528,7 +536,7 @@ describe('stop$', () => {
       type: 'Advisory',
       minutes: 30,
       date: '2019-11-25',
-      customer: 'A & W'
+      customer: 'A & W',
     };
   });
 
@@ -543,7 +551,9 @@ describe('stop$', () => {
   it('dispatches timer stopped success', done => {
     actions$ = of(timerActions.stop({ timer }));
     effects.stop$.subscribe(action => {
-      expect(action).toEqual({ type: timerActions.TimerActionTypes.stopSuccess });
+      expect(action).toEqual({
+        type: timerActions.TimerActionTypes.stopSuccess,
+      });
       done();
     });
   });
@@ -555,7 +565,7 @@ describe('stop$', () => {
     effects.stop$.subscribe(action => {
       expect(action).toEqual({
         type: timerActions.TimerActionTypes.stopFailure,
-        error: new Error('The stop failed')
+        error: new Error('The stop failed'),
       });
       done();
     });

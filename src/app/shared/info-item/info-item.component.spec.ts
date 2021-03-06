@@ -11,13 +11,13 @@ describe('InfoItemComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [InfoItemComponent],
-        imports: [IonicModule.forRoot()]
+        imports: [IonicModule.forRoot()],
       }).compileComponents();
 
       fixture = TestBed.createComponent(InfoItemComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    })
+    }),
   );
 
   it('should create', () => {

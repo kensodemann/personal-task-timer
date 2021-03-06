@@ -15,8 +15,8 @@ import { TimerEditorComponentModule } from '@app/shared/timer-editor/timer-edito
     FormsModule,
     RouterModule.forChild([{ path: '', component: TodayPage }]),
     TimerEditorComponentModule,
-    TimerListItemComponentModule
+    TimerListItemComponentModule,
   ],
-  declarations: [TodayPage]
+  declarations: [TodayPage],
 })
 export class TodayPageModule {}

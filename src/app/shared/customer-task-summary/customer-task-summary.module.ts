@@ -9,6 +9,11 @@ import { InfoItemComponentModule } from '../info-item/info-item.module';
 @NgModule({
   declarations: [CustomerTaskSummaryComponent],
   exports: [CustomerTaskSummaryComponent],
-  imports: [CommonModule, IonicModule, HoursPipeModule, InfoItemComponentModule]
+  imports: [
+    CommonModule,
+    IonicModule,
+    HoursPipeModule,
+    InfoItemComponentModule,
+  ],
 })
 export class CustomerTaskSummaryModule {}

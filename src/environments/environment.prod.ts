@@ -8,6 +8,6 @@ export const environment = {
     storageBucket: 'personal-task-timer.appspot.com',
     messagingSenderId: '299812045089',
     appId: '1:299812045089:web:a3fdcd86abf86428a03e60',
-    measurementId: 'G-QKJBL21BSG'
-  }
+    measurementId: 'G-QKJBL21BSG',
+  },
 };

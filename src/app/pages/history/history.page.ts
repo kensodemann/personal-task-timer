@@ -9,7 +9,7 @@ import { Timer } from '@app/models';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'history.page.html',
-  styleUrls: ['history.page.scss']
+  styleUrls: ['history.page.scss'],
 })
 export class HistoryPage implements OnInit {
   timers$: Observable<Array<Timer>>;
@@ -17,7 +17,9 @@ export class HistoryPage implements OnInit {
   constructor(private store: Store<State>) {}
 
   ngOnInit() {
-    this.timers$ = this.store.pipe(select(selectPeriodTimersSorted, { days: 30 }));
+    this.timers$ = this.store.pipe(
+      select(selectPeriodTimersSorted, { days: 30 }),
+    );
   }
 
   logout() {

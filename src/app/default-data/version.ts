@@ -3,5 +3,5 @@
 export const version = {
   version: '2.2.0',
   name: 'unofficial jail',
-  date: '2020-06-06'
+  date: '2020-06-06',
 };

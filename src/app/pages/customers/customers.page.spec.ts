@@ -7,13 +7,16 @@ import { Store } from '@ngrx/store';
 import { CustomersPage } from './customers.page';
 import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
 import { logout } from '@app/store/actions/auth.actions';
-import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
+import {
+  createOverlayControllerMock,
+  createOverlayElementMock,
+} from '@test/mocks';
 import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
 
 describe('CustomersPage', () => {
   let component: CustomersPage;
   let fixture: ComponentFixture<CustomersPage>;
-  let modal: HTMLIonModalElement;
+  let modal: any;
 
   beforeEach(
     waitForAsync(() => {
@@ -23,16 +26,21 @@ describe('CustomersPage', () => {
         imports: [IonicModule, RouterTestingModule],
         providers: [
           provideMockStore<{ customers: CustomersState }>({
-            initialState: { customers: { ids: [], entities: null, loading: false } }
+            initialState: {
+              customers: { ids: [], entities: null, loading: false },
+            },
           }),
-          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-        ]
+          {
+            provide: ModalController,
+            useFactory: () => createOverlayControllerMock(modal),
+          },
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(CustomersPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    })
+    }),
   );
 
   it('should create', () => {
@@ -46,7 +54,7 @@ describe('CustomersPage', () => {
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
         component: CustomerEditorComponent,
-        backdropDismiss: false
+        backdropDismiss: false,
       });
       expect(modal.present).toHaveBeenCalledTimes(1);
     });

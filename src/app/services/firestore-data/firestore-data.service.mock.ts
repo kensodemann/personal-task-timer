@@ -8,6 +8,6 @@ export function createFirestoreDataServiceMock() {
     add: jest.fn(() => Promise.resolve()),
     delete: jest.fn(() => Promise.resolve()),
     update: jest.fn(() => Promise.resolve()),
-    getCollection: jest.fn(() => undefined)
+    getCollection: jest.fn(() => undefined),
   };
 }

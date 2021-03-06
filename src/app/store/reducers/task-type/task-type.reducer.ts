@@ -6,7 +6,7 @@ export interface TaskTypeState {
 }
 
 export const initialState: TaskTypeState = {
-  taskTypes: []
+  taskTypes: [],
 };
 
 const authReducer = createReducer(
@@ -23,9 +23,9 @@ const authReducer = createReducer(
       'Working Session',
       'App Checkup',
       'Appflow Onboarding',
-      'UI/UX Review'
-    ]
-  }))
+      'UI/UX Review',
+    ],
+  })),
 );
 
 export function reducer(state: TaskTypeState | undefined, action: Action) {

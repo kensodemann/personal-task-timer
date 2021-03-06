@@ -6,7 +6,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import { createAngularFireAuthMock, createNavControllerMock } from '@test/mocks';
+import {
+  createAngularFireAuthMock,
+  createNavControllerMock,
+} from '@test/mocks';
 import { loginChanged } from './store/actions/auth.actions';
 import { load as loadCustomers } from './store/actions/customer.actions';
 import { load as loadTimers } from './store/actions/timer.actions';
@@ -23,12 +26,15 @@ describe('AppComponent', () => {
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         providers: [
           { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
-          { provide: ApplicationService, useFactory: createApplicationServiceMock },
+          {
+            provide: ApplicationService,
+            useFactory: createApplicationServiceMock,
+          },
           { provide: NavController, useFactory: createNavControllerMock },
-          provideMockStore<State>()
-        ]
+          provideMockStore<State>(),
+        ],
       }).compileComponents();
-    })
+    }),
   );
 
   it('should create the app', () => {
@@ -68,16 +74,23 @@ describe('AppComponent', () => {
       it('does not navigate', () => {
         const angularFireAuth = TestBed.inject(AngularFireAuth);
         const navController = TestBed.inject(NavController);
-        (angularFireAuth.authState as any).next({ id: 42, email: 'test@testty.com' });
+        (angularFireAuth.authState as any).next({
+          id: 42,
+          email: 'test@testty.com',
+        });
         expect(navController.navigateRoot).not.toHaveBeenCalled();
       });
 
       it('dispatches the user change and load', () => {
         const angularFireAuth = TestBed.inject(AngularFireAuth);
-        (angularFireAuth.authState as any).next({ id: 42, email: 'test@testty.com', uid: '38849959af8ec93' });
+        (angularFireAuth.authState as any).next({
+          id: 42,
+          email: 'test@testty.com',
+          uid: '38849959af8ec93',
+        });
         expect(store.dispatch).toHaveBeenCalledTimes(3);
         expect(store.dispatch).toHaveBeenCalledWith(
-          loginChanged({ email: 'test@testty.com', userId: '38849959af8ec93' })
+          loginChanged({ email: 'test@testty.com', userId: '38849959af8ec93' }),
         );
         expect(store.dispatch).toHaveBeenCalledWith(loadCustomers());
         expect(store.dispatch).toHaveBeenCalledWith(loadTimers());
@@ -97,7 +110,9 @@ describe('AppComponent', () => {
         const angularFireAuth = TestBed.inject(AngularFireAuth);
         (angularFireAuth.authState as any).next(null);
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(loginChanged({ email: null, userId: null }));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          loginChanged({ email: null, userId: null }),
+        );
       });
     });
   });

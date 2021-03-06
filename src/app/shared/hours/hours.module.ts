@@ -6,6 +6,6 @@ import { HoursPipe } from './hours.pipe';
 @NgModule({
   declarations: [HoursPipe],
   exports: [HoursPipe],
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class HoursPipeModule {}

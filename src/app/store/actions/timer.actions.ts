@@ -28,34 +28,79 @@ export enum TimerActionTypes {
   startFailure = '[Timers API] timer start failure',
   stop = '[Today Page] timer stopped',
   stopSuccess = '[Timers API] timer stop success',
-  stopFailure = '[Timers API] timer stop failure'
+  stopFailure = '[Timers API] timer stop failure',
 }
 
-export const create = createAction(TimerActionTypes.create, props<{ timer: Timer }>());
+export const create = createAction(
+  TimerActionTypes.create,
+  props<{ timer: Timer }>(),
+);
 export const createSuccess = createAction(TimerActionTypes.createSuccess);
-export const createFailure = createAction(TimerActionTypes.createFailure, props<{ error: Error }>());
+export const createFailure = createAction(
+  TimerActionTypes.createFailure,
+  props<{ error: Error }>(),
+);
 
-export const update = createAction(TimerActionTypes.update, props<{ timer: Timer }>());
+export const update = createAction(
+  TimerActionTypes.update,
+  props<{ timer: Timer }>(),
+);
 export const updateSuccess = createAction(TimerActionTypes.updateSuccess);
-export const updateFailure = createAction(TimerActionTypes.updateFailure, props<{ error: Error }>());
+export const updateFailure = createAction(
+  TimerActionTypes.updateFailure,
+  props<{ error: Error }>(),
+);
 
-export const remove = createAction(TimerActionTypes.remove, props<{ timer: Timer }>());
+export const remove = createAction(
+  TimerActionTypes.remove,
+  props<{ timer: Timer }>(),
+);
 export const removeSuccess = createAction(TimerActionTypes.removeSuccess);
-export const removeFailure = createAction(TimerActionTypes.removeFailure, props<{ error: Error }>());
+export const removeFailure = createAction(
+  TimerActionTypes.removeFailure,
+  props<{ error: Error }>(),
+);
 
 export const load = createAction(TimerActionTypes.load);
 export const loadSuccess = createAction(TimerActionTypes.loadSuccess);
-export const loadFailure = createAction(TimerActionTypes.loadFailure, props<{ error: Error }>());
+export const loadFailure = createAction(
+  TimerActionTypes.loadFailure,
+  props<{ error: Error }>(),
+);
 
-export const timerAdded = createAction(TimerActionTypes.timerAdded, props<{ timer: Timer }>());
-export const timersAdded = createAction(TimerActionTypes.timersAdded, props<{ timers: Array<Timer> }>());
-export const timerModified = createAction(TimerActionTypes.timerModified, props<{ timer: Timer }>());
-export const timerRemoved = createAction(TimerActionTypes.timerRemoved, props<{ timer: Timer }>());
+export const timerAdded = createAction(
+  TimerActionTypes.timerAdded,
+  props<{ timer: Timer }>(),
+);
+export const timersAdded = createAction(
+  TimerActionTypes.timersAdded,
+  props<{ timers: Array<Timer> }>(),
+);
+export const timerModified = createAction(
+  TimerActionTypes.timerModified,
+  props<{ timer: Timer }>(),
+);
+export const timerRemoved = createAction(
+  TimerActionTypes.timerRemoved,
+  props<{ timer: Timer }>(),
+);
 
-export const start = createAction(TimerActionTypes.start, props<{ timer: Timer }>());
+export const start = createAction(
+  TimerActionTypes.start,
+  props<{ timer: Timer }>(),
+);
 export const startSuccess = createAction(TimerActionTypes.startSuccess);
-export const startFailure = createAction(TimerActionTypes.startFailure, props<{ error: Error }>());
+export const startFailure = createAction(
+  TimerActionTypes.startFailure,
+  props<{ error: Error }>(),
+);
 
-export const stop = createAction(TimerActionTypes.stop, props<{ timer: Timer }>());
+export const stop = createAction(
+  TimerActionTypes.stop,
+  props<{ timer: Timer }>(),
+);
 export const stopSuccess = createAction(TimerActionTypes.stopSuccess);
-export const stopFailure = createAction(TimerActionTypes.stopFailure, props<{ error: Error }>());
+export const stopFailure = createAction(
+  TimerActionTypes.stopFailure,
+  props<{ error: Error }>(),
+);

@@ -10,6 +10,6 @@ import { TimerEditorComponent } from './timer-editor.component';
   imports: [CommonModule, FormsModule, IonicModule],
   declarations: [TimerEditorComponent],
   entryComponents: [TimerEditorComponent],
-  exports: [TimerEditorComponent]
+  exports: [TimerEditorComponent],
 })
 export class TimerEditorComponentModule {}

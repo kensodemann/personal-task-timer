@@ -19,15 +19,17 @@ describe('HistoryPage', () => {
         imports: [IonicModule, TimerListItemComponentModule],
         providers: [
           provideMockStore<{ timers: TimersState }>({
-            initialState: { timers: { ids: [], entities: null, loading: false } }
-          })
-        ]
+            initialState: {
+              timers: { ids: [], entities: null, loading: false },
+            },
+          }),
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(HistoryPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    })
+    }),
   );
 
   it('should create', () => {

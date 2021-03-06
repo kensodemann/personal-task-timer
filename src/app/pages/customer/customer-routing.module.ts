@@ -6,12 +6,12 @@ import { CustomerPage } from './customer.page';
 const routes: Routes = [
   {
     path: ':id',
-    component: CustomerPage
-  }
+    component: CustomerPage,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class CustomerPageRoutingModule {}

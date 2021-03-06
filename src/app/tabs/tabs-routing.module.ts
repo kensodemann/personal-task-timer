@@ -12,53 +12,65 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../pages/today/today.module').then(m => m.TodayPageModule)
-          }
-        ]
+            loadChildren: () =>
+              import('../pages/today/today.module').then(
+                m => m.TodayPageModule,
+              ),
+          },
+        ],
       },
       {
         path: 'history',
         children: [
           {
             path: '',
-            loadChildren: () => import('../pages/history/history.module').then(m => m.HistoryPageModule)
-          }
-        ]
+            loadChildren: () =>
+              import('../pages/history/history.module').then(
+                m => m.HistoryPageModule,
+              ),
+          },
+        ],
       },
       {
         path: 'customers',
         children: [
           {
             path: '',
-            loadChildren: () => import('../pages/customers/customers.module').then(m => m.CustomersPageModule)
-          }
-        ]
+            loadChildren: () =>
+              import('../pages/customers/customers.module').then(
+                m => m.CustomersPageModule,
+              ),
+          },
+        ],
       },
       {
         path: 'about',
         children: [
           {
             path: '',
-            loadChildren: () => import('../pages/about/about.module').then(m => m.AboutPageModule)
-          }
-        ]
+            loadChildren: () =>
+              import('../pages/about/about.module').then(
+                m => m.AboutPageModule,
+              ),
+          },
+        ],
       },
       {
         path: '',
         redirectTo: '/tabs/today',
-        pathMatch: 'full'
-      }
-    ]
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '',
     redirectTo: '/tabs/today',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class TabsPageRoutingModule {}

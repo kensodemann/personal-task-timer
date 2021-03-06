@@ -11,19 +11,25 @@ import { selectTodayTimers, State } from '@app/store';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'today.page.html',
-  styleUrls: ['today.page.scss']
+  styleUrls: ['today.page.scss'],
 })
 export class TodayPage implements OnInit {
   timers$: Observable<Array<Timer>>;
 
-  constructor(private modalController: ModalController, private store: Store<State>) {}
+  constructor(
+    private modalController: ModalController,
+    private store: Store<State>,
+  ) {}
 
   ngOnInit() {
     this.timers$ = this.store.pipe(select(selectTodayTimers));
   }
 
   async add() {
-    const modal = await this.modalController.create({ component: TimerEditorComponent, backdropDismiss: false });
+    const modal = await this.modalController.create({
+      component: TimerEditorComponent,
+      backdropDismiss: false,
+    });
     modal.present();
   }
 

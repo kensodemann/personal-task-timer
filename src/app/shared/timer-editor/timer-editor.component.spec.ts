@@ -1,20 +1,22 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
-import { provideMockStore } from '@ngrx/store/testing';
-import { Dictionary } from '@ngrx/entity';
-
-import { TimerEditorComponent } from './timer-editor.component';
-import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
-import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
-import { Store } from '@ngrx/store';
+import { Customer } from '@app/models';
 import { create, update } from '@app/store/actions/timer.actions';
 import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
-import { Customer } from '@app/models';
+import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
+import { IonicModule, ModalController } from '@ionic/angular';
+import { Dictionary } from '@ngrx/entity';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  createOverlayControllerMock,
+  createOverlayElementMock,
+} from '@test/mocks';
+import { TimerEditorComponent } from './timer-editor.component';
 
 describe('TimerEditorComponent', () => {
   let component: TimerEditorComponent;
-  let modal: HTMLIonModalElement;
+  let modal: any;
   let fixture: ComponentFixture<TimerEditorComponent>;
 
   let testCustomers: Dictionary<Customer>;
@@ -33,17 +35,30 @@ describe('TimerEditorComponent', () => {
             taskTypes: TaskTypeState;
           }>({
             initialState: {
-              customers: { ids: testCustomerIds, entities: testCustomers, loading: false },
-              taskTypes: { taskTypes: ['Architecture Review', 'Code Review', 'Working Session'] }
-            }
+              customers: {
+                ids: testCustomerIds,
+                entities: testCustomers,
+                loading: false,
+              },
+              taskTypes: {
+                taskTypes: [
+                  'Architecture Review',
+                  'Code Review',
+                  'Working Session',
+                ],
+              },
+            },
           }),
-          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-        ]
+          {
+            provide: ModalController,
+            useFactory: () => createOverlayControllerMock(modal),
+          },
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(TimerEditorComponent);
       component = fixture.componentInstance;
-    })
+    }),
   );
 
   it('should create', () => {
@@ -60,7 +75,11 @@ describe('TimerEditorComponent', () => {
       it('subscribes to the task types', () => {
         let taskTypes: Array<string>;
         component.taskTypes$.subscribe(t => (taskTypes = t));
-        expect(taskTypes).toEqual(['Architecture Review', 'Code Review', 'Working Session']);
+        expect(taskTypes).toEqual([
+          'Architecture Review',
+          'Code Review',
+          'Working Session',
+        ]);
       });
 
       it('subscribes to the customers', () => {
@@ -69,20 +88,28 @@ describe('TimerEditorComponent', () => {
         expect(customers).toEqual([
           {
             id: 'asdf1234',
-            name: 'Ace Hardware'
+            name: 'Ace Hardware',
+            hasAdvisory: true,
+            supportHours: 10,
           },
           {
             id: 'ff898gd',
-            name: 'Fred Salvage'
+            name: 'Fred Salvage',
+            hasAdvisory: true,
+            supportHours: 4,
           },
           {
             id: '1849gasdf',
-            name: 'Mc Donalds'
+            name: 'Mc Donalds',
+            hasAdvisory: true,
+            supportHours: 24,
           },
           {
             id: 'ff88t99er',
-            name: 'Wal-Mart'
-          }
+            name: 'Wal-Mart',
+            hasAdvisory: false,
+            supportHours: 14,
+          },
         ]);
       });
 
@@ -109,7 +136,7 @@ describe('TimerEditorComponent', () => {
           task: '239945',
           type: 'Consulting',
           date: '2019-12-23',
-          minutes: 32
+          minutes: 32,
         };
         fixture.detectChanges();
       });
@@ -117,7 +144,11 @@ describe('TimerEditorComponent', () => {
       it('subscribes to the task types', () => {
         let taskTypes: Array<string>;
         component.taskTypes$.subscribe(t => (taskTypes = t));
-        expect(taskTypes).toEqual(['Architecture Review', 'Code Review', 'Working Session']);
+        expect(taskTypes).toEqual([
+          'Architecture Review',
+          'Code Review',
+          'Working Session',
+        ]);
       });
 
       it('subscribes to the customers', () => {
@@ -126,20 +157,28 @@ describe('TimerEditorComponent', () => {
         expect(customers).toEqual([
           {
             id: 'asdf1234',
-            name: 'Ace Hardware'
+            name: 'Ace Hardware',
+            hasAdvisory: true,
+            supportHours: 10,
           },
           {
             id: 'ff898gd',
-            name: 'Fred Salvage'
+            name: 'Fred Salvage',
+            hasAdvisory: true,
+            supportHours: 4,
           },
           {
             id: '1849gasdf',
-            name: 'Mc Donalds'
+            name: 'Mc Donalds',
+            hasAdvisory: true,
+            supportHours: 24,
           },
           {
             id: 'ff88t99er',
-            name: 'Wal-Mart'
-          }
+            name: 'Wal-Mart',
+            hasAdvisory: false,
+            supportHours: 14,
+          },
         ]);
       });
 
@@ -183,7 +222,7 @@ describe('TimerEditorComponent', () => {
           type: 'Consulting',
           date: '2019-12-23',
           minutes: 32,
-          startTime: 12341234
+          startTime: 12341234,
         };
         fixture.detectChanges();
       });
@@ -248,9 +287,9 @@ describe('TimerEditorComponent', () => {
               type: 'Consulting',
               date: '2019-12-23',
               minutes: 32,
-              startTime: null
-            }
-          })
+              startTime: null,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
         (Date.now as any).mockRestore();
@@ -275,9 +314,9 @@ describe('TimerEditorComponent', () => {
               date: '2019-12-23',
               minutes: 32,
               startTime: null,
-              task: null
-            }
-          })
+              task: null,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
         (Date.now as any).mockRestore();
@@ -295,7 +334,7 @@ describe('TimerEditorComponent', () => {
           type: 'Code Review',
           date: '2019-12-29',
           startTime: 189843123489,
-          minutes: 14
+          minutes: 14,
         };
         fixture.detectChanges();
       });
@@ -338,9 +377,9 @@ describe('TimerEditorComponent', () => {
               type: 'Consulting',
               date: '2019-12-29',
               startTime: 189843123489,
-              minutes: 32
-            }
-          })
+              minutes: 32,
+            },
+          }),
         );
         (store.dispatch as any).mockRestore();
         (Date.now as any).mockRestore();
@@ -351,22 +390,30 @@ describe('TimerEditorComponent', () => {
   function initializeTestData() {
     testCustomerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
     testCustomers = {
-      asdf1234: {
+      'asdf1234': {
         id: 'asdf1234',
-        name: 'Ace Hardware'
+        name: 'Ace Hardware',
+        hasAdvisory: true,
+        supportHours: 10,
       },
-      ff898gd: {
+      'ff898gd': {
         id: 'ff898gd',
-        name: 'Fred Salvage'
+        name: 'Fred Salvage',
+        hasAdvisory: true,
+        supportHours: 4,
       },
-      ff88t99er: {
+      'ff88t99er': {
         id: 'ff88t99er',
-        name: 'Wal-Mart'
+        name: 'Wal-Mart',
+        hasAdvisory: false,
+        supportHours: 14,
       },
       '1849gasdf': {
         id: '1849gasdf',
-        name: 'Mc Donalds'
-      }
+        name: 'Mc Donalds',
+        hasAdvisory: true,
+        supportHours: 24,
+      },
     };
   }
 });

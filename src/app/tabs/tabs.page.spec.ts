@@ -11,9 +11,9 @@ describe('TabsPage', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [TabsPage],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
-    })
+    }),
   );
 
   beforeEach(() => {

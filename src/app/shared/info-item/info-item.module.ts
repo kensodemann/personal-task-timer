@@ -9,6 +9,6 @@ import { InfoItemComponent } from './info-item.component';
   imports: [CommonModule, IonicModule],
   declarations: [InfoItemComponent],
   entryComponents: [InfoItemComponent],
-  exports: [InfoItemComponent]
+  exports: [InfoItemComponent],
 })
 export class InfoItemComponentModule {}

@@ -1,10 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, AlertController, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { TimerListItemComponent } from './timer-list-item.component';
-import { createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
+import {
+  createOverlayControllerMock,
+  createOverlayElementMock,
+} from '@test/mocks';
 import { Timer } from '@app/models';
 import { remove, stop, start } from '@app/store/actions/timer.actions';
 import { TimersState } from '@app/store/reducers/timer/timer.reducer';
@@ -12,8 +15,8 @@ import { selectAllActiveTimers } from '@app/store';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 
 describe('TimerListItemComponent', () => {
-  let alert: HTMLIonAlertElement;
-  let modal: HTMLIonModalElement;
+  let alert: any;
+  let modal: any;
   let component: TimerListItemComponent;
   let fixture: ComponentFixture<TimerListItemComponent>;
   let store: Store;
@@ -29,18 +32,26 @@ describe('TimerListItemComponent', () => {
         customer: 'bar',
         type: 'Code Review',
         minutes: 120,
-        date: '2019-12-26'
+        date: '2019-12-26',
       };
       TestBed.configureTestingModule({
         declarations: [TimerListItemComponent],
         imports: [IonicModule],
         providers: [
           provideMockStore<{ timers: TimersState }>({
-            initialState: { timers: { ids: [], entities: null, loading: false } }
+            initialState: {
+              timers: { ids: [], entities: null, loading: false },
+            },
           }),
-          { provide: AlertController, useFactory: () => createOverlayControllerMock(alert) },
-          { provide: ModalController, useFactory: () => createOverlayControllerMock(modal) }
-        ]
+          {
+            provide: AlertController,
+            useFactory: () => createOverlayControllerMock(alert),
+          },
+          {
+            provide: ModalController,
+            useFactory: () => createOverlayControllerMock(modal),
+          },
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(TimerListItemComponent);
@@ -48,7 +59,7 @@ describe('TimerListItemComponent', () => {
       component.timer = testTimer;
       store = TestBed.inject(Store);
       store.dispatch = jest.fn();
-    })
+    }),
   );
 
   it('should create', () => {
@@ -79,30 +90,33 @@ describe('TimerListItemComponent', () => {
         expect(alertController.create).toHaveBeenCalledWith({
           header: 'Remove Timer?',
           subHeader: testTimer.title,
-          message: 'This action cannot be undone. Are you sure you want to continue?',
+          message:
+            'This action cannot be undone. Are you sure you want to continue?',
           buttons: [
             { text: 'Yes', role: 'confirm' },
-            { text: 'No', role: 'cancel' }
-          ]
+            { text: 'No', role: 'cancel' },
+          ],
         });
         expect(alert.present).toHaveBeenCalledTimes(1);
       });
 
       it('dispatches the delete action on confirm', async () => {
-        alert.onDidDismiss.mockResolvedValue({ role: 'confirm' });
+        (alert.onDidDismiss as any).mockResolvedValue({ role: 'confirm' });
         await component.delete();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(remove({ timer: testTimer }));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          remove({ timer: testTimer }),
+        );
       });
 
       it('does not dispatch on cancel', async () => {
-        alert.onDidDismiss.mockResolvedValue({ role: 'cancel' });
+        (alert.onDidDismiss as any).mockResolvedValue({ role: 'cancel' });
         await component.delete();
         expect(store.dispatch).not.toHaveBeenCalled();
       });
 
       it('does not dispatch on backdrop dismiss', async () => {
-        alert.onDidDismiss.mockResolvedValue({ role: 'backdrop' });
+        (alert.onDidDismiss as any).mockResolvedValue({ role: 'backdrop' });
         await component.delete();
         expect(store.dispatch).not.toHaveBeenCalled();
       });
@@ -115,7 +129,7 @@ describe('TimerListItemComponent', () => {
         expect(modalController.create).toHaveBeenCalledTimes(1);
         expect(modalController.create).toHaveBeenCalledWith({
           component: TimerEditorComponent,
-          componentProps: { timer: testTimer }
+          componentProps: { timer: testTimer },
         });
         expect(modal.present).toHaveBeenCalledTimes(1);
       });
@@ -130,13 +144,15 @@ describe('TimerListItemComponent', () => {
         it('stops the timer', () => {
           component.toggle();
           expect(store.dispatch).toHaveBeenCalledTimes(1);
-          expect(store.dispatch).toHaveBeenCalledWith(stop({ timer: testTimer }));
+          expect(store.dispatch).toHaveBeenCalledWith(
+            stop({ timer: testTimer }),
+          );
         });
       });
 
       describe('when the timer is currently stopped', () => {
         it('stops other currently running timers', () => {
-          store.overrideSelector(selectAllActiveTimers, [
+          (store as MockStore).overrideSelector(selectAllActiveTimers, [
             {
               id: 'ff898gd',
               title: 'Uhg, this is so ugly',
@@ -145,7 +161,7 @@ describe('TimerListItemComponent', () => {
               task: '#22950',
               minutes: 27,
               date: '2019-12-25',
-              startTime: 4299402593
+              startTime: 4299402593,
             },
             {
               id: 'ff88t99er',
@@ -156,8 +172,8 @@ describe('TimerListItemComponent', () => {
               bugFound: true,
               startTime: 188359,
               minutes: 42,
-              date: '2019-12-25'
-            }
+              date: '2019-12-25',
+            },
           ]);
           component.toggle();
           expect(store.dispatch).toHaveBeenCalledTimes(3);
@@ -171,9 +187,9 @@ describe('TimerListItemComponent', () => {
                 task: '#22950',
                 minutes: 27,
                 date: '2019-12-25',
-                startTime: 4299402593
-              }
-            })
+                startTime: 4299402593,
+              },
+            }),
           );
           expect(store.dispatch).toHaveBeenCalledWith(
             stop({
@@ -186,17 +202,21 @@ describe('TimerListItemComponent', () => {
                 bugFound: true,
                 startTime: 188359,
                 minutes: 42,
-                date: '2019-12-25'
-              }
-            })
+                date: '2019-12-25',
+              },
+            }),
           );
-          expect(store.dispatch).toHaveBeenCalledWith(start({ timer: testTimer }));
+          expect(store.dispatch).toHaveBeenCalledWith(
+            start({ timer: testTimer }),
+          );
         });
 
         it('starts the timer', () => {
           component.toggle();
           expect(store.dispatch).toHaveBeenCalledTimes(1);
-          expect(store.dispatch).toHaveBeenCalledWith(start({ timer: testTimer }));
+          expect(store.dispatch).toHaveBeenCalledWith(
+            start({ timer: testTimer }),
+          );
         });
       });
 

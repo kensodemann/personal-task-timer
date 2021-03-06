@@ -9,7 +9,7 @@ import { create, update } from '@app/store/actions/customer.actions';
 @Component({
   selector: 'app-customer-editor',
   templateUrl: './customer-editor.component.html',
-  styleUrls: ['./customer-editor.component.scss']
+  styleUrls: ['./customer-editor.component.scss'],
 })
 export class CustomerEditorComponent implements OnInit {
   @Input() customer: Customer;
@@ -21,7 +21,10 @@ export class CustomerEditorComponent implements OnInit {
   primaryAdvisor: string;
   supportHours: number;
 
-  constructor(private modalController: ModalController, private store: Store<State>) {}
+  constructor(
+    private modalController: ModalController,
+    private store: Store<State>,
+  ) {}
 
   ngOnInit() {
     if (this.customer) {
@@ -50,7 +53,7 @@ export class CustomerEditorComponent implements OnInit {
       name: this.name,
       hasAdvisory: this.hasAdvisory || false,
       primaryAdvisor: this.hasAdvisory ? this.primaryAdvisor : null,
-      supportHours: this.supportHours
+      supportHours: this.supportHours,
     };
     if (this.customer && this.customer.id) {
       customer.id = this.customer.id;

@@ -17,8 +17,8 @@ import { InfoItemComponentModule } from '@app/shared/info-item/info-item.module'
     IonicModule,
     CustomerPageRoutingModule,
     CustomerTaskSummaryModule,
-    InfoItemComponentModule
+    InfoItemComponentModule,
   ],
-  declarations: [CustomerPage]
+  declarations: [CustomerPage],
 })
 export class CustomerPageModule {}

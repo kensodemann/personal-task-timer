@@ -11,7 +11,10 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let customer of customers$ | async" [routerLink]="['customer', customer.id]">
+    <ion-item
+      *ngFor="let customer of customers$ | async"
+      [routerLink]="['customer', customer.id]"
+    >
       <ion-label>{{customer.name}}</ion-label>
     </ion-item>
   </ion-list>

@@ -12,12 +12,19 @@
         {{ timer.task }}
       </div>
     </ion-label>
-    <ion-button color="secondary" slot="end" [fill]="timer.startTime ? 'solid' : 'outline'" (click)="toggle()">
+    <ion-button
+      color="secondary"
+      slot="end"
+      [fill]="timer.startTime ? 'solid' : 'outline'"
+      (click)="toggle()"
+    >
       {{ timer.minutes + runningMinutes }}</ion-button
     >
   </ion-item>
 
   <ion-item-options>
-    <ion-item-option color="danger" (click)="delete()"> Delete </ion-item-option>
+    <ion-item-option color="danger" (click)="delete()">
+      Delete
+    </ion-item-option>
   </ion-item-options>
 </ion-item-sliding>

@@ -8,7 +8,7 @@ import {
   createAngularFireAuthMock,
   createAngularFirestoreCollectionMock,
   createAngularFirestoreDocumentMock,
-  createAngularFirestoreMock
+  createAngularFirestoreMock,
 } from '@test/mocks';
 
 describe('CustomersService', () => {
@@ -20,8 +20,8 @@ describe('CustomersService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: AngularFireAuth, useFactory: createAngularFireAuthMock },
-        { provide: AngularFirestore, useFactory: createAngularFirestoreMock }
-      ]
+        { provide: AngularFirestore, useFactory: createAngularFirestoreMock },
+      ],
     });
     const angularFirestore = TestBed.inject(AngularFirestore);
     document = createAngularFirestoreDocumentMock();

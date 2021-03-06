@@ -19,7 +19,7 @@ it('loads the data', () => {
       'Working Session',
       'App Checkup',
       'Appflow Onboarding',
-      'UI/UX Review'
-    ]
+      'UI/UX Review',
+    ],
   });
 });

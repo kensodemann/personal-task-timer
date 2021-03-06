@@ -2,8 +2,14 @@ import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '@env/environment';
 
 import { AuthState, reducer as authReducer } from './auth/auth.reducer';
-import { CustomersState, reducer as customerReducer } from './customer/customer.reducer';
-import { TaskTypeState, reducer as taskTypeReducer } from './task-type/task-type.reducer';
+import {
+  CustomersState,
+  reducer as customerReducer,
+} from './customer/customer.reducer';
+import {
+  TaskTypeState,
+  reducer as taskTypeReducer,
+} from './task-type/task-type.reducer';
 import { TimersState, reducer as timerReducer } from './timer/timer.reducer';
 
 export interface State {
@@ -17,7 +23,9 @@ export const reducers: ActionReducerMap<State> = {
   auth: authReducer,
   customers: customerReducer,
   taskTypes: taskTypeReducer,
-  timers: timerReducer
+  timers: timerReducer,
 };
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<State>[] = !environment.production
+  ? []
+  : [];

@@ -1,13 +1,12 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Action } from '@ngrx/store';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable, of } from 'rxjs';
-
-import { CustomerEffects } from './customer.effects';
-import { createCustomersServiceMock } from '@app/services/firestore-data/mocks';
-import { CustomersService } from '@app/services/firestore-data';
-import * as customerActions from '@app/store/actions/customer.actions';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Customer } from '@app/models';
+import { CustomersService } from '@app/services/firestore-data';
+import { createCustomersServiceMock } from '@app/services/firestore-data/mocks';
+import * as customerActions from '@app/store/actions/customer.actions';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Action } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { CustomerEffects } from './customer.effects';
 
 let actions$: Observable<any>;
 let effects: CustomerEffects;
@@ -17,8 +16,8 @@ beforeEach(() => {
     providers: [
       CustomerEffects,
       { provide: CustomersService, useFactory: createCustomersServiceMock },
-      provideMockActions(() => actions$)
-    ]
+      provideMockActions(() => actions$),
+    ],
   });
 
   effects = TestBed.inject<CustomerEffects>(CustomerEffects);
@@ -47,20 +46,24 @@ describe('load$', () => {
               doc: {
                 id: '123499dfi',
                 data: () => ({
-                  name: 'I am a newly added customer'
-                })
-              }
-            }
-          }
-        ])
+                  name: 'I am a newly added customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(customerActions.load());
       effects.changes$.subscribe(action => {
         const expected = customerActions.customerAdded({
           customer: {
             id: '123499dfi',
-            name: 'I am a newly added customer'
-          }
+            name: 'I am a newly added customer',
+            hasAdvisory: true,
+            supportHours: 12,
+          },
         });
         expect(action).toEqual(expected);
         done();
@@ -79,20 +82,24 @@ describe('load$', () => {
               doc: {
                 id: '123499dfi',
                 data: () => ({
-                  name: 'I am a modified customer'
-                })
-              }
-            }
-          }
-        ])
+                  name: 'I am a modified customer',
+                  hasAdvisory: false,
+                  supportHours: 4,
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(customerActions.load());
       effects.changes$.subscribe(action => {
         const expected = customerActions.customerModified({
           customer: {
             id: '123499dfi',
-            name: 'I am a modified customer'
-          }
+            name: 'I am a modified customer',
+            hasAdvisory: false,
+            supportHours: 4,
+          },
         });
         expect(action).toEqual(expected);
         done();
@@ -111,20 +118,24 @@ describe('load$', () => {
               doc: {
                 id: '123499dfi',
                 data: () => ({
-                  name: 'I am a customer'
-                })
-              }
-            }
-          }
-        ])
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(customerActions.load());
       effects.changes$.subscribe(action => {
         const expected = customerActions.customerRemoved({
           customer: {
             id: '123499dfi',
-            name: 'I am a customer'
-          }
+            name: 'I am a customer',
+            hasAdvisory: true,
+            supportHours: 12,
+          },
         });
         expect(action).toEqual(expected);
         done();
@@ -143,10 +154,12 @@ describe('load$', () => {
               doc: {
                 id: 'f99g0e9fg',
                 data: () => ({
-                  name: 'I am a customer'
-                })
-              }
-            }
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                }),
+              },
+            },
           },
           {
             type: 'removed',
@@ -154,10 +167,12 @@ describe('load$', () => {
               doc: {
                 id: '123499dfi',
                 data: () => ({
-                  name: 'I am a customer'
-                })
-              }
-            }
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                }),
+              },
+            },
           },
           {
             type: 'added',
@@ -165,10 +180,12 @@ describe('load$', () => {
               doc: {
                 id: 'fkkfig0939r',
                 data: () => ({
-                  name: 'I am a customer'
-                })
-              }
-            }
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                }),
+              },
+            },
           },
           {
             type: 'added',
@@ -176,10 +193,12 @@ describe('load$', () => {
               doc: {
                 id: 'fiig0939034',
                 data: () => ({
-                  name: 'I am a customer'
-                })
-              }
-            }
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                }),
+              },
+            },
           },
           {
             type: 'modified',
@@ -187,12 +206,14 @@ describe('load$', () => {
               doc: {
                 id: 'fi38849958392j',
                 data: () => ({
-                  name: 'I am a customer'
-                })
-              }
-            }
-          }
-        ])
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                }),
+              },
+            },
+          },
+        ]),
       );
       actions$ = of(customerActions.load());
       let calls = 0;
@@ -203,8 +224,10 @@ describe('load$', () => {
             expected = customerActions.customerRemoved({
               customer: {
                 id: '123499dfi',
-                name: 'I am a customer'
-              }
+                name: 'I am a customer',
+                hasAdvisory: true,
+                supportHours: 12,
+              },
             });
             break;
 
@@ -212,8 +235,10 @@ describe('load$', () => {
             expected = customerActions.customerModified({
               customer: {
                 id: 'fi38849958392j',
-                name: 'I am a customer'
-              }
+                name: 'I am a customer',
+                hasAdvisory: true,
+                supportHours: 12,
+              },
             });
             break;
 
@@ -222,17 +247,23 @@ describe('load$', () => {
               customers: [
                 {
                   id: 'f99g0e9fg',
-                  name: 'I am a customer'
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
                 },
                 {
                   id: 'fkkfig0939r',
-                  name: 'I am a customer'
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
                 },
                 {
                   id: 'fiig0939034',
-                  name: 'I am a customer'
-                }
-              ]
+                  name: 'I am a customer',
+                  hasAdvisory: true,
+                  supportHours: 12,
+                },
+              ],
             });
             break;
 
@@ -260,7 +291,9 @@ describe('create$', () => {
   beforeEach(() => {
     customer = {
       id: 'fkkfig0939r',
-      name: 'I am a customer'
+      name: 'I am a customer',
+      hasAdvisory: true,
+      supportHours: 12,
     };
   });
 
@@ -275,7 +308,9 @@ describe('create$', () => {
   it('dispatches create success', done => {
     actions$ = of(customerActions.create({ customer }));
     effects.create$.subscribe(action => {
-      expect(action).toEqual({ type: customerActions.CustomerActionTypes.createSuccess });
+      expect(action).toEqual({
+        type: customerActions.CustomerActionTypes.createSuccess,
+      });
       done();
     });
   });
@@ -287,7 +322,7 @@ describe('create$', () => {
     effects.create$.subscribe(action => {
       expect(action).toEqual({
         type: customerActions.CustomerActionTypes.createFailure,
-        error: new Error('The create failed')
+        error: new Error('The create failed'),
       });
       done();
     });
@@ -306,7 +341,9 @@ describe('update$', () => {
   beforeEach(() => {
     customer = {
       id: 'fkkfig0939r',
-      name: 'I am a customer'
+      name: 'I am a customer',
+      hasAdvisory: true,
+      supportHours: 12,
     };
   });
 
@@ -321,7 +358,9 @@ describe('update$', () => {
   it('dispatches update success', done => {
     actions$ = of(customerActions.update({ customer }));
     effects.update$.subscribe(action => {
-      expect(action).toEqual({ type: customerActions.CustomerActionTypes.updateSuccess });
+      expect(action).toEqual({
+        type: customerActions.CustomerActionTypes.updateSuccess,
+      });
       done();
     });
   });
@@ -333,7 +372,7 @@ describe('update$', () => {
     effects.update$.subscribe(action => {
       expect(action).toEqual({
         type: customerActions.CustomerActionTypes.updateFailure,
-        error: new Error('The update failed')
+        error: new Error('The update failed'),
       });
       done();
     });
@@ -352,7 +391,9 @@ describe('remove$', () => {
   beforeEach(() => {
     customer = {
       id: 'fkkfig0939r',
-      name: 'I am a customer'
+      name: 'I am a customer',
+      hasAdvisory: true,
+      supportHours: 12,
     };
   });
 
@@ -367,7 +408,9 @@ describe('remove$', () => {
   it('dispatches remove success', done => {
     actions$ = of(customerActions.remove({ customer }));
     effects.remove$.subscribe(action => {
-      expect(action).toEqual({ type: customerActions.CustomerActionTypes.removeSuccess });
+      expect(action).toEqual({
+        type: customerActions.CustomerActionTypes.removeSuccess,
+      });
       done();
     });
   });
@@ -379,7 +422,7 @@ describe('remove$', () => {
     effects.remove$.subscribe(action => {
       expect(action).toEqual({
         type: customerActions.CustomerActionTypes.removeFailure,
-        error: new Error('The remove failed')
+        error: new Error('The remove failed'),
       });
       done();
     });

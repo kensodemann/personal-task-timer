@@ -1,19 +1,34 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AlertController, IonicModule, LoadingController, NavController } from '@ionic/angular';
+import {
+  AlertController,
+  IonicModule,
+  LoadingController,
+  NavController,
+} from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import { createNavControllerMock, createOverlayControllerMock, createOverlayElementMock } from '@test/mocks';
+import {
+  createNavControllerMock,
+  createOverlayControllerMock,
+  createOverlayElementMock,
+} from '@test/mocks';
 import { LoginPage } from './login.page';
 import { login, resetPassword } from '@app/store/actions/auth.actions';
 import { AuthState } from '@app/store/reducers/auth/auth.reducer';
-import { selectAuthLoading, selectAuthEmail, selectAuthError, selectAuthMessage, State } from '@app/store';
+import {
+  selectAuthLoading,
+  selectAuthEmail,
+  selectAuthError,
+  selectAuthMessage,
+  State,
+} from '@app/store';
 
 describe('LoginPage', () => {
-  let alert: HTMLIonAlertElement;
-  let loading: HTMLIonLoadingElement;
+  let alert: any;
+  let loading: any;
   let page: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
 
@@ -28,17 +43,19 @@ describe('LoginPage', () => {
         providers: [
           {
             provide: AlertController,
-            useFactory: () => createOverlayControllerMock(alert)
+            useFactory: () => createOverlayControllerMock(alert),
           },
           {
             provide: LoadingController,
-            useFactory: () => createOverlayControllerMock(loading)
+            useFactory: () => createOverlayControllerMock(loading),
           },
           { provide: NavController, useFactory: createNavControllerMock },
-          provideMockStore<{ auth: AuthState }>({ initialState: { auth: { email: '', userId: '', loading: false } } })
-        ]
+          provideMockStore<{ auth: AuthState }>({
+            initialState: { auth: { email: '', userId: '', loading: false } },
+          }),
+        ],
       }).compileComponents();
-    })
+    }),
   );
 
   beforeEach(() => {
@@ -62,18 +79,23 @@ describe('LoginPage', () => {
       store.dispatch = jest.fn();
       page.login();
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(login({ email: 'test@mctesty.com', password: 'something secret' }));
+      expect(store.dispatch).toHaveBeenCalledWith(
+        login({ email: 'test@mctesty.com', password: 'something secret' }),
+      );
     });
   });
 
   describe('on loading changed', () => {
     let store: MockStore<State>;
-    let mockAuthLoadingSelector;
+    let mockAuthLoadingSelector: any;
     beforeEach(() => {
       store = TestBed.inject(Store) as MockStore<State>;
-      mockAuthLoadingSelector = store.overrideSelector(selectAuthLoading, false);
+      mockAuthLoadingSelector = store.overrideSelector(
+        selectAuthLoading,
+        false,
+      );
       fixture.detectChanges();
-      loading.dismiss.mockClear();
+      (loading.dismiss as any).mockClear();
     });
 
     it('presents and dismisses the loading indicator', () => {
@@ -96,7 +118,10 @@ describe('LoginPage', () => {
     let mockAuthEmailSelector;
     beforeEach(() => {
       store = TestBed.inject(Store) as MockStore<State>;
-      mockAuthEmailSelector = store.overrideSelector(selectAuthEmail, undefined);
+      mockAuthEmailSelector = store.overrideSelector(
+        selectAuthEmail,
+        undefined,
+      );
       fixture.detectChanges();
     });
 
@@ -119,7 +144,10 @@ describe('LoginPage', () => {
     let mockAuthErrorSelector;
     beforeEach(() => {
       store = TestBed.inject(Store) as MockStore<State>;
-      mockAuthErrorSelector = store.overrideSelector(selectAuthError, undefined);
+      mockAuthErrorSelector = store.overrideSelector(
+        selectAuthError,
+        undefined,
+      );
       fixture.detectChanges();
     });
 
@@ -150,10 +178,13 @@ describe('LoginPage', () => {
 
   describe('on message changed', () => {
     let store: MockStore<State>;
-    let mockAuthMessageSelector;
+    let mockAuthMessageSelector: any;
     beforeEach(() => {
       store = TestBed.inject(Store) as MockStore<State>;
-      mockAuthMessageSelector = store.overrideSelector(selectAuthMessage, undefined);
+      mockAuthMessageSelector = store.overrideSelector(
+        selectAuthMessage,
+        undefined,
+      );
       fixture.detectChanges();
     });
 
@@ -190,7 +221,9 @@ describe('LoginPage', () => {
       });
 
       it('describes the process', () => {
-        expect(params.message).toContain('link that will allow you to reset your password');
+        expect(params.message).toContain(
+          'link that will allow you to reset your password',
+        );
       });
 
       it('has an input for the e-mail address', () => {
@@ -198,7 +231,7 @@ describe('LoginPage', () => {
         expect(params.inputs[0]).toEqual({
           name: 'emailAddress',
           type: 'email',
-          placeholder: 'your.email@address.com'
+          placeholder: 'your.email@address.com',
         });
       });
 
@@ -206,7 +239,7 @@ describe('LoginPage', () => {
         expect(params.buttons[0]).toEqual({ text: 'Cancel', role: 'cancel' });
         expect(params.buttons[1]).toEqual({
           text: 'Send e-mail',
-          role: 'send'
+          role: 'send',
         });
       });
 
@@ -225,17 +258,19 @@ describe('LoginPage', () => {
       it('dispatches the reset action if and e-mail is entered and send is pressed', async () => {
         alert.onDidDismiss.mockResolvedValue({
           data: { values: { emailAddress: 'test@testy.com' } },
-          role: 'send'
+          role: 'send',
         });
         await page.handlePasswordReset();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(resetPassword({ email: 'test@testy.com' }));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          resetPassword({ email: 'test@testy.com' }),
+        );
       });
 
       it('does not dispatch the reset action if no email address is entered', async () => {
         alert.onDidDismiss.mockResolvedValue({
           data: { values: {} },
-          role: 'send'
+          role: 'send',
         });
         await page.handlePasswordReset();
         expect(store.dispatch).not.toHaveBeenCalled();
@@ -244,7 +279,7 @@ describe('LoginPage', () => {
       it('does not dispatch the reset action if cancel is pressed', async () => {
         alert.onDidDismiss.mockResolvedValue({
           data: { values: { emailAddress: 'test@testy.com' } },
-          role: 'cancel'
+          role: 'cancel',
         });
         await page.handlePasswordReset();
         expect(store.dispatch).not.toHaveBeenCalled();
@@ -253,7 +288,7 @@ describe('LoginPage', () => {
       it('does not dispatch the reset action if background is pressed', async () => {
         alert.onDidDismiss.mockResolvedValue({
           data: { values: { emailAddress: 'test@testy.com' } },
-          role: 'background'
+          role: 'background',
         });
         await page.handlePasswordReset();
         expect(store.dispatch).not.toHaveBeenCalled();

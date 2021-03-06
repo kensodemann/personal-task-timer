@@ -15,13 +15,13 @@ describe('AboutPage', () => {
       TestBed.configureTestingModule({
         declarations: [AboutPage],
         imports: [IonicModule],
-        providers: [provideMockStore()]
+        providers: [provideMockStore()],
       }).compileComponents();
 
       fixture = TestBed.createComponent(AboutPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    })
+    }),
   );
 
   it('should create', () => {

@@ -11,6 +11,9 @@
 
 <ion-content>
   <ion-list>
-    <app-timer-list-item *ngFor="let timer of timers$ | async" [timer]="timer"></app-timer-list-item>
+    <app-timer-list-item
+      *ngFor="let timer of timers$ | async"
+      [timer]="timer"
+    ></app-timer-list-item>
   </ion-list>
 </ion-content>
