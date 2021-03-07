@@ -1,5 +1,18 @@
 import { Timer } from '@app/models';
-import * as TimerActions from '@app/store/actions/timer.actions';
+import {
+  addTimer,
+  addTimerFailure,
+  loadTimersFailure,
+  loginChanged,
+  removeTimer,
+  removeTimerFailure,
+  timerAdded,
+  timerModified,
+  timerRemoved,
+  timersAdded,
+  updateTimer,
+  updateTimerFailure,
+} from '@app/store/actions';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 
@@ -14,61 +27,61 @@ export const initialState = adapter.getInitialState({ loading: false });
 
 const timerReducer = createReducer(
   initialState,
-  on(TimerActions.load, state =>
+  on(loginChanged, state =>
     adapter.removeAll({ ...state, loading: true, error: undefined }),
   ),
-  on(TimerActions.loadFailure, (state, { error }) => ({
+  on(loadTimersFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(TimerActions.create, state => ({
+  on(addTimer, state => ({
     ...state,
     loading: true,
     error: undefined,
   })),
-  on(TimerActions.createFailure, (state, { error }) => ({
+  on(addTimerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(TimerActions.update, state => ({
+  on(updateTimer, state => ({
     ...state,
     loading: true,
     error: undefined,
   })),
-  on(TimerActions.updateFailure, (state, { error }) => ({
+  on(updateTimerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(TimerActions.remove, state => ({
+  on(removeTimer, state => ({
     ...state,
     loading: true,
     error: undefined,
   })),
-  on(TimerActions.removeFailure, (state, { error }) => ({
+  on(removeTimerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(TimerActions.timerAdded, (state, { timer }) =>
+  on(timerAdded, (state, { timer }) =>
     adapter.addOne(timer, { ...state, loading: false }),
   ),
-  on(TimerActions.timersAdded, (state, { timers }) =>
+  on(timersAdded, (state, { timers }) =>
     adapter.addMany(timers, { ...state, loading: false }),
   ),
-  on(TimerActions.timerModified, (state, { timer }) =>
+  on(timerModified, (state, { timer }) =>
     adapter.updateOne(
       { id: timer.id, changes: timer },
       { ...state, loading: false },
     ),
   ),
-  on(TimerActions.timerRemoved, (state, { timer }) =>
+  on(timerRemoved, (state, { timer }) =>
     adapter.removeOne(timer.id, { ...state, loading: false }),
   ),
 );

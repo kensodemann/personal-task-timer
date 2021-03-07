@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Timer } from '@app/models/timer';
+import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.component';
+import { selectTodayTimers, State } from '@app/store';
+import { logout } from '@app/store/actions';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-import { Timer } from '@app/models/timer';
-import { logout } from '@app/store/actions/auth.actions';
-import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.component';
-import { selectTodayTimers, State } from '@app/store';
 
 @Component({
   selector: 'app-tab1',

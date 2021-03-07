@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Timer } from '@app/models/timer';
 import { selectAllActiveTimers, State } from '@app/store';
-import { remove, start, stop } from '@app/store/actions/timer.actions';
+import { removeTimer, startTimer, stopTimer } from '@app/store/actions';
 import { AlertController, ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { differenceInMinutes } from 'date-fns';
@@ -52,7 +52,7 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
     await alert.present();
     const resp = await alert.onDidDismiss();
     if (resp.role === 'confirm') {
-      this.store.dispatch(remove({ timer: this.timer }));
+      this.store.dispatch(removeTimer({ timer: this.timer }));
     }
   }
 
@@ -67,11 +67,11 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
   async toggle(): Promise<void> {
     if (!this.disableToggle) {
       if (this.timer.startTime) {
-        this.store.dispatch(stop({ timer: this.timer }));
+        this.store.dispatch(stopTimer({ timer: this.timer }));
         this.clearRecalcInterval();
       } else {
         this.stopAllActiveTimers();
-        this.store.dispatch(start({ timer: this.timer }));
+        this.store.dispatch(startTimer({ timer: this.timer }));
         this.initRecalcInterval();
       }
     }
@@ -95,10 +95,10 @@ export class TimerListItemComponent implements OnInit, OnDestroy {
   }
 
   private stopAllActiveTimers() {
-    const activeTimers = this.store
+    this.store
       .pipe(select(selectAllActiveTimers), take(1))
       .subscribe(timers =>
-        timers.forEach(timer => this.store.dispatch(stop({ timer }))),
+        timers.forEach(timer => this.store.dispatch(stopTimer({ timer }))),
       );
   }
 }

@@ -1,4 +1,4 @@
-import * as TaskTypeActions from '@app/store/actions/task-type.actions';
+import { startup } from '@app/store/actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
 export interface TaskTypeState {
@@ -11,7 +11,7 @@ export const initialState: TaskTypeState = {
 
 const authReducer = createReducer(
   initialState,
-  on(TaskTypeActions.load, state => ({
+  on(startup, state => ({
     ...state,
     taskTypes: [
       'Consulting',

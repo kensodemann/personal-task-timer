@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouteReuseStrategy } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { metaReducers, reducers } from '@app/store';
+import { AuthEffects, CustomerEffects, TimerEffects } from '@app/store/effects';
+import { environment } from '@env/environment';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from '@env/environment';
-import { reducers, metaReducers } from '@app/store';
-import { AuthEffects, TimerEffects, CustomerEffects } from '@app/store/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +35,10 @@ import { AuthEffects, TimerEffects, CustomerEffects } from '@app/store/effects';
     EffectsModule.forRoot([AuthEffects, CustomerEffects, TimerEffects]),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
     }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

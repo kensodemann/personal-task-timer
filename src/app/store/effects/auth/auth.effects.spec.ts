@@ -3,6 +3,7 @@ import { AuthenticationService } from '@app/services';
 import { createAuthenticationServiceMock } from '@app/services/mocks';
 import {
   login,
+  loginChanged,
   loginFailure,
   loginSuccess,
   logout,
@@ -11,8 +12,10 @@ import {
   resetPassword,
   resetPasswordFailure,
   resetPasswordSuccess,
-} from '@app/store/actions/auth.actions';
+} from '@app/store/actions';
+import { NavController } from '@ionic/angular';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { createNavControllerMock } from '@test/mocks';
 import { Observable, of } from 'rxjs';
 import { AuthEffects } from './auth.effects';
 
@@ -26,6 +29,10 @@ beforeEach(() => {
       {
         provide: AuthenticationService,
         useFactory: createAuthenticationServiceMock,
+      },
+      {
+        provide: NavController,
+        useFactory: createNavControllerMock,
       },
       provideMockActions(() => actions$),
     ],
@@ -85,6 +92,30 @@ describe('login$', () => {
     actions$ = of(logout());
     effects.login$.subscribe(() => {});
     expect(authenticationService.login).not.toHaveBeenCalled();
+  });
+});
+
+describe('loginChanged$', () => {
+  it('navigates to root with a user', done => {
+    const navController = TestBed.inject(NavController);
+    actions$ = of(
+      loginChanged({ email: 'test@testty.com', userId: '29940593034' }),
+    );
+    effects.loginChanged$.subscribe(() => {
+      expect(navController.navigateRoot).toHaveBeenCalledTimes(1);
+      expect(navController.navigateRoot).toHaveBeenCalledWith(['/']);
+      done();
+    });
+  });
+
+  it('navigates to login without a user', done => {
+    const navController = TestBed.inject(NavController);
+    actions$ = of(loginChanged({ email: undefined, userId: undefined }));
+    effects.loginChanged$.subscribe(() => {
+      expect(navController.navigateRoot).toHaveBeenCalledTimes(1);
+      expect(navController.navigateRoot).toHaveBeenCalledWith(['/', 'login']);
+      done();
+    });
   });
 });
 

@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule, AlertController, ModalController } from '@ionic/angular';
+import { Timer } from '@app/models';
+import { selectAllActiveTimers } from '@app/store';
+import { removeTimer, startTimer, stopTimer } from '@app/store/actions';
+import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { AlertController, IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-
-import { TimerListItemComponent } from './timer-list-item.component';
 import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
-import { Timer } from '@app/models';
-import { remove, stop, start } from '@app/store/actions/timer.actions';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
-import { selectAllActiveTimers } from '@app/store';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
+import { TimerListItemComponent } from './timer-list-item.component';
 
 describe('TimerListItemComponent', () => {
   let alert: any;
@@ -105,7 +104,7 @@ describe('TimerListItemComponent', () => {
         await component.delete();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith(
-          remove({ timer: testTimer }),
+          removeTimer({ timer: testTimer }),
         );
       });
 
@@ -145,7 +144,7 @@ describe('TimerListItemComponent', () => {
           component.toggle();
           expect(store.dispatch).toHaveBeenCalledTimes(1);
           expect(store.dispatch).toHaveBeenCalledWith(
-            stop({ timer: testTimer }),
+            stopTimer({ timer: testTimer }),
           );
         });
       });
@@ -178,7 +177,7 @@ describe('TimerListItemComponent', () => {
           component.toggle();
           expect(store.dispatch).toHaveBeenCalledTimes(3);
           expect(store.dispatch).toHaveBeenCalledWith(
-            stop({
+            stopTimer({
               timer: {
                 id: 'ff898gd',
                 title: 'Uhg, this is so ugly',
@@ -192,7 +191,7 @@ describe('TimerListItemComponent', () => {
             }),
           );
           expect(store.dispatch).toHaveBeenCalledWith(
-            stop({
+            stopTimer({
               timer: {
                 id: 'ff88t99er',
                 title: 'I feel them crawling under my skin',
@@ -207,7 +206,7 @@ describe('TimerListItemComponent', () => {
             }),
           );
           expect(store.dispatch).toHaveBeenCalledWith(
-            start({ timer: testTimer }),
+            startTimer({ timer: testTimer }),
           );
         });
 
@@ -215,7 +214,7 @@ describe('TimerListItemComponent', () => {
           component.toggle();
           expect(store.dispatch).toHaveBeenCalledTimes(1);
           expect(store.dispatch).toHaveBeenCalledWith(
-            start({ timer: testTimer }),
+            startTimer({ timer: testTimer }),
           );
         });
       });

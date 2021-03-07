@@ -1,21 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  AlertController,
-  LoadingController,
-  NavController,
-} from '@ionic/angular';
-import { Store, select } from '@ngrx/store';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
-import {
-  selectAuthEmail,
   selectAuthError,
   selectAuthLoading,
   selectAuthMessage,
   State,
 } from '@app/store';
-import { login, resetPassword } from '@app/store/actions/auth.actions';
+import { login, resetPassword } from '@app/store/actions';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { select, Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +28,6 @@ export class LoginPage implements OnInit, OnDestroy {
   constructor(
     private alert: AlertController,
     private loadingController: LoadingController,
-    private navController: NavController,
     private store: Store<State>,
   ) {}
 
@@ -56,11 +49,6 @@ export class LoginPage implements OnInit, OnDestroy {
       .pipe(select(selectAuthMessage), takeUntil(this.destroy$))
       .subscribe(msg => {
         this.infoMessage = msg;
-      });
-    this.store
-      .pipe(select(selectAuthEmail), takeUntil(this.destroy$))
-      .subscribe(e => {
-        this.goToApp(!!e);
       });
   }
 
@@ -129,12 +117,6 @@ export class LoginPage implements OnInit, OnDestroy {
     this.errorMessage = error && error.message;
     if (this.errorMessage) {
       this.password = '';
-    }
-  }
-
-  private goToApp(doNav: boolean) {
-    if (doNav) {
-      this.navController.navigateRoot('');
     }
   }
 }

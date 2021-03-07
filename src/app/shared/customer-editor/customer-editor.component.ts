@@ -1,10 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Store } from '@ngrx/store';
-
+import { Component, Input, OnInit } from '@angular/core';
 import { Customer } from '@app/models';
 import { State } from '@app/store';
-import { create, update } from '@app/store/actions/customer.actions';
+import { addCustomer, updateCustomer } from '@app/store/actions';
+import { ModalController } from '@ionic/angular';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-customer-editor',
@@ -41,9 +40,9 @@ export class CustomerEditorComponent implements OnInit {
   save() {
     const customer = this.createCustomer();
     if (this.customer) {
-      this.store.dispatch(update({ customer }));
+      this.store.dispatch(updateCustomer({ customer }));
     } else {
-      this.store.dispatch(create({ customer }));
+      this.store.dispatch(addCustomer({ customer }));
     }
     this.modalController.dismiss();
   }

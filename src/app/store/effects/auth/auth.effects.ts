@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { from, of } from 'rxjs';
-import { exhaustMap, map, catchError } from 'rxjs/operators';
+import { AuthenticationService } from '@app/services';
 import {
   login,
+  loginChanged,
   loginFailure,
   loginSuccess,
   logout,
@@ -12,8 +11,11 @@ import {
   resetPassword,
   resetPasswordFailure,
   resetPasswordSuccess,
-} from '@app/store/actions/auth.actions';
-import { AuthenticationService } from '@app/services';
+} from '@app/store/actions';
+import { NavController } from '@ionic/angular';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { from, of } from 'rxjs';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthEffects {
@@ -29,6 +31,23 @@ export class AuthEffects {
         ),
       ),
     ),
+  );
+
+  loginChanged$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loginChanged),
+        tap(user => {
+          const route = ['/'];
+          if (!(user && user.userId)) {
+            route.push('login');
+          }
+          this.navController.navigateRoot(route);
+        }),
+      ),
+    {
+      dispatch: false,
+    },
   );
 
   logout$ = createEffect(() =>
@@ -60,5 +79,6 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authenticationService: AuthenticationService,
+    private navController: NavController,
   ) {}
 }

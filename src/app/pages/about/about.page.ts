@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-
 import { version } from '@app/default-data/version';
 import { Version } from '@app/models/version';
 import { State } from '@app/store';
-import { logout } from '@app/store/actions/auth.actions';
+import { logout } from '@app/store/actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-tab3',

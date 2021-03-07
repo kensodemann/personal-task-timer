@@ -2,7 +2,22 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Customer } from '@app/models';
 import { CustomersService } from '@app/services/firestore-data';
 import { createCustomersServiceMock } from '@app/services/firestore-data/mocks';
-import * as customerActions from '@app/store/actions/customer.actions';
+import {
+  addCustomer,
+  addCustomerFailure,
+  addCustomerSuccess,
+  customerAdded,
+  customerModified,
+  customerRemoved,
+  customersAdded,
+  removeCustomer,
+  removeCustomerFailure,
+  removeCustomerSuccess,
+  startup,
+  updateCustomer,
+  updateCustomerFailure,
+  updateCustomerSuccess,
+} from '@app/store/actions';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -27,10 +42,10 @@ it('exists', () => {
   expect(effects).toBeTruthy();
 });
 
-describe('load$', () => {
+describe('changes$', () => {
   it('observes changes to the customers', () => {
     const customersService = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.load());
+    actions$ = of(startup());
     effects.changes$.subscribe(() => {});
     expect(customersService.observeChanges).toHaveBeenCalledTimes(1);
   });
@@ -55,9 +70,9 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(customerActions.load());
+      actions$ = of(startup());
       effects.changes$.subscribe(action => {
-        const expected = customerActions.customerAdded({
+        const expected = customerAdded({
           customer: {
             id: '123499dfi',
             name: 'I am a newly added customer',
@@ -91,9 +106,9 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(customerActions.load());
+      actions$ = of(startup());
       effects.changes$.subscribe(action => {
-        const expected = customerActions.customerModified({
+        const expected = customerModified({
           customer: {
             id: '123499dfi',
             name: 'I am a modified customer',
@@ -127,9 +142,9 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(customerActions.load());
+      actions$ = of(startup());
       effects.changes$.subscribe(action => {
-        const expected = customerActions.customerRemoved({
+        const expected = customerRemoved({
           customer: {
             id: '123499dfi',
             name: 'I am a customer',
@@ -215,13 +230,13 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(customerActions.load());
+      actions$ = of(startup());
       let calls = 0;
       effects.changes$.subscribe(action => {
         let expected: Action;
         switch (calls) {
           case 0:
-            expected = customerActions.customerRemoved({
+            expected = customerRemoved({
               customer: {
                 id: '123499dfi',
                 name: 'I am a customer',
@@ -232,7 +247,7 @@ describe('load$', () => {
             break;
 
           case 1:
-            expected = customerActions.customerModified({
+            expected = customerModified({
               customer: {
                 id: 'fi38849958392j',
                 name: 'I am a customer',
@@ -243,7 +258,7 @@ describe('load$', () => {
             break;
 
           case 2:
-            expected = customerActions.customersAdded({
+            expected = customersAdded({
               customers: [
                 {
                   id: 'f99g0e9fg',
@@ -280,7 +295,7 @@ describe('load$', () => {
 
   it('does nothing for other actions', () => {
     const customersService = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.update({ customer: null }));
+    actions$ = of(updateCustomer({ customer: null }));
     effects.changes$.subscribe(() => {});
     expect(customersService.observeChanges).not.toHaveBeenCalled();
   });
@@ -299,15 +314,15 @@ describe('create$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.create({ customer }));
+    actions$ = of(addCustomer({ customer }));
     effects.create$.subscribe(() => {});
     expect(service.add).toHaveBeenCalledTimes(1);
     expect(service.add).toHaveBeenCalledWith(customer);
   });
 
   it('dispatches create success', done => {
-    const dispatched = customerActions.createSuccess();
-    actions$ = of(customerActions.create({ customer }));
+    const dispatched = addCustomerSuccess();
+    actions$ = of(addCustomer({ customer }));
     effects.create$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -316,12 +331,12 @@ describe('create$', () => {
 
   it('dispatches create errors', done => {
     const service = TestBed.inject(CustomersService);
-    const dispatched = customerActions.createFailure({
+    const dispatched = addCustomerFailure({
       error: new Error('The create failed'),
     });
 
     (service.add as any).mockRejectedValue(new Error('The create failed'));
-    actions$ = of(customerActions.create({ customer }));
+    actions$ = of(addCustomer({ customer }));
     effects.create$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -330,7 +345,7 @@ describe('create$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.update({ customer }));
+    actions$ = of(updateCustomer({ customer }));
     effects.create$.subscribe(() => {});
     expect(service.add).not.toHaveBeenCalled();
   });
@@ -349,15 +364,15 @@ describe('update$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.update({ customer }));
+    actions$ = of(updateCustomer({ customer }));
     effects.update$.subscribe(() => {});
     expect(service.update).toHaveBeenCalledTimes(1);
     expect(service.update).toHaveBeenCalledWith(customer);
   });
 
   it('dispatches update success', done => {
-    const dispatched = customerActions.updateSuccess();
-    actions$ = of(customerActions.update({ customer }));
+    const dispatched = updateCustomerSuccess();
+    actions$ = of(updateCustomer({ customer }));
     effects.update$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -366,11 +381,11 @@ describe('update$', () => {
 
   it('dispatches update errors', done => {
     const service = TestBed.inject(CustomersService);
-    const dispatched = customerActions.updateFailure({
+    const dispatched = updateCustomerFailure({
       error: new Error('The update failed'),
     });
     (service.update as any).mockRejectedValue(new Error('The update failed'));
-    actions$ = of(customerActions.update({ customer }));
+    actions$ = of(updateCustomer({ customer }));
     effects.update$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -379,7 +394,7 @@ describe('update$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.create({ customer }));
+    actions$ = of(addCustomer({ customer }));
     effects.update$.subscribe(() => {});
     expect(service.update).not.toHaveBeenCalled();
   });
@@ -398,15 +413,15 @@ describe('remove$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.remove({ customer }));
+    actions$ = of(removeCustomer({ customer }));
     effects.remove$.subscribe(() => {});
     expect(service.delete).toHaveBeenCalledTimes(1);
     expect(service.delete).toHaveBeenCalledWith(customer);
   });
 
   it('dispatches remove success', done => {
-    const dispatched = customerActions.removeSuccess();
-    actions$ = of(customerActions.remove({ customer }));
+    const dispatched = removeCustomerSuccess();
+    actions$ = of(removeCustomer({ customer }));
     effects.remove$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -415,11 +430,11 @@ describe('remove$', () => {
 
   it('dispatches remove failure', done => {
     const service = TestBed.inject(CustomersService);
-    const dispatched = customerActions.removeFailure({
+    const dispatched = removeCustomerFailure({
       error: new Error('The remove failed'),
     });
     (service.delete as any).mockRejectedValue(new Error('The remove failed'));
-    actions$ = of(customerActions.remove({ customer }));
+    actions$ = of(removeCustomer({ customer }));
     effects.remove$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -428,7 +443,7 @@ describe('remove$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(CustomersService);
-    actions$ = of(customerActions.update({ customer }));
+    actions$ = of(updateCustomer({ customer }));
     effects.remove$.subscribe(() => {});
     expect(service.delete).not.toHaveBeenCalled();
   });

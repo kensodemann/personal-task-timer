@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { logout } from '@app/store/actions';
 import { IonicModule } from '@ionic/angular';
-import { provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
-
+import { provideMockStore } from '@ngrx/store/testing';
 import { AboutPage } from './about.page';
-import { logout } from '@app/store/actions/auth.actions';
 
 describe('AboutPage', () => {
   let component: AboutPage;

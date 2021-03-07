@@ -2,7 +2,28 @@ import { Injectable } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { Timer } from '@app/models';
 import { TimersService } from '@app/services/firestore-data';
-import * as timerActions from '@app/store/actions/timer.actions';
+import {
+  addTimer,
+  addTimerFailure,
+  addTimerSuccess,
+  removeTimer,
+  removeTimerFailure,
+  removeTimerSuccess,
+  startTimer,
+  startTimerFailure,
+  startTimerSuccess,
+  startup,
+  stopTimer,
+  stopTimerFailure,
+  stopTimerSuccess,
+  timerAdded,
+  timerModified,
+  timerRemoved,
+  timersAdded,
+  updateTimer,
+  updateTimerFailure,
+  updateTimerSuccess,
+} from '@app/store/actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { from, of } from 'rxjs';
@@ -18,7 +39,7 @@ interface TimerChangeAction {
 export class TimerEffects {
   changes$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(timerActions.load),
+      ofType(startup),
       mergeMap(() =>
         this.timersService.observeChanges().pipe(
           mergeMap(actions => this.unpackActions(actions)),
@@ -30,11 +51,11 @@ export class TimerEffects {
 
   create$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(timerActions.create),
+      ofType(addTimer),
       mergeMap(action =>
         from(this.timersService.add(action.timer)).pipe(
-          map(() => timerActions.createSuccess()),
-          catchError(error => of(timerActions.createFailure({ error }))),
+          map(() => addTimerSuccess()),
+          catchError(error => of(addTimerFailure({ error }))),
         ),
       ),
     ),
@@ -42,11 +63,11 @@ export class TimerEffects {
 
   update$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(timerActions.update),
+      ofType(updateTimer),
       mergeMap(action =>
         from(this.timersService.update(action.timer)).pipe(
-          map(() => timerActions.updateSuccess()),
-          catchError(error => of(timerActions.updateFailure({ error }))),
+          map(() => updateTimerSuccess()),
+          catchError(error => of(updateTimerFailure({ error }))),
         ),
       ),
     ),
@@ -54,11 +75,11 @@ export class TimerEffects {
 
   remove$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(timerActions.remove),
+      ofType(removeTimer),
       mergeMap(action =>
         from(this.timersService.delete(action.timer)).pipe(
-          map(() => timerActions.removeSuccess()),
-          catchError(error => of(timerActions.removeFailure({ error }))),
+          map(() => removeTimerSuccess()),
+          catchError(error => of(removeTimerFailure({ error }))),
         ),
       ),
     ),
@@ -66,11 +87,11 @@ export class TimerEffects {
 
   start$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(timerActions.start),
+      ofType(startTimer),
       mergeMap(action =>
         from(this.timersService.start(action.timer.id)).pipe(
-          map(() => timerActions.startSuccess()),
-          catchError(error => of(timerActions.startFailure({ error }))),
+          map(() => startTimerSuccess()),
+          catchError(error => of(startTimerFailure({ error }))),
         ),
       ),
     ),
@@ -78,11 +99,11 @@ export class TimerEffects {
 
   stop$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(timerActions.stop),
+      ofType(stopTimer),
       mergeMap(action =>
         from(this.timersService.stop(action.timer.id)).pipe(
-          map(() => timerActions.stopSuccess()),
-          catchError(error => of(timerActions.stopFailure({ error }))),
+          map(() => stopTimerSuccess()),
+          catchError(error => of(stopTimerFailure({ error }))),
         ),
       ),
     ),
@@ -131,16 +152,16 @@ export class TimerEffects {
   private timerAction(action: TimerChangeAction): Action {
     switch (action.type) {
       case 'added many':
-        return timerActions.timersAdded({ timers: action.timers });
+        return timersAdded({ timers: action.timers });
 
       case 'added':
-        return timerActions.timerAdded({ timer: action.timer });
+        return timerAdded({ timer: action.timer });
 
       case 'modified':
-        return timerActions.timerModified({ timer: action.timer });
+        return timerModified({ timer: action.timer });
 
       case 'removed':
-        return timerActions.timerRemoved({ timer: action.timer });
+        return timerRemoved({ timer: action.timer });
 
       /* istanbul ignore next */
       default:

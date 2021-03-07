@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Timer } from '@app/models';
+import { selectPeriodTimersSorted, State } from '@app/store';
+import { logout } from '@app/store/actions';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-import { logout } from '@app/store/actions/auth.actions';
-import { State, selectPeriodTimersSorted } from '@app/store';
-import { Timer } from '@app/models';
 
 @Component({
   selector: 'app-tab2',

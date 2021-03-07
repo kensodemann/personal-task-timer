@@ -1,30 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import {
+  selectAuthError,
+  selectAuthLoading,
+  selectAuthMessage,
+  State,
+} from '@app/store';
+import { login, resetPassword } from '@app/store/actions';
+import { AuthState } from '@app/store/reducers/auth/auth.reducer';
 import {
   AlertController,
   IonicModule,
   LoadingController,
-  NavController,
 } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-
 import {
-  createNavControllerMock,
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
 import { LoginPage } from './login.page';
-import { login, resetPassword } from '@app/store/actions/auth.actions';
-import { AuthState } from '@app/store/reducers/auth/auth.reducer';
-import {
-  selectAuthLoading,
-  selectAuthEmail,
-  selectAuthError,
-  selectAuthMessage,
-  State,
-} from '@app/store';
 
 describe('LoginPage', () => {
   let alert: any;
@@ -49,7 +45,6 @@ describe('LoginPage', () => {
             provide: LoadingController,
             useFactory: () => createOverlayControllerMock(loading),
           },
-          { provide: NavController, useFactory: createNavControllerMock },
           provideMockStore<{ auth: AuthState }>({
             initialState: { auth: { email: '', userId: '', loading: false } },
           }),
@@ -110,32 +105,6 @@ describe('LoginPage', () => {
       fixture.detectChanges();
       expect(loading.present).not.toHaveBeenCalled();
       expect(loading.dismiss).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('on email changed', () => {
-    let store: MockStore<State>;
-    let mockAuthEmailSelector;
-    beforeEach(() => {
-      store = TestBed.inject(Store) as MockStore<State>;
-      mockAuthEmailSelector = store.overrideSelector(
-        selectAuthEmail,
-        undefined,
-      );
-      fixture.detectChanges();
-    });
-
-    it('navigates to the app when the email is set', () => {
-      const navController = TestBed.inject(NavController);
-      mockAuthEmailSelector.setResult(null);
-      store.refreshState();
-      fixture.detectChanges();
-      expect(navController.navigateRoot).not.toHaveBeenCalled();
-      mockAuthEmailSelector.setResult('test@mctesterson.org');
-      store.refreshState();
-      fixture.detectChanges();
-      expect(navController.navigateRoot).toHaveBeenCalledTimes(1);
-      expect(navController.navigateRoot).toHaveBeenCalledWith('');
     });
   });
 

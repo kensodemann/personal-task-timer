@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Customer } from '@app/models';
-import { create, update } from '@app/store/actions/timer.actions';
+import { addTimer, updateTimer } from '@app/store/actions';
 import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
 import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
@@ -278,7 +278,7 @@ describe('TimerEditorComponent', () => {
         Date.now = jest.fn(() => 1577102400000);
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          create({
+          addTimer({
             timer: {
               customerName: testCustomers.ff898gd.name,
               customerId: testCustomers.ff898gd.id,
@@ -305,7 +305,7 @@ describe('TimerEditorComponent', () => {
         Date.now = jest.fn(() => 1577102400000);
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          create({
+          addTimer({
             timer: {
               customerName: testCustomers.ff88t99er.name,
               customerId: testCustomers.ff88t99er.id,
@@ -367,7 +367,7 @@ describe('TimerEditorComponent', () => {
         Date.now = jest.fn(() => 1577102400000);
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          update({
+          updateTimer({
             timer: {
               id: '40049503950',
               customerName: testCustomers.ff898gd.name,

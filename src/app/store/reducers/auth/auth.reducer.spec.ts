@@ -9,7 +9,7 @@ import {
   resetPassword,
   resetPasswordFailure,
   resetPasswordSuccess,
-} from '@app/store/actions/auth.actions';
+} from '@app/store/actions';
 import { initialState, reducer } from './auth.reducer';
 
 it('returns the default state', () => {

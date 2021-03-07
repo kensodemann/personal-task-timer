@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Timer } from '@app/models';
+import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.component';
+import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
+import { selectTodayTimers, State } from '@app/store';
+import { logout } from '@app/store/actions';
+import { TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-
-import { TodayPage } from './today.page';
-import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
-import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.component';
-import { logout } from '@app/store/actions/auth.actions';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
-import { selectTodayTimers, State } from '@app/store';
-import { Timer } from '@app/models';
+import { TodayPage } from './today.page';
 
 describe('TodayPage', () => {
   let component: TodayPage;

@@ -6,8 +6,23 @@ import { of, from } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { CustomersService } from '@app/services/firestore-data';
-import * as customerActions from '@app/store/actions/customer.actions';
 import { Customer } from '@app/models';
+import {
+  addCustomer,
+  addCustomerFailure,
+  addCustomerSuccess,
+  customerAdded,
+  customerModified,
+  customerRemoved,
+  customersAdded,
+  removeCustomer,
+  removeCustomerFailure,
+  removeCustomerSuccess,
+  startup,
+  updateCustomer,
+  updateCustomerFailure,
+  updateCustomerSuccess,
+} from '@app/store/actions';
 
 interface CustomerChangeAction {
   type: string;
@@ -19,7 +34,7 @@ interface CustomerChangeAction {
 export class CustomerEffects {
   changes$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(customerActions.load),
+      ofType(startup),
       mergeMap(() =>
         this.customersService.observeChanges().pipe(
           mergeMap(actions => this.unpackActions(actions)),
@@ -31,11 +46,11 @@ export class CustomerEffects {
 
   create$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(customerActions.create),
+      ofType(addCustomer),
       mergeMap(action =>
         from(this.customersService.add(action.customer)).pipe(
-          map(() => customerActions.createSuccess()),
-          catchError(error => of(customerActions.createFailure({ error }))),
+          map(() => addCustomerSuccess()),
+          catchError(error => of(addCustomerFailure({ error }))),
         ),
       ),
     ),
@@ -43,11 +58,11 @@ export class CustomerEffects {
 
   update$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(customerActions.update),
+      ofType(updateCustomer),
       mergeMap(action =>
         from(this.customersService.update(action.customer)).pipe(
-          map(() => customerActions.updateSuccess()),
-          catchError(error => of(customerActions.updateFailure({ error }))),
+          map(() => updateCustomerSuccess()),
+          catchError(error => of(updateCustomerFailure({ error }))),
         ),
       ),
     ),
@@ -55,11 +70,11 @@ export class CustomerEffects {
 
   remove$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(customerActions.remove),
+      ofType(removeCustomer),
       mergeMap(action =>
         from(this.customersService.delete(action.customer)).pipe(
-          map(() => customerActions.removeSuccess()),
-          catchError(error => of(customerActions.removeFailure({ error }))),
+          map(() => removeCustomerSuccess()),
+          catchError(error => of(removeCustomerFailure({ error }))),
         ),
       ),
     ),
@@ -114,16 +129,16 @@ export class CustomerEffects {
   private customerAction(action: CustomerChangeAction): Action {
     switch (action.type) {
       case 'added many':
-        return customerActions.customersAdded({ customers: action.customers });
+        return customersAdded({ customers: action.customers });
 
       case 'added':
-        return customerActions.customerAdded({ customer: action.customer });
+        return customerAdded({ customer: action.customer });
 
       case 'modified':
-        return customerActions.customerModified({ customer: action.customer });
+        return customerModified({ customer: action.customer });
 
       case 'removed':
-        return customerActions.customerRemoved({ customer: action.customer });
+        return customerRemoved({ customer: action.customer });
 
       /* istanbul ignore next */
       default:

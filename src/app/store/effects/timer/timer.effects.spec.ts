@@ -2,7 +2,28 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Timer } from '@app/models';
 import { TimersService } from '@app/services/firestore-data';
 import { createTimersServiceMock } from '@app/services/firestore-data/mocks';
-import * as timerActions from '@app/store/actions/timer.actions';
+import {
+  addTimer,
+  addTimerFailure,
+  addTimerSuccess,
+  removeTimer,
+  removeTimerFailure,
+  removeTimerSuccess,
+  startTimer,
+  startTimerFailure,
+  startTimerSuccess,
+  startup,
+  stopTimer,
+  stopTimerFailure,
+  stopTimerSuccess,
+  timerAdded,
+  timerModified,
+  timerRemoved,
+  timersAdded,
+  updateTimer,
+  updateTimerFailure,
+  updateTimerSuccess,
+} from '@app/store/actions';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -27,10 +48,10 @@ it('exists', () => {
   expect(effects).toBeTruthy();
 });
 
-describe('load$', () => {
+describe('changes$', () => {
   it('observes changes to the timers', () => {
     const timersService = TestBed.inject(TimersService);
-    actions$ = of(timerActions.load());
+    actions$ = of(startup());
     effects.changes$.subscribe(() => {});
     expect(timersService.observeChanges).toHaveBeenCalledTimes(1);
   });
@@ -57,9 +78,9 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(timerActions.load());
+      actions$ = of(startup());
       effects.changes$.subscribe(action => {
-        const expected = timerActions.timerAdded({
+        const expected = timerAdded({
           timer: {
             id: '123499dfi',
             title: 'I am a newly added timer',
@@ -97,9 +118,9 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(timerActions.load());
+      actions$ = of(startup());
       effects.changes$.subscribe(action => {
-        const expected = timerActions.timerModified({
+        const expected = timerModified({
           timer: {
             id: '123499dfi',
             title: 'I am a modified timer',
@@ -137,9 +158,9 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(timerActions.load());
+      actions$ = of(startup());
       effects.changes$.subscribe(action => {
-        const expected = timerActions.timerRemoved({
+        const expected = timerRemoved({
           timer: {
             id: '123499dfi',
             title: 'I am a timer',
@@ -237,13 +258,13 @@ describe('load$', () => {
           },
         ]),
       );
-      actions$ = of(timerActions.load());
+      actions$ = of(startup());
       let calls = 0;
       effects.changes$.subscribe(action => {
         let expected: Action;
         switch (calls) {
           case 0:
-            expected = timerActions.timerRemoved({
+            expected = timerRemoved({
               timer: {
                 id: '123499dfi',
                 title: 'I am a timer',
@@ -256,7 +277,7 @@ describe('load$', () => {
             break;
 
           case 1:
-            expected = timerActions.timerModified({
+            expected = timerModified({
               timer: {
                 id: 'fi38849958392j',
                 title: 'I am a timer',
@@ -269,7 +290,7 @@ describe('load$', () => {
             break;
 
           case 2:
-            expected = timerActions.timersAdded({
+            expected = timersAdded({
               timers: [
                 {
                   id: 'f99g0e9fg',
@@ -312,7 +333,7 @@ describe('load$', () => {
 
   it('does nothing for other actions', () => {
     const timersService = TestBed.inject(TimersService);
-    actions$ = of(timerActions.update({ timer: null }));
+    actions$ = of(updateTimer({ timer: null }));
     effects.changes$.subscribe(() => {});
     expect(timersService.observeChanges).not.toHaveBeenCalled();
   });
@@ -333,15 +354,15 @@ describe('create$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.create({ timer }));
+    actions$ = of(addTimer({ timer }));
     effects.create$.subscribe(() => {});
     expect(service.add).toHaveBeenCalledTimes(1);
     expect(service.add).toHaveBeenCalledWith(timer);
   });
 
   it('dispatches create success', done => {
-    const dispatched = timerActions.createSuccess();
-    actions$ = of(timerActions.create({ timer }));
+    const dispatched = addTimerSuccess();
+    actions$ = of(addTimer({ timer }));
     effects.create$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -350,11 +371,11 @@ describe('create$', () => {
 
   it('dispatches create errors', done => {
     const service = TestBed.inject(TimersService);
-    const dispatched = timerActions.createFailure({
+    const dispatched = addTimerFailure({
       error: new Error('The create failed'),
     });
     (service.add as any).mockRejectedValue(new Error('The create failed'));
-    actions$ = of(timerActions.create({ timer }));
+    actions$ = of(addTimer({ timer }));
     effects.create$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -363,7 +384,7 @@ describe('create$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.update({ timer }));
+    actions$ = of(updateTimer({ timer }));
     effects.create$.subscribe(() => {});
     expect(service.add).not.toHaveBeenCalled();
   });
@@ -384,15 +405,15 @@ describe('update$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.update({ timer }));
+    actions$ = of(updateTimer({ timer }));
     effects.update$.subscribe(() => {});
     expect(service.update).toHaveBeenCalledTimes(1);
     expect(service.update).toHaveBeenCalledWith(timer);
   });
 
   it('dispatches update success', done => {
-    const dispatched = timerActions.updateSuccess();
-    actions$ = of(timerActions.update({ timer }));
+    const dispatched = updateTimerSuccess();
+    actions$ = of(updateTimer({ timer }));
     effects.update$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -401,11 +422,11 @@ describe('update$', () => {
 
   it('dispatches update errors', done => {
     const service = TestBed.inject(TimersService);
-    const dispatched = timerActions.updateFailure({
+    const dispatched = updateTimerFailure({
       error: new Error('The update failed'),
     });
     (service.update as any).mockRejectedValue(new Error('The update failed'));
-    actions$ = of(timerActions.update({ timer }));
+    actions$ = of(updateTimer({ timer }));
     effects.update$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -414,7 +435,7 @@ describe('update$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.create({ timer }));
+    actions$ = of(addTimer({ timer }));
     effects.update$.subscribe(() => {});
     expect(service.update).not.toHaveBeenCalled();
   });
@@ -435,15 +456,15 @@ describe('remove$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.remove({ timer }));
+    actions$ = of(removeTimer({ timer }));
     effects.remove$.subscribe(() => {});
     expect(service.delete).toHaveBeenCalledTimes(1);
     expect(service.delete).toHaveBeenCalledWith(timer);
   });
 
   it('dispatches remove success', done => {
-    const dispatched = timerActions.removeSuccess();
-    actions$ = of(timerActions.remove({ timer }));
+    const dispatched = removeTimerSuccess();
+    actions$ = of(removeTimer({ timer }));
     effects.remove$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -452,11 +473,11 @@ describe('remove$', () => {
 
   it('dispatches remove failure', done => {
     const service = TestBed.inject(TimersService);
-    const dispatched = timerActions.removeFailure({
+    const dispatched = removeTimerFailure({
       error: new Error('The remove failed'),
     });
     (service.delete as any).mockRejectedValue(new Error('The remove failed'));
-    actions$ = of(timerActions.remove({ timer }));
+    actions$ = of(removeTimer({ timer }));
     effects.remove$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -465,7 +486,7 @@ describe('remove$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.update({ timer }));
+    actions$ = of(updateTimer({ timer }));
     effects.remove$.subscribe(() => {});
     expect(service.delete).not.toHaveBeenCalled();
   });
@@ -486,15 +507,15 @@ describe('start$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.start({ timer }));
+    actions$ = of(startTimer({ timer }));
     effects.start$.subscribe(() => {});
     expect(service.start).toHaveBeenCalledTimes(1);
     expect(service.start).toHaveBeenCalledWith('fkkfig0939r');
   });
 
   it('dispatches timer started success', done => {
-    const dispatched = timerActions.startSuccess();
-    actions$ = of(timerActions.start({ timer }));
+    const dispatched = startTimerSuccess();
+    actions$ = of(startTimer({ timer }));
     effects.start$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -503,11 +524,11 @@ describe('start$', () => {
 
   it('dispatches timer started failure', done => {
     const service = TestBed.inject(TimersService);
-    const dispatched = timerActions.startFailure({
+    const dispatched = startTimerFailure({
       error: new Error('The start failed'),
     });
     (service.start as any).mockRejectedValue(new Error('The start failed'));
-    actions$ = of(timerActions.start({ timer }));
+    actions$ = of(startTimer({ timer }));
     effects.start$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -516,7 +537,7 @@ describe('start$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.update({ timer }));
+    actions$ = of(updateTimer({ timer }));
     effects.start$.subscribe(() => {});
     expect(service.start).not.toHaveBeenCalled();
   });
@@ -537,15 +558,15 @@ describe('stop$', () => {
 
   it('calls the service', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.stop({ timer }));
+    actions$ = of(stopTimer({ timer }));
     effects.stop$.subscribe(() => {});
     expect(service.stop).toHaveBeenCalledTimes(1);
     expect(service.stop).toHaveBeenCalledWith('fkkfig0939r');
   });
 
   it('dispatches timer stopped success', done => {
-    const dispatched = timerActions.stopSuccess();
-    actions$ = of(timerActions.stop({ timer }));
+    const dispatched = stopTimerSuccess();
+    actions$ = of(stopTimer({ timer }));
     effects.stop$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -554,11 +575,11 @@ describe('stop$', () => {
 
   it('dispatches timer stopped failure', done => {
     const service = TestBed.inject(TimersService);
-    const dispatched = timerActions.stopFailure({
+    const dispatched = stopTimerFailure({
       error: new Error('The stop failed'),
     });
     (service.stop as any).mockRejectedValue(new Error('The stop failed'));
-    actions$ = of(timerActions.stop({ timer }));
+    actions$ = of(stopTimer({ timer }));
     effects.stop$.subscribe(action => {
       expect(action).toEqual(dispatched);
       done();
@@ -567,7 +588,7 @@ describe('stop$', () => {
 
   it('does nothing for other actions', () => {
     const service = TestBed.inject(TimersService);
-    actions$ = of(timerActions.update({ timer }));
+    actions$ = of(updateTimer({ timer }));
     effects.stop$.subscribe(() => {});
     expect(service.stop).not.toHaveBeenCalled();
   });

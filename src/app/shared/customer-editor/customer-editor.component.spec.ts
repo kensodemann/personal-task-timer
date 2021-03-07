@@ -1,13 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
-import { provideMockStore } from '@ngrx/store/testing';
-
-import { CustomerEditorComponent } from './customer-editor.component';
-import { createOverlayControllerMock } from '@test/mocks';
+import { addCustomer, updateCustomer } from '@app/store/actions';
 import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { create, update } from '@app/store/actions/customer.actions';
+import { provideMockStore } from '@ngrx/store/testing';
+import { createOverlayControllerMock } from '@test/mocks';
+import { CustomerEditorComponent } from './customer-editor.component';
 
 describe('CustomerEditorComponent', () => {
   let component: CustomerEditorComponent;
@@ -147,7 +146,7 @@ describe('CustomerEditorComponent', () => {
         component.supportHours = 16;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          create({
+          addCustomer({
             customer: {
               name: 'Fred Flintstone',
               hasAdvisory: true,
@@ -168,7 +167,7 @@ describe('CustomerEditorComponent', () => {
         component.supportHours = 16;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          create({
+          addCustomer({
             customer: {
               name: 'Fred Flintstone',
               hasAdvisory: false,
@@ -215,7 +214,7 @@ describe('CustomerEditorComponent', () => {
         component.name = 'Spacely Sprockets';
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          update({
+          updateCustomer({
             customer: {
               id: '40049503950',
               name: 'Spacely Sprockets',
@@ -234,7 +233,7 @@ describe('CustomerEditorComponent', () => {
         component.hasAdvisory = undefined;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          update({
+          updateCustomer({
             customer: {
               id: '40049503950',
               name: 'Fred Flintstone',
@@ -255,7 +254,7 @@ describe('CustomerEditorComponent', () => {
         component.supportHours = 18;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
-          update({
+          updateCustomer({
             customer: {
               id: '40049503950',
               name: 'Spacely Sprockets',

@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { provideMockStore } from '@ngrx/store/testing';
-import { Store } from '@ngrx/store';
-
-import { HistoryPage } from './history.page';
-import { logout } from '@app/store/actions/auth.actions';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
+import { logout } from '@app/store/actions';
+import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { IonicModule } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { HistoryPage } from './history.page';
 
 describe('HistoryPage', () => {
   let component: HistoryPage;

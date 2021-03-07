@@ -1,18 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Customer, Timer } from '@app/models';
+import {
+  selectAllCustomersSorted,
+  selectAllTaskTypes,
+  selectCustomer,
+  State,
+} from '@app/store';
+import { addTimer, updateTimer } from '@app/store/actions';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { formatISO } from 'date-fns';
-
-import { create, update } from '@app/store/actions/timer.actions';
-import {
-  selectAllTaskTypes,
-  State,
-  selectAllCustomersSorted,
-  selectCustomer,
-} from '@app/store';
-import { Customer, Timer } from '@app/models';
-import { take, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer-editor',
@@ -55,9 +54,9 @@ export class TimerEditorComponent implements OnInit {
   save() {
     this.createTimer().subscribe(timer => {
       if (this.timer) {
-        this.store.dispatch(update({ timer }));
+        this.store.dispatch(updateTimer({ timer }));
       } else {
-        this.store.dispatch(create({ timer }));
+        this.store.dispatch(addTimer({ timer }));
       }
       this.modalController.dismiss();
     });

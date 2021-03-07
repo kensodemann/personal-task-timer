@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-
-import { logout } from '@app/store/actions/auth.actions';
-import { State, selectAllCustomersSorted } from '@app/store';
 import { Customer } from '@app/models';
 import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
+import { selectAllCustomersSorted, State } from '@app/store';
+import { logout } from '@app/store/actions';
+import { ModalController } from '@ionic/angular';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customers',

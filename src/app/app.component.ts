@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ApplicationService } from '@app/services';
 import { NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-
+import { loginChanged, startup } from './store/actions';
 import { State } from './store/reducers';
-import { loginChanged } from './store/actions/auth.actions';
-import { load as loadCustomers } from './store/actions/customer.actions';
-import { load as loadTaskTypes } from './store/actions/task-type.actions';
-import { load as loadTimers } from './store/actions/timer.actions';
-import { ApplicationService } from '@app/services';
 
 @Component({
   selector: 'app-root',
@@ -19,23 +15,16 @@ export class AppComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private application: ApplicationService,
-    private navController: NavController,
     private store: Store<State>,
   ) {}
 
   ngOnInit() {
     this.application.registerForUpdates();
-    this.store.dispatch(loadTaskTypes());
+    this.store.dispatch(startup());
     this.afAuth.authState.subscribe(u => {
       this.store.dispatch(
         loginChanged({ email: u && u.email, userId: u && u.uid }),
       );
-      if (!u) {
-        this.navController.navigateRoot(['login']);
-      } else {
-        this.store.dispatch(loadCustomers());
-        this.store.dispatch(loadTimers());
-      }
     });
   }
 }

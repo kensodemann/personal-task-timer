@@ -1,5 +1,18 @@
 import { Customer } from '@app/models';
-import * as CustomerActions from '@app/store/actions/customer.actions';
+import {
+  addCustomer,
+  addCustomerFailure,
+  customerAdded,
+  customerModified,
+  customerRemoved,
+  customersAdded,
+  loadCustomersFailure,
+  loginChanged,
+  removeCustomer,
+  removeCustomerFailure,
+  updateCustomer,
+  updateCustomerFailure,
+} from '@app/store/actions';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 
@@ -14,61 +27,61 @@ export const initialState = adapter.getInitialState({ loading: false });
 
 const customerReducer = createReducer(
   initialState,
-  on(CustomerActions.load, state =>
+  on(loginChanged, state =>
     adapter.removeAll({ ...state, loading: true, error: undefined }),
   ),
-  on(CustomerActions.loadFailure, (state, { error }) => ({
+  on(loadCustomersFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(CustomerActions.create, state => ({
+  on(addCustomer, state => ({
     ...state,
     loading: true,
     error: undefined,
   })),
-  on(CustomerActions.createFailure, (state, { error }) => ({
+  on(addCustomerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(CustomerActions.update, state => ({
+  on(updateCustomer, state => ({
     ...state,
     loading: true,
     error: undefined,
   })),
-  on(CustomerActions.updateFailure, (state, { error }) => ({
+  on(updateCustomerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(CustomerActions.remove, state => ({
+  on(removeCustomer, state => ({
     ...state,
     loading: true,
     error: undefined,
   })),
-  on(CustomerActions.removeFailure, (state, { error }) => ({
+  on(removeCustomerFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
   })),
 
-  on(CustomerActions.customerAdded, (state, { customer }) =>
+  on(customerAdded, (state, { customer }) =>
     adapter.addOne(customer, { ...state, loading: false }),
   ),
-  on(CustomerActions.customersAdded, (state, { customers }) =>
+  on(customersAdded, (state, { customers }) =>
     adapter.addMany(customers, { ...state, loading: false }),
   ),
-  on(CustomerActions.customerModified, (state, { customer }) =>
+  on(customerModified, (state, { customer }) =>
     adapter.updateOne(
       { id: customer.id, changes: customer },
       { ...state, loading: false },
     ),
   ),
-  on(CustomerActions.customerRemoved, (state, { customer }) =>
+  on(customerRemoved, (state, { customer }) =>
     adapter.removeOne(customer.id, { ...state, loading: false }),
   ),
 );

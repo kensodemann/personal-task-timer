@@ -1,18 +1,18 @@
 import { Timer } from '@app/models';
 import {
-  create,
-  createFailure,
-  load,
-  loadFailure,
-  remove,
-  removeFailure,
+  addTimer,
+  addTimerFailure,
+  loadTimersFailure,
+  loginChanged,
+  removeTimer,
+  removeTimerFailure,
   timerAdded,
   timerModified,
   timerRemoved,
   timersAdded,
-  update,
-  updateFailure,
-} from '@app/store/actions/timer.actions';
+  updateTimer,
+  updateTimerFailure,
+} from '@app/store/actions';
 import { Dictionary } from '@ngrx/entity';
 import { initialState, reducer } from './timer.reducer';
 
@@ -27,9 +27,9 @@ it('returns the default state', () => {
   expect(reducer(undefined, { type: 'NOOP' })).toEqual(initialState);
 });
 
-describe('load', () => {
+describe('login changed', () => {
   it('sets loading true, removes any entities, and undefines any error', () => {
-    const action = load();
+    const action = loginChanged({ email: undefined, userId: undefined });
     expect(
       reducer(
         {
@@ -50,7 +50,9 @@ describe('load', () => {
 
 describe('load failure', () => {
   it('sets the error and clears the loading flag', () => {
-    const action = loadFailure({ error: new Error('Could not load the data') });
+    const action = loadTimersFailure({
+      error: new Error('Could not load the data'),
+    });
     expect(reducer({ ...initialState, loading: true }, action)).toEqual({
       ...initialState,
       loading: false,
@@ -59,9 +61,9 @@ describe('load failure', () => {
   });
 });
 
-describe('create', () => {
+describe('add', () => {
   it('sets loading true and undefines any error', () => {
-    const action = create({ timer: undefined });
+    const action = addTimer({ timer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last create failed') },
@@ -77,7 +79,7 @@ describe('create', () => {
 
 describe('create failure', () => {
   it('sets the error and clears the loading flag', () => {
-    const action = createFailure({
+    const action = addTimerFailure({
       error: new Error('Could not create the data'),
     });
     expect(reducer({ ...initialState, loading: true }, action)).toEqual({
@@ -90,7 +92,7 @@ describe('create failure', () => {
 
 describe('update', () => {
   it('sets loading true and undefines any error', () => {
-    const action = update({ timer: undefined });
+    const action = updateTimer({ timer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last update failed') },
@@ -106,7 +108,7 @@ describe('update', () => {
 
 describe('update failure', () => {
   it('sets the error and clears the loading flag', () => {
-    const action = updateFailure({
+    const action = updateTimerFailure({
       error: new Error('Could not update the data'),
     });
     expect(reducer({ ...initialState, loading: true }, action)).toEqual({
@@ -119,7 +121,7 @@ describe('update failure', () => {
 
 describe('remove', () => {
   it('sets loading true and undefines any error', () => {
-    const action = remove({ timer: undefined });
+    const action = removeTimer({ timer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last remove failed') },
@@ -135,7 +137,7 @@ describe('remove', () => {
 
 describe('remove failure', () => {
   it('sets the error and clears the loading flag', () => {
-    const action = removeFailure({
+    const action = removeTimerFailure({
       error: new Error('Could not remove the data'),
     });
     expect(reducer({ ...initialState, loading: true }, action)).toEqual({

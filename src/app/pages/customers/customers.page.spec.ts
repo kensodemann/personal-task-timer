@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule, ModalController } from '@ionic/angular';
-import { provideMockStore } from '@ngrx/store/testing';
-import { Store } from '@ngrx/store';
-
-import { CustomersPage } from './customers.page';
+import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
+import { logout } from '@app/store/actions';
 import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
-import { logout } from '@app/store/actions/auth.actions';
+import { IonicModule, ModalController } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
-import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
+import { CustomersPage } from './customers.page';
 
 describe('CustomersPage', () => {
   let component: CustomersPage;
