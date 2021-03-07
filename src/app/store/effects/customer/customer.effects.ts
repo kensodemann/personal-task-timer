@@ -17,11 +17,6 @@ interface CustomerChangeAction {
 
 @Injectable()
 export class CustomerEffects {
-  constructor(
-    private actions$: Actions,
-    private customersService: CustomersService,
-  ) {}
-
   changes$ = createEffect(() =>
     this.actions$.pipe(
       ofType(customerActions.load),
@@ -69,6 +64,11 @@ export class CustomerEffects {
       ),
     ),
   );
+
+  constructor(
+    private actions$: Actions,
+    private customersService: CustomersService,
+  ) {}
 
   private unpackActions(
     actions: Array<DocumentChangeAction<Customer>>,

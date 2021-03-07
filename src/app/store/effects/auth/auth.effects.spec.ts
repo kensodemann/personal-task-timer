@@ -1,17 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable, of } from 'rxjs';
-
-import { AuthEffects } from './auth.effects';
 import { AuthenticationService } from '@app/services';
 import { createAuthenticationServiceMock } from '@app/services/mocks';
 import {
-  AuthActionTypes,
   login,
+  loginFailure,
+  loginSuccess,
   logout,
+  logoutFailure,
+  logoutSuccess,
   resetPassword,
+  resetPasswordFailure,
   resetPasswordSuccess,
 } from '@app/store/actions/auth.actions';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Observable, of } from 'rxjs';
+import { AuthEffects } from './auth.effects';
 
 let actions$: Observable<any>;
 let effects: AuthEffects;
@@ -54,24 +57,25 @@ describe('login$', () => {
   });
 
   it('dispatches login success', done => {
+    const dispatched = loginSuccess();
     actions$ = of(login({ email: 'test@testty.com', password: 'mysecret' }));
     effects.login$.subscribe(action => {
-      expect(action).toEqual({ type: AuthActionTypes.LoginSuccess });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches login errors', done => {
     const authenticationService = TestBed.inject(AuthenticationService);
+    const dispatched = loginFailure({
+      error: new Error('The login failed'),
+    });
     (authenticationService.login as any).mockRejectedValue(
       new Error('The login failed'),
     );
     actions$ = of(login({ email: 'test@testty.com', password: 'mysecret' }));
     effects.login$.subscribe(action => {
-      expect(action).toEqual({
-        type: AuthActionTypes.LoginFailure,
-        error: new Error('The login failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -93,24 +97,23 @@ describe('logout$', () => {
   });
 
   it('dispatches logout success', done => {
+    const dispatched = logoutSuccess();
     actions$ = of(logout());
     effects.logout$.subscribe(action => {
-      expect(action).toEqual({ type: AuthActionTypes.LogoutSuccess });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches login errors', done => {
     const authenticationService = TestBed.inject(AuthenticationService);
+    const dispatched = logoutFailure({ error: new Error('The logout failed') });
     (authenticationService.logout as any).mockRejectedValue(
       new Error('The logout failed'),
     );
     actions$ = of(logout());
     effects.logout$.subscribe(action => {
-      expect(action).toEqual({
-        type: AuthActionTypes.LogoutFailure,
-        error: new Error('The logout failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -154,15 +157,15 @@ describe('resetPassword$', () => {
 
   it('dispatches errors', done => {
     const authenticationService = TestBed.inject(AuthenticationService);
+    const dispatched = resetPasswordFailure({
+      error: new Error('The reset failed'),
+    });
     (authenticationService.sendPasswordResetEmail as any).mockRejectedValue(
       new Error('The reset failed'),
     );
     actions$ = of(resetPassword({ email: 'test@testty.com' }));
     effects.resetPassword$.subscribe(action => {
-      expect(action).toEqual({
-        type: AuthActionTypes.ResetPasswordFailure,
-        error: new Error('The reset failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });

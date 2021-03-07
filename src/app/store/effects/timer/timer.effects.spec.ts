@@ -1,13 +1,12 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Action } from '@ngrx/store';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable, of } from 'rxjs';
-
-import { TimerEffects } from './timer.effects';
-import { createTimersServiceMock } from '@app/services/firestore-data/mocks';
-import { TimersService } from '@app/services/firestore-data';
-import * as timerActions from '@app/store/actions/timer.actions';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Timer } from '@app/models';
+import { TimersService } from '@app/services/firestore-data';
+import { createTimersServiceMock } from '@app/services/firestore-data/mocks';
+import * as timerActions from '@app/store/actions/timer.actions';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Action } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { TimerEffects } from './timer.effects';
 
 let actions$: Observable<any>;
 let effects: TimerEffects;
@@ -341,24 +340,23 @@ describe('create$', () => {
   });
 
   it('dispatches create success', done => {
+    const dispatched = timerActions.createSuccess();
     actions$ = of(timerActions.create({ timer }));
     effects.create$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.createSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches create errors', done => {
     const service = TestBed.inject(TimersService);
+    const dispatched = timerActions.createFailure({
+      error: new Error('The create failed'),
+    });
     (service.add as any).mockRejectedValue(new Error('The create failed'));
     actions$ = of(timerActions.create({ timer }));
     effects.create$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.createFailure,
-        error: new Error('The create failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -393,24 +391,23 @@ describe('update$', () => {
   });
 
   it('dispatches update success', done => {
+    const dispatched = timerActions.updateSuccess();
     actions$ = of(timerActions.update({ timer }));
     effects.update$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.updateSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches update errors', done => {
     const service = TestBed.inject(TimersService);
+    const dispatched = timerActions.updateFailure({
+      error: new Error('The update failed'),
+    });
     (service.update as any).mockRejectedValue(new Error('The update failed'));
     actions$ = of(timerActions.update({ timer }));
     effects.update$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.updateFailure,
-        error: new Error('The update failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -445,24 +442,23 @@ describe('remove$', () => {
   });
 
   it('dispatches remove success', done => {
+    const dispatched = timerActions.removeSuccess();
     actions$ = of(timerActions.remove({ timer }));
     effects.remove$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.removeSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches remove failure', done => {
     const service = TestBed.inject(TimersService);
+    const dispatched = timerActions.removeFailure({
+      error: new Error('The remove failed'),
+    });
     (service.delete as any).mockRejectedValue(new Error('The remove failed'));
     actions$ = of(timerActions.remove({ timer }));
     effects.remove$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.removeFailure,
-        error: new Error('The remove failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -497,24 +493,23 @@ describe('start$', () => {
   });
 
   it('dispatches timer started success', done => {
+    const dispatched = timerActions.startSuccess();
     actions$ = of(timerActions.start({ timer }));
     effects.start$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.startSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches timer started failure', done => {
     const service = TestBed.inject(TimersService);
+    const dispatched = timerActions.startFailure({
+      error: new Error('The start failed'),
+    });
     (service.start as any).mockRejectedValue(new Error('The start failed'));
     actions$ = of(timerActions.start({ timer }));
     effects.start$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.startFailure,
-        error: new Error('The start failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -549,24 +544,23 @@ describe('stop$', () => {
   });
 
   it('dispatches timer stopped success', done => {
+    const dispatched = timerActions.stopSuccess();
     actions$ = of(timerActions.stop({ timer }));
     effects.stop$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.stopSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches timer stopped failure', done => {
     const service = TestBed.inject(TimersService);
+    const dispatched = timerActions.stopFailure({
+      error: new Error('The stop failed'),
+    });
     (service.stop as any).mockRejectedValue(new Error('The stop failed'));
     actions$ = of(timerActions.stop({ timer }));
     effects.stop$.subscribe(action => {
-      expect(action).toEqual({
-        type: timerActions.TimerActionTypes.stopFailure,
-        error: new Error('The stop failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });

@@ -35,7 +35,7 @@ export abstract class FirestoreDataService<T extends { id?: string }> {
 
   async update(item: T): Promise<void> {
     const user = await this.afAuth.currentUser;
-    const data = { ...(item as object) } as T;
+    const data = { ...(item as Record<string, unknown>) } as T;
     delete data.id;
     return this.getCollection(user).doc(item.id).set(data);
   }

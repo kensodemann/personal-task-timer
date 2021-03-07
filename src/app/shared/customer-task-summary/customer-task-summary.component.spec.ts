@@ -1,14 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { provideMockStore } from '@ngrx/store/testing';
-import { Dictionary } from '@ngrx/entity';
-
-import { HoursPipeModule } from '../hours/hours.module';
-
-import { CustomerTaskSummaryComponent } from './customer-task-summary.component';
-import { InfoItemComponentModule } from '../info-item/info-item.module';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
 import { Timer } from '@app/models';
+import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { IonicModule } from '@ionic/angular';
+import { Dictionary } from '@ngrx/entity';
+import { provideMockStore } from '@ngrx/store/testing';
+import { HoursPipeModule } from '../hours/hours.module';
+import { InfoItemComponentModule } from '../info-item/info-item.module';
+import { CustomerTaskSummaryComponent } from './customer-task-summary.component';
 
 describe('CustomerTaskSummaryComponent', () => {
   let component: CustomerTaskSummaryComponent;
@@ -82,7 +80,7 @@ describe('CustomerTaskSummaryComponent', () => {
     }),
   );
 
-  function initializeTestData() {
+  const initializeTestData = () => {
     testTimerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
     testTimers = {
       'asdf1234': {
@@ -122,5 +120,5 @@ describe('CustomerTaskSummaryComponent', () => {
         customerName: 'A & W',
       },
     };
-  }
+  };
 });

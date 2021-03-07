@@ -1,13 +1,16 @@
 import { Customer } from '@app/models';
 import {
+  create,
   createFailure,
-  CustomerActionTypes,
   customerAdded,
   customerModified,
   customerRemoved,
   customersAdded,
+  load,
   loadFailure,
+  remove,
   removeFailure,
+  update,
   updateFailure,
 } from '@app/store/actions/customer.actions';
 import { Dictionary } from '@ngrx/entity';
@@ -24,8 +27,9 @@ it('returns the default state', () => {
   expect(reducer(undefined, { type: 'NOOP' })).toEqual(initialState);
 });
 
-describe(CustomerActionTypes.load, () => {
+describe('load', () => {
   it('sets loading true, removes any entities, and undefines any error', () => {
+    const action = load();
     expect(
       reducer(
         {
@@ -34,7 +38,7 @@ describe(CustomerActionTypes.load, () => {
           entities: { ...testCustomers },
           error: new Error('the last load failed'),
         },
-        { type: CustomerActionTypes.load },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -44,7 +48,7 @@ describe(CustomerActionTypes.load, () => {
   });
 });
 
-describe(CustomerActionTypes.loadFailure, () => {
+describe('load failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = loadFailure({ error: new Error('Could not load the data') });
     expect(reducer({ ...initialState, loading: true }, action)).toEqual({
@@ -55,12 +59,13 @@ describe(CustomerActionTypes.loadFailure, () => {
   });
 });
 
-describe(CustomerActionTypes.create, () => {
+describe('create', () => {
   it('sets loading true and undefines any error', () => {
+    const action = create({ customer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last create failed') },
-        { type: CustomerActionTypes.create },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -70,7 +75,7 @@ describe(CustomerActionTypes.create, () => {
   });
 });
 
-describe(CustomerActionTypes.createFailure, () => {
+describe('create failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = createFailure({
       error: new Error('Could not create the data'),
@@ -83,12 +88,13 @@ describe(CustomerActionTypes.createFailure, () => {
   });
 });
 
-describe(CustomerActionTypes.update, () => {
+describe('update', () => {
   it('sets loading true and undefines any error', () => {
+    const action = update({ customer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last update failed') },
-        { type: CustomerActionTypes.update },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -98,7 +104,7 @@ describe(CustomerActionTypes.update, () => {
   });
 });
 
-describe(CustomerActionTypes.updateFailure, () => {
+describe('update failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = updateFailure({
       error: new Error('Could not update the data'),
@@ -111,12 +117,13 @@ describe(CustomerActionTypes.updateFailure, () => {
   });
 });
 
-describe(CustomerActionTypes.remove, () => {
+describe('remove', () => {
+  const action = remove({ customer: undefined });
   it('sets loading true and undefines any error', () => {
     expect(
       reducer(
         { ...initialState, error: new Error('the last remove failed') },
-        { type: CustomerActionTypes.remove },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -126,7 +133,7 @@ describe(CustomerActionTypes.remove, () => {
   });
 });
 
-describe(CustomerActionTypes.removeFailure, () => {
+describe('remove failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = removeFailure({
       error: new Error('Could not remove the data'),
@@ -139,7 +146,7 @@ describe(CustomerActionTypes.removeFailure, () => {
   });
 });
 
-describe(CustomerActionTypes.customerAdded, () => {
+describe('customer added', () => {
   it('adds the customer to an empty state', () => {
     const customer: Customer = {
       id: '194309fkadsfoi',
@@ -197,7 +204,7 @@ describe(CustomerActionTypes.customerAdded, () => {
   });
 });
 
-describe(CustomerActionTypes.customersAdded, () => {
+describe('customers added', () => {
   it('adds the customers to an empty state', () => {
     const customers: Array<Customer> = [
       {
@@ -308,7 +315,7 @@ describe(CustomerActionTypes.customersAdded, () => {
   });
 });
 
-describe(CustomerActionTypes.customerModified, () => {
+describe('customer modified', () => {
   it('modifies the specified customer', () => {
     const customer: Customer = {
       id: 'ff898gd',
@@ -338,7 +345,7 @@ describe(CustomerActionTypes.customerModified, () => {
   });
 });
 
-describe(CustomerActionTypes.customerRemoved, () => {
+describe('customer removed', () => {
   it('deletes the customer', () => {
     const customer: Customer = {
       id: 'ff88t99er',
@@ -368,7 +375,7 @@ describe(CustomerActionTypes.customerRemoved, () => {
   });
 });
 
-function initializeTestData() {
+const initializeTestData = () => {
   testCustomerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
   testCustomers = {
     'asdf1234': {
@@ -396,4 +403,4 @@ function initializeTestData() {
       supportHours: 0,
     },
   };
-}
+};

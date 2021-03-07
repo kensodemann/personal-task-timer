@@ -1,5 +1,5 @@
-import { Action, createReducer, on } from '@ngrx/store';
 import * as TaskTypeActions from '@app/store/actions/task-type.actions';
+import { Action, createReducer, on } from '@ngrx/store';
 
 export interface TaskTypeState {
   taskTypes: Array<string>;
@@ -28,6 +28,5 @@ const authReducer = createReducer(
   })),
 );
 
-export function reducer(state: TaskTypeState | undefined, action: Action) {
-  return authReducer(state, action);
-}
+export const reducer = (state: TaskTypeState | undefined, action: Action) =>
+  authReducer(state, action);

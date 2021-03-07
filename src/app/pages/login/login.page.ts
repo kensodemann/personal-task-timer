@@ -23,13 +23,13 @@ import { login, resetPassword } from '@app/store/actions/auth.actions';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit, OnDestroy {
-  private destroy$: Subject<boolean> = new Subject<boolean>();
-  private loading: HTMLIonLoadingElement;
-
   email: string;
   password: string;
   errorMessage: string;
   infoMessage: string;
+
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private loading: HTMLIonLoadingElement;
 
   constructor(
     private alert: AlertController,
@@ -67,27 +67,6 @@ export class LoginPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
-  }
-
-  private showLoading(show: boolean) {
-    if (show) {
-      this.loading.present();
-    } else {
-      this.loading.dismiss();
-    }
-  }
-
-  private setErrorMessage(error: Error) {
-    this.errorMessage = error && error.message;
-    if (this.errorMessage) {
-      this.password = '';
-    }
-  }
-
-  private goToApp(doNav: boolean) {
-    if (doNav) {
-      this.navController.navigateRoot('');
-    }
   }
 
   clearMessages() {
@@ -135,6 +114,27 @@ export class LoginPage implements OnInit, OnDestroy {
       this.store.dispatch(
         resetPassword({ email: response.data.values.emailAddress }),
       );
+    }
+  }
+
+  private showLoading(show: boolean) {
+    if (show) {
+      this.loading.present();
+    } else {
+      this.loading.dismiss();
+    }
+  }
+
+  private setErrorMessage(error: Error) {
+    this.errorMessage = error && error.message;
+    if (this.errorMessage) {
+      this.password = '';
+    }
+  }
+
+  private goToApp(doNav: boolean) {
+    if (doNav) {
+      this.navController.navigateRoot('');
     }
   }
 }

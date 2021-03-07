@@ -1,8 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
-
-import * as CustomerActions from '@app/store/actions/customer.actions';
 import { Customer } from '@app/models';
+import * as CustomerActions from '@app/store/actions/customer.actions';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
 
 export interface CustomersState extends EntityState<Customer> {
   loading: boolean;
@@ -74,9 +73,8 @@ const customerReducer = createReducer(
   ),
 );
 
-export function reducer(state: CustomersState | undefined, action: Action) {
-  return customerReducer(state, action);
-}
+export const reducer = (state: CustomersState | undefined, action: Action) =>
+  customerReducer(state, action);
 
 const {
   selectIds,

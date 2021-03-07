@@ -1,8 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
-
-import * as TimerActions from '@app/store/actions/timer.actions';
 import { Timer } from '@app/models';
+import * as TimerActions from '@app/store/actions/timer.actions';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
 
 export interface TimersState extends EntityState<Timer> {
   loading: boolean;
@@ -74,9 +73,8 @@ const timerReducer = createReducer(
   ),
 );
 
-export function reducer(state: TimersState | undefined, action: Action) {
-  return timerReducer(state, action);
-}
+export const reducer = (state: TimersState | undefined, action: Action) =>
+  timerReducer(state, action);
 
 const {
   selectIds,

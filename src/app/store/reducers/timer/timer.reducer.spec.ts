@@ -1,18 +1,20 @@
-import { Dictionary } from '@ngrx/entity';
-
-import { initialState, reducer } from './timer.reducer';
+import { Timer } from '@app/models';
 import {
-  TimerActionTypes,
+  create,
   createFailure,
-  updateFailure,
-  removeFailure,
+  load,
   loadFailure,
+  remove,
+  removeFailure,
   timerAdded,
-  timersAdded,
   timerModified,
   timerRemoved,
+  timersAdded,
+  update,
+  updateFailure,
 } from '@app/store/actions/timer.actions';
-import { Timer } from '@app/models';
+import { Dictionary } from '@ngrx/entity';
+import { initialState, reducer } from './timer.reducer';
 
 let testTimers: Dictionary<Timer>;
 let testTimerIds: Array<string>;
@@ -25,8 +27,9 @@ it('returns the default state', () => {
   expect(reducer(undefined, { type: 'NOOP' })).toEqual(initialState);
 });
 
-describe(TimerActionTypes.load, () => {
+describe('load', () => {
   it('sets loading true, removes any entities, and undefines any error', () => {
+    const action = load();
     expect(
       reducer(
         {
@@ -35,7 +38,7 @@ describe(TimerActionTypes.load, () => {
           entities: { ...testTimers },
           error: new Error('the last load failed'),
         },
-        { type: TimerActionTypes.load },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -45,7 +48,7 @@ describe(TimerActionTypes.load, () => {
   });
 });
 
-describe(TimerActionTypes.loadFailure, () => {
+describe('load failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = loadFailure({ error: new Error('Could not load the data') });
     expect(reducer({ ...initialState, loading: true }, action)).toEqual({
@@ -56,12 +59,13 @@ describe(TimerActionTypes.loadFailure, () => {
   });
 });
 
-describe(TimerActionTypes.create, () => {
+describe('create', () => {
   it('sets loading true and undefines any error', () => {
+    const action = create({ timer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last create failed') },
-        { type: TimerActionTypes.create },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -71,7 +75,7 @@ describe(TimerActionTypes.create, () => {
   });
 });
 
-describe(TimerActionTypes.createFailure, () => {
+describe('create failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = createFailure({
       error: new Error('Could not create the data'),
@@ -84,12 +88,13 @@ describe(TimerActionTypes.createFailure, () => {
   });
 });
 
-describe(TimerActionTypes.update, () => {
+describe('update', () => {
   it('sets loading true and undefines any error', () => {
+    const action = update({ timer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last update failed') },
-        { type: TimerActionTypes.update },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -99,7 +104,7 @@ describe(TimerActionTypes.update, () => {
   });
 });
 
-describe(TimerActionTypes.updateFailure, () => {
+describe('update failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = updateFailure({
       error: new Error('Could not update the data'),
@@ -112,12 +117,13 @@ describe(TimerActionTypes.updateFailure, () => {
   });
 });
 
-describe(TimerActionTypes.remove, () => {
+describe('remove', () => {
   it('sets loading true and undefines any error', () => {
+    const action = remove({ timer: undefined });
     expect(
       reducer(
         { ...initialState, error: new Error('the last remove failed') },
-        { type: TimerActionTypes.remove },
+        action,
       ),
     ).toEqual({
       ...initialState,
@@ -127,7 +133,7 @@ describe(TimerActionTypes.remove, () => {
   });
 });
 
-describe(TimerActionTypes.removeFailure, () => {
+describe('remove failure', () => {
   it('sets the error and clears the loading flag', () => {
     const action = removeFailure({
       error: new Error('Could not remove the data'),
@@ -140,7 +146,7 @@ describe(TimerActionTypes.removeFailure, () => {
   });
 });
 
-describe(TimerActionTypes.timerAdded, () => {
+describe('timer added', () => {
   it('adds the timer to an empty state', () => {
     const timer: Timer = {
       id: '194309fkadsfoi',
@@ -206,7 +212,7 @@ describe(TimerActionTypes.timerAdded, () => {
   });
 });
 
-describe(TimerActionTypes.timersAdded, () => {
+describe('timers added', () => {
   it('adds the timers to an empty state', () => {
     const timers: Array<Timer> = [
       {
@@ -341,7 +347,7 @@ describe(TimerActionTypes.timersAdded, () => {
   });
 });
 
-describe(TimerActionTypes.timerModified, () => {
+describe('timer modified', () => {
   it('modifies the specified timer', () => {
     const timer: Timer = {
       id: 'ff898gd',
@@ -374,7 +380,7 @@ describe(TimerActionTypes.timerModified, () => {
   });
 });
 
-describe(TimerActionTypes.timerRemoved, () => {
+describe('timer removed', () => {
   it('deletes the timer', () => {
     const timer: Timer = {
       id: 'ff88t99er',
@@ -409,7 +415,7 @@ describe(TimerActionTypes.timerRemoved, () => {
   });
 });
 
-function initializeTestData() {
+const initializeTestData = () => {
   testTimerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
   testTimers = {
     'asdf1234': {
@@ -449,4 +455,4 @@ function initializeTestData() {
       date: '2019-11-19',
     },
   };
-}
+};

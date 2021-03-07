@@ -1,3 +1,3 @@
-export function createApplicationServiceMock() {
-  return { registerForUpdates: jest.fn() };
-}
+export const createApplicationServiceMock = () => ({
+  registerForUpdates: jest.fn(),
+});

@@ -1,106 +1,76 @@
 import { createAction, props } from '@ngrx/store';
 import { Timer } from '@app/models';
 
-export enum TimerActionTypes {
-  create = '[Timer Editor] add timer',
-  createSuccess = '[Timers API] create success',
-  createFailure = '[Timers API] create failure',
-
-  update = '[Timer Editor] update timer',
-  updateSuccess = '[Timers API] update success',
-  updateFailure = '[Timers API] update failure',
-
-  remove = '[Today Page] remove timer',
-  removeSuccess = '[Timers API] remove success',
-  removeFailure = '[Timers API] remove failure',
-
-  load = '[Application] load timers',
-  loadSuccess = '[Timers API] load success',
-  loadFailure = '[Timers API] load failure',
-
-  timerAdded = '[Timer Load State Change] added',
-  timersAdded = '[Timer Load State Change] added many',
-  timerModified = '[Timer Load State Change] modified',
-  timerRemoved = '[Timer Load State Change] removed',
-
-  start = '[Today Page] timer start',
-  startSuccess = '[Timers API] timer start success',
-  startFailure = '[Timers API] timer start failure',
-  stop = '[Today Page] timer stopped',
-  stopSuccess = '[Timers API] timer stop success',
-  stopFailure = '[Timers API] timer stop failure',
-}
-
 export const create = createAction(
-  TimerActionTypes.create,
+  '[Timer Editor] add timer',
   props<{ timer: Timer }>(),
 );
-export const createSuccess = createAction(TimerActionTypes.createSuccess);
+export const createSuccess = createAction('[Timers API] create success');
 export const createFailure = createAction(
-  TimerActionTypes.createFailure,
+  '[Timers API] create failure',
   props<{ error: Error }>(),
 );
 
 export const update = createAction(
-  TimerActionTypes.update,
+  '[Timer Editor] update timer',
   props<{ timer: Timer }>(),
 );
-export const updateSuccess = createAction(TimerActionTypes.updateSuccess);
+export const updateSuccess = createAction('[Timers API] update success');
 export const updateFailure = createAction(
-  TimerActionTypes.updateFailure,
+  '[Timers API] update failure',
   props<{ error: Error }>(),
 );
 
 export const remove = createAction(
-  TimerActionTypes.remove,
+  '[Today Page] remove timer',
   props<{ timer: Timer }>(),
 );
-export const removeSuccess = createAction(TimerActionTypes.removeSuccess);
+export const removeSuccess = createAction('[Timers API] remove success');
 export const removeFailure = createAction(
-  TimerActionTypes.removeFailure,
+  '[Timers API] remove failure',
   props<{ error: Error }>(),
 );
 
-export const load = createAction(TimerActionTypes.load);
-export const loadSuccess = createAction(TimerActionTypes.loadSuccess);
+export const load = createAction('[Application] load timers');
+export const loadSuccess = createAction('[Timers API] load success');
 export const loadFailure = createAction(
-  TimerActionTypes.loadFailure,
+  '[Timers API] load failure',
   props<{ error: Error }>(),
 );
 
 export const timerAdded = createAction(
-  TimerActionTypes.timerAdded,
+  '[Timer Load State Change] added',
   props<{ timer: Timer }>(),
 );
 export const timersAdded = createAction(
-  TimerActionTypes.timersAdded,
+  '[Timer Load State Change] added many',
   props<{ timers: Array<Timer> }>(),
 );
 export const timerModified = createAction(
-  TimerActionTypes.timerModified,
+  '[Timer Load State Change] modified',
   props<{ timer: Timer }>(),
 );
 export const timerRemoved = createAction(
-  TimerActionTypes.timerRemoved,
+  '[Timer Load State Change] removed',
   props<{ timer: Timer }>(),
 );
 
 export const start = createAction(
-  TimerActionTypes.start,
+  '[Today Page] timer start',
   props<{ timer: Timer }>(),
 );
-export const startSuccess = createAction(TimerActionTypes.startSuccess);
+export const startSuccess = createAction('[Timers API] timer start success');
 export const startFailure = createAction(
-  TimerActionTypes.startFailure,
+  '[Timers API] timer start failure',
   props<{ error: Error }>(),
 );
 
 export const stop = createAction(
-  TimerActionTypes.stop,
+  '[Today Page] timer stopped',
   props<{ timer: Timer }>(),
 );
-export const stopSuccess = createAction(TimerActionTypes.stopSuccess);
+export const stopSuccess = createAction('[Timers API] timer stop success');
 export const stopFailure = createAction(
-  TimerActionTypes.stopFailure,
+  '[Timers API] timer stop failure',
   props<{ error: Error }>(),
 );

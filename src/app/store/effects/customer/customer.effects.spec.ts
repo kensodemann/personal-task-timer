@@ -306,24 +306,24 @@ describe('create$', () => {
   });
 
   it('dispatches create success', done => {
+    const dispatched = customerActions.createSuccess();
     actions$ = of(customerActions.create({ customer }));
     effects.create$.subscribe(action => {
-      expect(action).toEqual({
-        type: customerActions.CustomerActionTypes.createSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches create errors', done => {
     const service = TestBed.inject(CustomersService);
+    const dispatched = customerActions.createFailure({
+      error: new Error('The create failed'),
+    });
+
     (service.add as any).mockRejectedValue(new Error('The create failed'));
     actions$ = of(customerActions.create({ customer }));
     effects.create$.subscribe(action => {
-      expect(action).toEqual({
-        type: customerActions.CustomerActionTypes.createFailure,
-        error: new Error('The create failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -356,24 +356,23 @@ describe('update$', () => {
   });
 
   it('dispatches update success', done => {
+    const dispatched = customerActions.updateSuccess();
     actions$ = of(customerActions.update({ customer }));
     effects.update$.subscribe(action => {
-      expect(action).toEqual({
-        type: customerActions.CustomerActionTypes.updateSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches update errors', done => {
     const service = TestBed.inject(CustomersService);
+    const dispatched = customerActions.updateFailure({
+      error: new Error('The update failed'),
+    });
     (service.update as any).mockRejectedValue(new Error('The update failed'));
     actions$ = of(customerActions.update({ customer }));
     effects.update$.subscribe(action => {
-      expect(action).toEqual({
-        type: customerActions.CustomerActionTypes.updateFailure,
-        error: new Error('The update failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
@@ -406,24 +405,23 @@ describe('remove$', () => {
   });
 
   it('dispatches remove success', done => {
+    const dispatched = customerActions.removeSuccess();
     actions$ = of(customerActions.remove({ customer }));
     effects.remove$.subscribe(action => {
-      expect(action).toEqual({
-        type: customerActions.CustomerActionTypes.removeSuccess,
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });
 
   it('dispatches remove failure', done => {
     const service = TestBed.inject(CustomersService);
+    const dispatched = customerActions.removeFailure({
+      error: new Error('The remove failed'),
+    });
     (service.delete as any).mockRejectedValue(new Error('The remove failed'));
     actions$ = of(customerActions.remove({ customer }));
     effects.remove$.subscribe(action => {
-      expect(action).toEqual({
-        type: customerActions.CustomerActionTypes.removeFailure,
-        error: new Error('The remove failed'),
-      });
+      expect(action).toEqual(dispatched);
       done();
     });
   });

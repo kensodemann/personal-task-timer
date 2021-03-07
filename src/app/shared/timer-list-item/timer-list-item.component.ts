@@ -1,18 +1,10 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { differenceInMinutes } from 'date-fns';
-
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Timer } from '@app/models/timer';
-import { Store, select } from '@ngrx/store';
-import { remove, stop, start } from '@app/store/actions/timer.actions';
 import { selectAllActiveTimers, State } from '@app/store';
+import { remove, start, stop } from '@app/store/actions/timer.actions';
+import { AlertController, ModalController } from '@ionic/angular';
+import { select, Store } from '@ngrx/store';
+import { differenceInMinutes } from 'date-fns';
 import { take } from 'rxjs/operators';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 
@@ -22,12 +14,12 @@ import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
   styleUrls: ['./timer-list-item.component.scss'],
 })
 export class TimerListItemComponent implements OnInit, OnDestroy {
-  private intervalID: any;
-
   @Input() timer: Timer;
   @Input() disableToggle: boolean;
 
   runningMinutes: number;
+
+  private intervalID: any;
 
   constructor(
     private alertController: AlertController,

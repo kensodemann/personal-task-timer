@@ -18,7 +18,7 @@
     "start": "ng serve",
     "test": "jest --coverage",
     "test:ci": "jest --runInBand --no-cache",
-    "test:watch": "jest --watch",
+    "test:dev": "jest --watch",
     "prepare": "husky install"
   },
   "private": true,
@@ -74,7 +74,18 @@
     "ts-node": "~9.1.1",
     "tslint": "~6.1.0",
     "typescript": "~4.0.7",
-    "webpack-bundle-analyzer": "~4.4.0"
+    "webpack-bundle-analyzer": "~4.4.0",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsdoc": "30.7.6",
+    "eslint-plugin-prefer-arrow": "1.2.2",
+    "@angular-eslint/builder": "1.2.0",
+    "@angular-eslint/eslint-plugin": "1.2.0",
+    "@angular-eslint/eslint-plugin-template": "1.2.0",
+    "@angular-eslint/schematics": "1.2.0",
+    "@angular-eslint/template-parser": "1.2.0",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0"
   },
   "prettier": "@ionic/prettier-config"
 }

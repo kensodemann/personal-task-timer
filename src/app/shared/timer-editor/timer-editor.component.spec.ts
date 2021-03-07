@@ -387,7 +387,7 @@ describe('TimerEditorComponent', () => {
     });
   });
 
-  function initializeTestData() {
+  const initializeTestData = () => {
     testCustomerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
     testCustomers = {
       'asdf1234': {
@@ -415,5 +415,5 @@ describe('TimerEditorComponent', () => {
         supportHours: 24,
       },
     };
-  }
+  };
 });

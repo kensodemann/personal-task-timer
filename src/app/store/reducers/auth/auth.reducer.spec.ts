@@ -1,23 +1,22 @@
-import { initialState, reducer } from './auth.reducer';
 import {
-  AuthActionTypes,
-  loginChanged,
   login,
+  loginChanged,
   loginFailure,
   loginSuccess,
   logout,
   logoutFailure,
   logoutSuccess,
   resetPassword,
-  resetPasswordSuccess,
   resetPasswordFailure,
+  resetPasswordSuccess,
 } from '@app/store/actions/auth.actions';
+import { initialState, reducer } from './auth.reducer';
 
 it('returns the default state', () => {
   expect(reducer(undefined, { type: 'NOOP' })).toEqual(initialState);
 });
 
-describe(AuthActionTypes.LoginChanged, () => {
+describe('login changed', () => {
   it('sets the email and userId in the state', () => {
     const action = loginChanged({
       email: 'test@testy.com',
@@ -45,7 +44,7 @@ describe(AuthActionTypes.LoginChanged, () => {
   });
 });
 
-describe(AuthActionTypes.Login, () => {
+describe('login', () => {
   it('sets the loading flag and clears other data', () => {
     const action = login({ email: 'test@testy.com', password: 'mysecret' });
     expect(
@@ -69,7 +68,7 @@ describe(AuthActionTypes.Login, () => {
   });
 });
 
-describe(AuthActionTypes.LoginSuccess, () => {
+describe('login success', () => {
   it('clears the loading flag', () => {
     const action = loginSuccess();
     expect(
@@ -93,7 +92,7 @@ describe(AuthActionTypes.LoginSuccess, () => {
   });
 });
 
-describe(AuthActionTypes.LoginFailure, () => {
+describe('login failure', () => {
   it('clears the loading flag and sets the error', () => {
     const action = loginFailure({
       error: new Error('There was a failure, it was a mess'),
@@ -113,7 +112,7 @@ describe(AuthActionTypes.LoginFailure, () => {
   });
 });
 
-describe(AuthActionTypes.Logout, () => {
+describe('logout', () => {
   it('sets the loading flag and clears other data', () => {
     const action = logout();
     expect(
@@ -137,7 +136,7 @@ describe(AuthActionTypes.Logout, () => {
   });
 });
 
-describe(AuthActionTypes.LogoutSuccess, () => {
+describe('logout success', () => {
   it('clears the loading flag', () => {
     const action = logoutSuccess();
     expect(
@@ -161,7 +160,7 @@ describe(AuthActionTypes.LogoutSuccess, () => {
   });
 });
 
-describe(AuthActionTypes.LogoutFailure, () => {
+describe('logout failure', () => {
   it('clears the loading flag and sets the error', () => {
     const action = logoutFailure({
       error: new Error('There was a failure, it was a mess'),
@@ -187,7 +186,7 @@ describe(AuthActionTypes.LogoutFailure, () => {
   });
 });
 
-describe(AuthActionTypes.ResetPassword, () => {
+describe('reset password', () => {
   it('clears the error and message data', () => {
     const action = resetPassword({ email: 'test@testtea.com' });
     expect(
@@ -211,7 +210,7 @@ describe(AuthActionTypes.ResetPassword, () => {
   });
 });
 
-describe(AuthActionTypes.ResetPasswordSuccess, () => {
+describe('reset password success', () => {
   it('sets the message string', () => {
     const action = resetPasswordSuccess({ email: 'test@testtea.com' });
     expect(
@@ -236,7 +235,7 @@ describe(AuthActionTypes.ResetPasswordSuccess, () => {
   });
 });
 
-describe(AuthActionTypes.ResetPasswordFailure, () => {
+describe('reset password failure', () => {
   it('sets the error', () => {
     const action = resetPasswordFailure({
       error: new Error('There was a failure, it was a mess'),

@@ -1,79 +1,56 @@
 import { createAction, props } from '@ngrx/store';
 import { Customer } from '@app/models';
 
-export enum CustomerActionTypes {
-  create = '[Customer Editor] add customer',
-  createSuccess = '[Customers API] create success',
-  createFailure = '[Customers API] create failure',
-
-  update = '[Customer Editor] update customer',
-  updateSuccess = '[Customers API] update success',
-  updateFailure = '[Customers API] update failure',
-
-  remove = '[Today Page] remove customer',
-  removeSuccess = '[Customers API] remove success',
-  removeFailure = '[Customers API] remove failure',
-
-  load = '[Application] load customers',
-  loadSuccess = '[Customers API] load success',
-  loadFailure = '[Customers API] load failure',
-
-  customerAdded = '[Customer Load State Change] added',
-  customersAdded = '[Customer Load State Change] added many',
-  customerModified = '[Customer Load State Change] modified',
-  customerRemoved = '[Customer Load State Change] removed',
-}
-
 export const create = createAction(
-  CustomerActionTypes.create,
+  '[Customer Editor] add customer',
   props<{ customer: Customer }>(),
 );
-export const createSuccess = createAction(CustomerActionTypes.createSuccess);
+export const createSuccess = createAction('[Customers API] create success');
 export const createFailure = createAction(
-  CustomerActionTypes.createFailure,
+  '[Customers API] create failure',
   props<{ error: Error }>(),
 );
 
 export const update = createAction(
-  CustomerActionTypes.update,
+  '[Customer Editor] update customer',
   props<{ customer: Customer }>(),
 );
-export const updateSuccess = createAction(CustomerActionTypes.updateSuccess);
+export const updateSuccess = createAction('[Customers API] update success');
 export const updateFailure = createAction(
-  CustomerActionTypes.updateFailure,
+  '[Customers API] update failure',
   props<{ error: Error }>(),
 );
 
 export const remove = createAction(
-  CustomerActionTypes.remove,
+  '[Today Page] remove customer',
   props<{ customer: Customer }>(),
 );
-export const removeSuccess = createAction(CustomerActionTypes.removeSuccess);
+export const removeSuccess = createAction('[Customers API] remove success');
 export const removeFailure = createAction(
-  CustomerActionTypes.removeFailure,
+  '[Customers API] remove failure',
   props<{ error: Error }>(),
 );
 
-export const load = createAction(CustomerActionTypes.load);
-export const loadSuccess = createAction(CustomerActionTypes.loadSuccess);
+export const load = createAction('[Application] load customers');
+export const loadSuccess = createAction('[Customers API] load success');
 export const loadFailure = createAction(
-  CustomerActionTypes.loadFailure,
+  '[Customers API] load failure',
   props<{ error: Error }>(),
 );
 
 export const customerAdded = createAction(
-  CustomerActionTypes.customerAdded,
+  '[Customer Load State Change] added',
   props<{ customer: Customer }>(),
 );
 export const customersAdded = createAction(
-  CustomerActionTypes.customersAdded,
+  '[Customer Load State Change] added many',
   props<{ customers: Array<Customer> }>(),
 );
 export const customerModified = createAction(
-  CustomerActionTypes.customerModified,
+  '[Customer Load State Change] modified',
   props<{ customer: Customer }>(),
 );
 export const customerRemoved = createAction(
-  CustomerActionTypes.customerRemoved,
+  '[Customer Load State Change] removed',
   props<{ customer: Customer }>(),
 );

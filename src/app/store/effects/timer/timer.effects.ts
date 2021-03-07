@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/firestore';
-import { Action } from '@ngrx/store';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of, from } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-
+import { Timer } from '@app/models';
 import { TimersService } from '@app/services/firestore-data';
 import * as timerActions from '@app/store/actions/timer.actions';
-import { Timer } from '@app/models';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { from, of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 interface TimerChangeAction {
   type: string;
@@ -17,11 +16,6 @@ interface TimerChangeAction {
 
 @Injectable()
 export class TimerEffects {
-  constructor(
-    private actions$: Actions,
-    private timersService: TimersService,
-  ) {}
-
   changes$ = createEffect(() =>
     this.actions$.pipe(
       ofType(timerActions.load),
@@ -93,6 +87,11 @@ export class TimerEffects {
       ),
     ),
   );
+
+  constructor(
+    private actions$: Actions,
+    private timersService: TimersService,
+  ) {}
 
   private unpackActions(
     actions: Array<DocumentChangeAction<Timer>>,

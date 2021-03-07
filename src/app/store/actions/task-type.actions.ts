@@ -1,7 +1,3 @@
 import { createAction } from '@ngrx/store';
 
-export enum TaskTypeActions {
-  load = '[Application] Load Task Types',
-}
-
-export const load = createAction(TaskTypeActions.load);
+export const load = createAction('[Application] Load Task Types');

@@ -1,5 +1,4 @@
 import { createFirestoreDataServiceMock } from '../firestore-data.service.mock';
 
-export function createCustomersServiceMock() {
-  return createFirestoreDataServiceMock();
-}
+export const createCustomersServiceMock = () =>
+  createFirestoreDataServiceMock();
