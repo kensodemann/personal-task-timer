@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ApplicationService } from '@app/services';
-import { NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { loginChanged, startup } from './store/actions';
 import { State } from './store/reducers';
@@ -21,9 +20,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.application.registerForUpdates();
     this.store.dispatch(startup());
-    this.afAuth.authState.subscribe(u => {
+    this.afAuth.authState.subscribe(user => {
       this.store.dispatch(
-        loginChanged({ email: u && u.email, userId: u && u.uid }),
+        loginChanged({ email: user && user.email, userId: user && user.uid }),
       );
     });
   }

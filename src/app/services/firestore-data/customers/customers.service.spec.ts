@@ -13,8 +13,8 @@ import {
 
 describe('CustomersService', () => {
   let customers: CustomersService;
-  let collection;
-  let document;
+  let collection: any;
+  let document: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -53,5 +53,18 @@ describe('CustomersService', () => {
     expect(collection.doc).toHaveBeenCalledWith('123abc');
     expect(document.collection).toHaveBeenCalledTimes(1);
     expect(document.collection).toHaveBeenCalledWith('customers');
+  });
+
+  describe('convert customers', () => {
+    it('grabs a references to the customers collection', () => {
+      const angularFirestore = TestBed.inject(AngularFirestore);
+      customers.convertCustomers();
+      expect(angularFirestore.collection).toHaveBeenCalledTimes(1);
+      expect(angularFirestore.collection).toHaveBeenCalledWith('users');
+      expect(collection.doc).toHaveBeenCalledTimes(1);
+      expect(collection.doc).toHaveBeenCalledWith('123abc');
+      expect(document.collection).toHaveBeenCalledTimes(1);
+      expect(document.collection).toHaveBeenCalledWith('customers');
+    });
   });
 });

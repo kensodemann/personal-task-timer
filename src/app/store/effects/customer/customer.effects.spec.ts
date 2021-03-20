@@ -10,6 +10,7 @@ import {
   customerModified,
   customerRemoved,
   customersAdded,
+  loginChanged,
   removeCustomer,
   removeCustomerFailure,
   removeCustomerSuccess,
@@ -298,6 +299,17 @@ describe('changes$', () => {
     actions$ = of(updateCustomer({ customer: null }));
     effects.changes$.subscribe(() => {});
     expect(customersService.observeChanges).not.toHaveBeenCalled();
+  });
+});
+
+describe('convert', () => {
+  it('converts the customer data', () => {
+    const customersService = TestBed.inject(CustomersService);
+    actions$ = of(
+      loginChanged({ email: 'test@testy.com', userId: '21433992349f' }),
+    );
+    effects.convert$.subscribe(() => {});
+    expect(customersService.convertCustomers).toHaveBeenCalledTimes(1);
   });
 });
 

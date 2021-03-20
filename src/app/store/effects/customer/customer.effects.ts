@@ -3,7 +3,7 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
 import { Action } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of, from } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 
 import { CustomersService } from '@app/services/firestore-data';
 import { Customer } from '@app/models';
@@ -15,6 +15,7 @@ import {
   customerModified,
   customerRemoved,
   customersAdded,
+  loginChanged,
   removeCustomer,
   removeCustomerFailure,
   removeCustomerSuccess,
@@ -78,6 +79,15 @@ export class CustomerEffects {
         ),
       ),
     ),
+  );
+
+  convert$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loginChanged),
+        tap(() => this.customersService.convertCustomers()),
+      ),
+    { dispatch: false },
   );
 
   constructor(

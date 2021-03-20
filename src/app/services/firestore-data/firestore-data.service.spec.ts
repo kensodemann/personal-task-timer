@@ -80,7 +80,7 @@ describe('FirestoreDataService', () => {
   });
 
   describe('get', () => {
-    let document;
+    let document: any;
     beforeEach(() => {
       document = createAngularFirestoreDocumentMock();
       collection.doc.mockReturnValue(document);
