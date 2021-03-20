@@ -69,7 +69,7 @@ export class CustomersService extends FirestoreDataService<Customer> {
     const all = actions.map(a => {
       const data = a.payload.doc.data();
       const id = a.payload.doc.id;
-      return { id, ...(data as object) } as Customer;
+      return { id, ...data } as Customer;
     });
     return all.filter(x => x.isActive === undefined);
   }
