@@ -34,14 +34,4 @@ describe('HistoryPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  describe('logout', () => {
-    it('dispatches the logout action', () => {
-      const store = TestBed.inject(Store);
-      store.dispatch = jest.fn();
-      component.logout();
-      expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(logout());
-    });
-  });
 });

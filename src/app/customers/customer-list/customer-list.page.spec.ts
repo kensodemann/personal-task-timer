@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { logout } from '@app/store/actions';
 import { CustomersState } from '@app/store/customer/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
@@ -56,16 +55,6 @@ describe('CustomerListPage', () => {
         backdropDismiss: false,
       });
       expect(modal.present).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('logout', () => {
-    it('dispatches the logout action', () => {
-      const store = TestBed.inject(Store);
-      store.dispatch = jest.fn();
-      component.logout();
-      expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(logout());
     });
   });
 });

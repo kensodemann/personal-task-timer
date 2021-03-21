@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Timer } from '@app/models/timer';
 import { selectTodayTimers, State } from '@app/store';
-import { logout } from '@app/store/actions';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -30,9 +29,5 @@ export class TodayPage implements OnInit {
       backdropDismiss: false,
     });
     modal.present();
-  }
-
-  logout() {
-    this.store.dispatch(logout());
   }
 }
