@@ -4,6 +4,5 @@ export interface Customer {
   hasAdvisory: boolean;
   primaryAdvisor?: string;
   supportHours: number;
-  notes?: string;
   isActive?: boolean;
 }

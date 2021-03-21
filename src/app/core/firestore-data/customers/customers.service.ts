@@ -52,10 +52,6 @@ export class CustomersService extends FirestoreDataService<Customer> {
       isActive: true,
     };
 
-    if (customer.notes) {
-      converted.notes = customer.notes;
-    }
-
     if (customer.hasAdvisory) {
       converted.primaryAdvisor = customer.primaryAdvisor;
     }

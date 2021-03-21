@@ -67,6 +67,10 @@ describe('CustomerEditorComponent', () => {
       it('starts with a blank advisor', () => {
         expect(component.primaryAdvisor).toEqual('');
       });
+
+      it('defaults to an active customer', () => {
+        expect(component.isActive).toEqual(true);
+      });
     });
 
     describe('with a specified customer', () => {
@@ -77,6 +81,7 @@ describe('CustomerEditorComponent', () => {
           hasAdvisory: true,
           primaryAdvisor: 'Joe Anderson',
           supportHours: 42,
+          isActive: false,
         };
         fixture.detectChanges();
       });
@@ -99,6 +104,10 @@ describe('CustomerEditorComponent', () => {
 
       it('initializes the support hours', () => {
         expect(component.supportHours).toEqual(42);
+      });
+
+      it('initializes the active code', () => {
+        expect(component.isActive).toEqual(false);
       });
     });
   });
@@ -144,6 +153,7 @@ describe('CustomerEditorComponent', () => {
         component.hasAdvisory = true;
         component.primaryAdvisor = 'Sarah Trelles';
         component.supportHours = 16;
+        component.isActive = true;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
           addCustomer({
@@ -152,6 +162,7 @@ describe('CustomerEditorComponent', () => {
               hasAdvisory: true,
               primaryAdvisor: 'Sarah Trelles',
               supportHours: 16,
+              isActive: true,
             },
           }),
         );
@@ -165,6 +176,7 @@ describe('CustomerEditorComponent', () => {
         component.hasAdvisory = false;
         component.primaryAdvisor = 'Sarah Trelles';
         component.supportHours = 16;
+        component.isActive = true;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
           addCustomer({
@@ -173,6 +185,7 @@ describe('CustomerEditorComponent', () => {
               hasAdvisory: false,
               primaryAdvisor: null,
               supportHours: 16,
+              isActive: true,
             },
           }),
         );
@@ -188,6 +201,7 @@ describe('CustomerEditorComponent', () => {
           hasAdvisory: true,
           primaryAdvisor: 'Joe James',
           supportHours: 42,
+          isActive: true,
         };
         fixture.detectChanges();
       });
@@ -212,6 +226,7 @@ describe('CustomerEditorComponent', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.name = 'Spacely Sprockets';
+        component.isActive = false;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
           updateCustomer({
@@ -221,6 +236,7 @@ describe('CustomerEditorComponent', () => {
               hasAdvisory: true,
               primaryAdvisor: 'Joe James',
               supportHours: 42,
+              isActive: false,
             },
           }),
         );
@@ -231,6 +247,7 @@ describe('CustomerEditorComponent', () => {
         const store = TestBed.inject(Store);
         store.dispatch = jest.fn();
         component.hasAdvisory = undefined;
+        component.isActive = undefined;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
           updateCustomer({
@@ -240,6 +257,7 @@ describe('CustomerEditorComponent', () => {
               hasAdvisory: false,
               primaryAdvisor: null,
               supportHours: 42,
+              isActive: false,
             },
           }),
         );
@@ -252,6 +270,7 @@ describe('CustomerEditorComponent', () => {
         component.name = 'Spacely Sprockets';
         component.hasAdvisory = false;
         component.supportHours = 18;
+        component.isActive = true;
         component.save();
         expect(store.dispatch).toHaveBeenCalledWith(
           updateCustomer({
@@ -261,6 +280,7 @@ describe('CustomerEditorComponent', () => {
               hasAdvisory: false,
               primaryAdvisor: null,
               supportHours: 18,
+              isActive: true,
             },
           }),
         );

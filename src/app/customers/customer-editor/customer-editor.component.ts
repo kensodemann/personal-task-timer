@@ -19,6 +19,7 @@ export class CustomerEditorComponent implements OnInit {
   hasAdvisory: boolean;
   primaryAdvisor: string;
   supportHours: number;
+  isActive: boolean;
 
   constructor(
     private modalController: ModalController,
@@ -51,6 +52,7 @@ export class CustomerEditorComponent implements OnInit {
     const customer: Customer = {
       name: this.name,
       hasAdvisory: this.hasAdvisory || false,
+      isActive: this.isActive || false,
       primaryAdvisor: this.hasAdvisory ? this.primaryAdvisor : null,
       supportHours: this.supportHours,
     };
@@ -67,6 +69,7 @@ export class CustomerEditorComponent implements OnInit {
     this.hasAdvisory = true;
     this.primaryAdvisor = '';
     this.supportHours = 0;
+    this.isActive = true;
   }
 
   private initializeUpdate() {
@@ -75,5 +78,6 @@ export class CustomerEditorComponent implements OnInit {
     this.hasAdvisory = this.customer.hasAdvisory;
     this.primaryAdvisor = this.customer.primaryAdvisor;
     this.supportHours = this.customer.supportHours;
+    this.isActive = this.customer.isActive;
   }
 }
