@@ -5,8 +5,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { metaReducers, reducers } from '@app/store';
-import { AuthEffects, CustomerEffects, TimerEffects } from '@app/store/effects';
+import {
+  AuthEffects,
+  CustomerEffects,
+  metaReducers,
+  reducers,
+  TimerEffects,
+} from '@app/store';
 import { environment } from '@env/environment';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { EffectsModule } from '@ngrx/effects';

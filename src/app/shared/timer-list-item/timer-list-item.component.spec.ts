@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Timer } from '@app/models';
 import { selectAllActiveTimers } from '@app/store';
 import { removeTimer, startTimer, stopTimer } from '@app/store/actions';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { TimersState } from '@app/store/timer/reducer';
 import { AlertController, IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';

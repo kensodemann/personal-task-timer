@@ -1,7 +1,7 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Timer } from '@app/models';
-import { TimersService } from '@app/services/firestore-data';
-import { createTimersServiceMock } from '@app/services/firestore-data/mocks';
+import { TimersService } from '@app/core/firestore-data';
+import { createTimersServiceMock } from '@app/core/firestore-data/mocks';
 import {
   addTimer,
   addTimerFailure,
@@ -23,11 +23,11 @@ import {
   updateTimer,
   updateTimerFailure,
   updateTimerSuccess,
-} from '@app/store/actions';
+} from '@app/store';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { TimerEffects } from './timer.effects';
+import { TimerEffects } from './effects';
 
 let actions$: Observable<any>;
 let effects: TimerEffects;

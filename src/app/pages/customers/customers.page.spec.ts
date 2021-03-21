@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
 import { logout } from '@app/store/actions';
-import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
+import { CustomersState } from '@app/store/customer/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';

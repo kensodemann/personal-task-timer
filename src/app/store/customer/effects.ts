@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/firestore';
-import { Action } from '@ngrx/store';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of, from } from 'rxjs';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-
-import { CustomersService } from '@app/services/firestore-data';
+import { CustomersService } from '@app/core/firestore-data';
 import { Customer } from '@app/models';
 import {
   addCustomer,
@@ -24,6 +19,10 @@ import {
   updateCustomerFailure,
   updateCustomerSuccess,
 } from '@app/store/actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { from, of } from 'rxjs';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 
 interface CustomerChangeAction {
   type: string;

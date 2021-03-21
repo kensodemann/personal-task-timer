@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Timer } from '@app/models';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { TimersState } from '@app/store/timer/reducer';
 import { IonicModule } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
 import { provideMockStore } from '@ngrx/store/testing';

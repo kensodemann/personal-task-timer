@@ -14,7 +14,7 @@ import {
   customersAdded,
 } from '@app/store/actions';
 import { Dictionary } from '@ngrx/entity';
-import { initialState, reducer } from './customer.reducer';
+import { initialState, reducer } from './reducer';
 
 let testCustomers: Dictionary<Customer>;
 let testCustomerIds: Array<string>;

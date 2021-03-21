@@ -10,7 +10,7 @@ import {
   resetPasswordFailure,
   resetPasswordSuccess,
 } from '@app/store/actions';
-import { initialState, reducer } from './auth.reducer';
+import { initialState, reducer } from './reducer';
 
 it('returns the default state', () => {
   expect(reducer(undefined, { type: 'NOOP' })).toEqual(initialState);

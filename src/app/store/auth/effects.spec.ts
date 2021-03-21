@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthenticationService } from '@app/services';
-import { createAuthenticationServiceMock } from '@app/services/mocks';
+import { AuthenticationService } from '@app/core';
+import { createAuthenticationServiceMock } from '@app/core/mocks';
 import {
   login,
   loginChanged,
@@ -17,7 +17,7 @@ import { NavController } from '@ionic/angular';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { createNavControllerMock } from '@test/mocks';
 import { Observable, of } from 'rxjs';
-import { AuthEffects } from './auth.effects';
+import { AuthEffects } from './effects';
 
 let actions$: Observable<any>;
 let effects: AuthEffects;

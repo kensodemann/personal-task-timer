@@ -1,24 +1,22 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Customer } from '@app/models';
+import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
+import { CustomerTaskSummaryModule } from '@app/shared/customer-task-summary/customer-task-summary.module';
+import { InfoItemComponentModule } from '@app/shared/info-item/info-item.module';
+import { CustomersState } from '@app/store/customer/reducer';
+import { TaskTypeState } from '@app/store/task-type/reducer';
+import { TimersState } from '@app/store/timer/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
-
-import { CustomerTaskSummaryModule } from '@app/shared/customer-task-summary/customer-task-summary.module';
-
-import { CustomerPage } from './customer.page';
-import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   createActivatedRouteMock,
-  createOverlayElementMock,
   createOverlayControllerMock,
+  createOverlayElementMock,
 } from '@test/mocks';
-import { provideMockStore } from '@ngrx/store/testing';
-import { Customer } from '@app/models';
-import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
-import { TaskTypeState } from '@app/store/reducers/task-type/task-type.reducer';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
-import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
-import { InfoItemComponentModule } from '@app/shared/info-item/info-item.module';
+import { CustomerPage } from './customer.page';
 
 describe('CustomerPage', () => {
   let component: CustomerPage;

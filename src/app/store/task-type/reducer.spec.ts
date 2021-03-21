@@ -1,5 +1,5 @@
-import { initialState, reducer } from './task-type.reducer';
-import { startup } from '@app/store/actions';
+import { initialState, reducer } from './reducer';
+import { startup } from '@app/store';
 
 it('returns the default state', () => {
   expect(reducer(undefined, { type: 'NOOP' })).toEqual(initialState);

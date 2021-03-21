@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { addCustomer, updateCustomer } from '@app/store/actions';
-import { CustomersState } from '@app/store/reducers/customer/customer.reducer';
+import { CustomersState } from '@app/store/customer/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';

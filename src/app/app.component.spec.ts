@@ -1,14 +1,13 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ApplicationService } from '@app/services';
-import { createApplicationServiceMock } from '@app/services/mocks';
+import { ApplicationService } from '@app/core';
+import { createApplicationServiceMock } from '@app/core/mocks';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { createAngularFireAuthMock } from '@test/mocks';
 import { AppComponent } from './app.component';
-import { loginChanged, startup } from './store/actions';
-import { State } from './store/reducers';
+import { loginChanged, startup, State } from './store';
 
 describe('AppComponent', () => {
   beforeEach(

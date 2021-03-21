@@ -14,7 +14,7 @@ import {
   updateTimerFailure,
 } from '@app/store/actions';
 import { Dictionary } from '@ngrx/entity';
-import { initialState, reducer } from './timer.reducer';
+import { initialState, reducer } from './reducer';
 
 let testTimers: Dictionary<Timer>;
 let testTimerIds: Array<string>;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from '@app/services';
+import { AuthenticationService } from '@app/core';
 import {
   login,
   loginChanged,

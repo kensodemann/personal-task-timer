@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ApplicationService } from '@app/services';
+import { ApplicationService } from '@app/core';
 import { Store } from '@ngrx/store';
 import { loginChanged, startup } from './store/actions';
-import { State } from './store/reducers';
+import { State } from './store';
 
 @Component({
   selector: 'app-root',

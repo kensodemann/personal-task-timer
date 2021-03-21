@@ -4,7 +4,7 @@ import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.comp
 import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
 import { selectTodayTimers, State } from '@app/store';
 import { logout } from '@app/store/actions';
-import { TimersState } from '@app/store/reducers/timer/timer.reducer';
+import { TimersState } from '@app/store/timer/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';

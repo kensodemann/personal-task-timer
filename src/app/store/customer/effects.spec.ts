@@ -1,7 +1,7 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { CustomersService } from '@app/core/firestore-data';
+import { createCustomersServiceMock } from '@app/core/firestore-data/mocks';
 import { Customer } from '@app/models';
-import { CustomersService } from '@app/services/firestore-data';
-import { createCustomersServiceMock } from '@app/services/firestore-data/mocks';
 import {
   addCustomer,
   addCustomerFailure,
@@ -18,11 +18,11 @@ import {
   updateCustomer,
   updateCustomerFailure,
   updateCustomerSuccess,
-} from '@app/store/actions';
+} from '@app/store';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { CustomerEffects } from './customer.effects';
+import { CustomerEffects } from './effects';
 
 let actions$: Observable<any>;
 let effects: CustomerEffects;
