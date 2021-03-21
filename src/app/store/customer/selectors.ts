@@ -27,6 +27,10 @@ export const selectAllCustomersSorted = createSelector(
   selectAllCustomers,
   customers => customers.sort(byName),
 );
+export const selectActiveCustomersSorted = createSelector(
+  selectAllCustomers,
+  customers => customers.filter(customer => customer.isActive).sort(byName),
+);
 export const selectCustomerCount = createSelector(
   selectCustomers,
   selectors.selectTotal,

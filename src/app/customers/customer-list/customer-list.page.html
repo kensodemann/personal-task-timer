@@ -1,13 +1,25 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Customers</ion-title>
+    <ion-segment [(ngModel)]="display">
+      <ion-segment-button value="all">All</ion-segment-button>
+      <ion-segment-button value="active">Active</ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="display === 'all'">
     <ion-item
-      *ngFor="let customer of customers$ | async"
+      *ngFor="let customer of allCustomers$ | async"
+      [routerLink]="['customer', customer.id]"
+    >
+      <ion-label>{{customer.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="display === 'active'">
+    <ion-item
+      *ngFor="let customer of activeCustomers$ | async"
       [routerLink]="['customer', customer.id]"
     >
       <ion-label>{{customer.name}}</ion-label>

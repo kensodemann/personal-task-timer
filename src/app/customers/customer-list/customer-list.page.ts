@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '@app/models';
-import { selectAllCustomersSorted, State } from '@app/store';
+import {
+  selectActiveCustomersSorted,
+  selectAllCustomersSorted,
+  State,
+} from '@app/store';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -12,7 +16,9 @@ import { CustomerEditorComponent } from '../customer-editor/customer-editor.comp
   styleUrls: ['./customer-list.page.scss'],
 })
 export class CustomerListPage implements OnInit {
-  customers$: Observable<Array<Customer>>;
+  display: 'active' | 'all' = 'active';
+  allCustomers$: Observable<Array<Customer>>;
+  activeCustomers$: Observable<Array<Customer>>;
 
   constructor(
     private modalController: ModalController,
@@ -20,7 +26,10 @@ export class CustomerListPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.customers$ = this.store.pipe(select(selectAllCustomersSorted));
+    this.allCustomers$ = this.store.pipe(select(selectAllCustomersSorted));
+    this.activeCustomers$ = this.store.pipe(
+      select(selectActiveCustomersSorted),
+    );
   }
 
   async add() {

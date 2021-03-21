@@ -82,7 +82,7 @@ describe('TimerEditorComponent', () => {
         ]);
       });
 
-      it('subscribes to the customers', () => {
+      it('subscribes to the active customers', () => {
         let customers: Array<Customer>;
         component.customers$.subscribe(t => (customers = t));
         expect(customers).toEqual([
@@ -91,24 +91,21 @@ describe('TimerEditorComponent', () => {
             name: 'Ace Hardware',
             hasAdvisory: true,
             supportHours: 10,
+            isActive: true,
           },
           {
             id: 'ff898gd',
             name: 'Fred Salvage',
             hasAdvisory: true,
             supportHours: 4,
+            isActive: true,
           },
           {
             id: '1849gasdf',
             name: 'Mc Donalds',
             hasAdvisory: true,
             supportHours: 24,
-          },
-          {
-            id: 'ff88t99er',
-            name: 'Wal-Mart',
-            hasAdvisory: false,
-            supportHours: 14,
+            isActive: true,
           },
         ]);
       });
@@ -151,7 +148,7 @@ describe('TimerEditorComponent', () => {
         ]);
       });
 
-      it('subscribes to the customers', () => {
+      it('subscribes to the active customers', () => {
         let customers: Array<Customer>;
         component.customers$.subscribe(t => (customers = t));
         expect(customers).toEqual([
@@ -160,24 +157,21 @@ describe('TimerEditorComponent', () => {
             name: 'Ace Hardware',
             hasAdvisory: true,
             supportHours: 10,
+            isActive: true,
           },
           {
             id: 'ff898gd',
             name: 'Fred Salvage',
             hasAdvisory: true,
             supportHours: 4,
+            isActive: true,
           },
           {
             id: '1849gasdf',
             name: 'Mc Donalds',
             hasAdvisory: true,
             supportHours: 24,
-          },
-          {
-            id: 'ff88t99er',
-            name: 'Wal-Mart',
-            hasAdvisory: false,
-            supportHours: 14,
+            isActive: true,
           },
         ]);
       });
@@ -395,24 +389,28 @@ describe('TimerEditorComponent', () => {
         name: 'Ace Hardware',
         hasAdvisory: true,
         supportHours: 10,
+        isActive: true,
       },
       'ff898gd': {
         id: 'ff898gd',
         name: 'Fred Salvage',
         hasAdvisory: true,
         supportHours: 4,
+        isActive: true,
       },
       'ff88t99er': {
         id: 'ff88t99er',
         name: 'Wal-Mart',
         hasAdvisory: false,
         supportHours: 14,
+        isActive: false,
       },
       '1849gasdf': {
         id: '1849gasdf',
         name: 'Mc Donalds',
         hasAdvisory: true,
         supportHours: 24,
+        isActive: true,
       },
     };
   };

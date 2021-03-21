@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Customer, Timer } from '@app/models';
 import {
-  selectAllCustomersSorted,
+  selectActiveCustomersSorted,
   selectAllTaskTypes,
   selectCustomer,
   State,
@@ -43,7 +43,7 @@ export class TimerEditorComponent implements OnInit {
     } else {
       this.initializeCreate();
     }
-    this.customers$ = this.store.pipe(select(selectAllCustomersSorted));
+    this.customers$ = this.store.pipe(select(selectActiveCustomersSorted));
     this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
   }
 
