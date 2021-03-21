@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HoursPipeModule } from '@app/common/hours/hours.module';
+import { InfoItemComponentModule } from '@app/common/info-item/info-item.module';
 import { Timer } from '@app/models';
 import { TimersState } from '@app/store/timer/reducer';
 import { IonicModule } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
 import { provideMockStore } from '@ngrx/store/testing';
-import { HoursPipeModule } from '../hours/hours.module';
-import { InfoItemComponentModule } from '../info-item/info-item.module';
 import { CustomerTaskSummaryComponent } from './customer-task-summary.component';
 
 describe('CustomerTaskSummaryComponent', () => {

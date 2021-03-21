@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '@app/models';
-import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
 import { selectAllCustomersSorted, State } from '@app/store';
 import { logout } from '@app/store/actions';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { CustomerEditorComponent } from '../customer-editor/customer-editor.component';
 
 @Component({
-  selector: 'app-customers',
-  templateUrl: './customers.page.html',
-  styleUrls: ['./customers.page.scss'],
+  selector: 'app-customer-list',
+  templateUrl: './customer-list.page.html',
+  styleUrls: ['./customer-list.page.scss'],
 })
-export class CustomersPage implements OnInit {
+export class CustomerListPage implements OnInit {
   customers$: Observable<Array<Customer>>;
 
   constructor(

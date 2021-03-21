@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
 import { logout } from '@app/store/actions';
 import { CustomersState } from '@app/store/customer/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
@@ -10,18 +9,19 @@ import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
-import { CustomersPage } from './customers.page';
+import { CustomerEditorComponent } from '../customer-editor/customer-editor.component';
+import { CustomerListPage } from './customer-list.page';
 
-describe('CustomersPage', () => {
-  let component: CustomersPage;
-  let fixture: ComponentFixture<CustomersPage>;
+describe('CustomerListPage', () => {
+  let component: CustomerListPage;
+  let fixture: ComponentFixture<CustomerListPage>;
   let modal: any;
 
   beforeEach(
     waitForAsync(() => {
       modal = createOverlayElementMock();
       TestBed.configureTestingModule({
-        declarations: [CustomersPage],
+        declarations: [CustomerListPage],
         imports: [IonicModule, RouterTestingModule],
         providers: [
           provideMockStore<{ customers: CustomersState }>({
@@ -36,7 +36,7 @@ describe('CustomersPage', () => {
         ],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(CustomersPage);
+      fixture = TestBed.createComponent(CustomerListPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
     }),

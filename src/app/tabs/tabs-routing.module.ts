@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pages/today/today.module').then(
+              import('../timers/today/today.module').then(
                 m => m.TodayPageModule,
               ),
           },
@@ -25,7 +25,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pages/history/history.module').then(
+              import('../timers/history/history.module').then(
                 m => m.HistoryPageModule,
               ),
           },
@@ -37,8 +37,8 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pages/customers/customers.module').then(
-                m => m.CustomersPageModule,
+              import('../customers/customer-list/customer-list.module').then(
+                m => m.CustomerListPageModule,
               ),
           },
         ],
@@ -49,7 +49,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pages/about/about.module').then(
+              import('../about/about.module').then(
                 m => m.AboutPageModule,
               ),
           },

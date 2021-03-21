@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
-import { State, selectAllTaskTypes, selectCustomer } from '@app/store';
 import { Customer } from '@app/models';
-import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
+import { selectAllTaskTypes, selectCustomer, State } from '@app/store';
+import { ModalController } from '@ionic/angular';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { CustomerEditorComponent } from '../customer-editor/customer-editor.component';
 
 @Component({
   selector: 'app-customer',

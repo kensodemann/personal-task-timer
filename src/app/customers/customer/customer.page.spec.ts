@@ -2,9 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Customer } from '@app/models';
-import { CustomerEditorComponent } from '@app/shared/customer-editor/customer-editor.component';
-import { CustomerTaskSummaryModule } from '@app/shared/customer-task-summary/customer-task-summary.module';
-import { InfoItemComponentModule } from '@app/shared/info-item/info-item.module';
+import { InfoItemComponentModule } from '@app/common/info-item/info-item.module';
 import { CustomersState } from '@app/store/customer/reducer';
 import { TaskTypeState } from '@app/store/task-type/reducer';
 import { TimersState } from '@app/store/timer/reducer';
@@ -16,6 +14,8 @@ import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
+import { CustomerEditorComponent } from '../customer-editor/customer-editor.component';
+import { CustomerTaskSummaryModule } from '../customer-task-summary/customer-task-summary.module';
 import { CustomerPage } from './customer.page';
 
 describe('CustomerPage', () => {

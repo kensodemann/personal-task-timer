@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Timer } from '@app/models';
-import { TimerEditorComponent } from '@app/shared/timer-editor/timer-editor.component';
-import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
 import { selectTodayTimers, State } from '@app/store';
 import { logout } from '@app/store/actions';
 import { TimersState } from '@app/store/timer/reducer';
@@ -12,6 +10,8 @@ import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
+import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
+import { TimerListItemComponentModule } from '../timer-list-item/timer-list-item.module';
 import { TodayPage } from './today.page';
 
 describe('TodayPage', () => {

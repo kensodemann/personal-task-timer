@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { HoursPipeModule } from '@app/common/hours/hours.module';
+import { InfoItemComponentModule } from '@app/common/info-item/info-item.module';
 import { IonicModule } from '@ionic/angular';
-
 import { CustomerTaskSummaryComponent } from './customer-task-summary.component';
-import { HoursPipeModule } from '../hours/hours.module';
-import { InfoItemComponentModule } from '../info-item/info-item.module';
 
 @NgModule({
   declarations: [CustomerTaskSummaryComponent],

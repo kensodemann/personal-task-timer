@@ -1,11 +1,10 @@
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TimerListItemComponentModule } from '../timer-list-item/timer-list-item.module';
 import { HistoryPage } from './history.page';
-import { TimerListItemComponentModule } from '@app/shared/timer-list-item/timer-list-item.module';
 
 @NgModule({
   imports: [
