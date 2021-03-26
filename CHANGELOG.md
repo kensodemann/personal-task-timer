@@ -1,3 +1,31 @@
+# [3.0.0](https://github.com/kensodemann/personal-task-timer/compare/v1.1.4...v3.0.0) (2021-03-26)
+
+### Bug Fixes
+
+- **customers:** remove linting error ([2bd3ab7](https://github.com/kensodemann/personal-task-timer/commit/2bd3ab755d2e7685a4ab9c3026d467d0c6ab7617))
+- **shared:** include module in test ([dafc958](https://github.com/kensodemann/personal-task-timer/commit/dafc958e2c5899d5f73fce237530c51a0b3fd8ae))
+- **store:** consolidate actions ([4c1583c](https://github.com/kensodemann/personal-task-timer/commit/4c1583c07581066d09eb727731fea1a9f86c3e98))
+
+### Features
+
+- **auth:** only logout from the about page ([3c45f47](https://github.com/kensodemann/personal-task-timer/commit/3c45f47cf94f115421b1e5a0aae8dcb3c7c0b81e))
+- **customers:** add customer editor ([033a58f](https://github.com/kensodemann/personal-task-timer/commit/033a58f3ac26afb7653c8fb7da368d65fd0d8def))
+- **customers:** add customers to the store ([f074041](https://github.com/kensodemann/personal-task-timer/commit/f074041aea6bb6569bcc016869c93e4e4d470ed2))
+- **customers:** add more informational fields to the customer ([ac22bfc](https://github.com/kensodemann/personal-task-timer/commit/ac22bfcfef02b7a095a80e1c5396e0862240d296))
+- **customers:** add the customers service ([8cae0df](https://github.com/kensodemann/personal-task-timer/commit/8cae0df0ba3a3759cae33fb4dfb73a62a9144e0d))
+- **customers:** add the hours pipe ([921288d](https://github.com/kensodemann/personal-task-timer/commit/921288dd31bdaf45251b496b3c124d493318cfb6))
+- **customers:** allow the addition of new customers ([59413da](https://github.com/kensodemann/personal-task-timer/commit/59413da489c9975d35ca3a1084365caa3dbffff0))
+- **customers:** allow the customer to be edited ([78cdd88](https://github.com/kensodemann/personal-task-timer/commit/78cdd8837826ae1f255af989f68cdf9fa8c7f410))
+- **customers:** convert old customers to new format ([fad2115](https://github.com/kensodemann/personal-task-timer/commit/fad21156186c2d3b5c2caf2764fa702282421651))
+- **customers:** convert the data as needed ([6195d01](https://github.com/kensodemann/personal-task-timer/commit/6195d01a7f3eb4bbe9b022010ac7fc804b6d5ab5))
+- **customers:** create customer details page ([36e65e9](https://github.com/kensodemann/personal-task-timer/commit/36e65e9204bda1012041a77e783d24207fb21bf2))
+- **customers:** create the customer list screen ([b94d8d8](https://github.com/kensodemann/personal-task-timer/commit/b94d8d84bbdfb9c28a25ed7aabe8b88e953b9f47))
+- **customers:** hide inacctive customers ([ff0de64](https://github.com/kensodemann/personal-task-timer/commit/ff0de64c8097bedfc8246af557a5581629482085))
+- **customers:** make the editor match the model ([7e65ada](https://github.com/kensodemann/personal-task-timer/commit/7e65ada44234d4a82370bd32b860ccce9bfd2b20))
+- **customers:** simplify the customer data ([2c727cb](https://github.com/kensodemann/personal-task-timer/commit/2c727cb3880f582dc8a7044d6fe974a0b19c7e2c))
+- **customers:** use customer list in timer editor ([6a96784](https://github.com/kensodemann/personal-task-timer/commit/6a96784734545426903b60fdfe381268958b386c))
+- **history:** limit history to 30 days ([25dcd5b](https://github.com/kensodemann/personal-task-timer/commit/25dcd5bd1ec14c79342d0ba1f2165569de561d60))
+
 # [2.2.0](https://github.com/kensodemann/personal-task-timer/compare/v2.1.0...v2.2.0) (2020-06-06)
 
 ### Bug Fixes
