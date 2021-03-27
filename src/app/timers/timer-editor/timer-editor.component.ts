@@ -19,6 +19,7 @@ import { map, take } from 'rxjs/operators';
   styleUrls: ['./timer-editor.component.scss'],
 })
 export class TimerEditorComponent implements OnInit {
+  @Input() customerId: string;
   @Input() timer: Timer;
 
   customers$: Observable<Array<Customer>>;
@@ -26,7 +27,6 @@ export class TimerEditorComponent implements OnInit {
   editorTitle: string;
   disableMinutes: boolean;
 
-  customerId: string;
   title: string;
   taskId: string;
   taskType: string;

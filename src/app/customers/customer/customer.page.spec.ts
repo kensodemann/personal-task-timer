@@ -17,6 +17,8 @@ import {
 import { CustomerEditorComponent } from '../customer-editor/customer-editor.component';
 import { CustomerTaskSummaryModule } from '../customer-task-summary/customer-task-summary.module';
 import { CustomerPage } from './customer.page';
+import { By } from '@angular/platform-browser';
+import { TimerEditorComponent } from '@app/timers/timer-editor/timer-editor.component';
 
 describe('CustomerPage', () => {
   let component: CustomerPage;
@@ -88,7 +90,7 @@ describe('CustomerPage', () => {
   });
 
   it('obtains the task types', () => {
-    let taskTypes;
+    let taskTypes: Array<string>;
     fixture.detectChanges();
     component.taskTypes$.subscribe(t => (taskTypes = t));
     expect(taskTypes).toEqual([
@@ -99,23 +101,81 @@ describe('CustomerPage', () => {
     ]);
   });
 
-  it('obtains the customer data', () => {
-    let customer: Customer;
-    const route = TestBed.inject(ActivatedRoute);
-    (route.snapshot.paramMap.get as any).mockReturnValue('ff898gd');
-    fixture.detectChanges();
-    component.customer$.subscribe(c => (customer = c));
-    expect(customer.name).toEqual('Fred Salvage');
+  describe('for an active customer', () => {
+    beforeEach(() => {
+      const route = TestBed.inject(ActivatedRoute);
+      (route.snapshot.paramMap.get as any).mockReturnValue('ff898gd');
+      fixture.detectChanges();
+    });
+
+    it('displays the name', () => {
+      const name = fixture.debugElement.query(
+        By.css('[data-testid="customer-name"]'),
+      );
+      expect(name.nativeElement.textContent).toContain(
+        testCustomers.ff898gd.name,
+      );
+    });
+
+    it('has an edit button', () => {
+      const btn = fixture.debugElement.query(
+        By.css('[data-testid="edit-customer-button"]'),
+      );
+      expect(btn).toBeTruthy();
+    });
+
+    it('has an add timer button', () => {
+      const btn = fixture.debugElement.query(
+        By.css('[data-testid="add-timer-button"]'),
+      );
+      expect(btn).toBeTruthy();
+    });
+  });
+
+  describe('for an inactive customer', () => {
+    beforeEach(() => {
+      const route = TestBed.inject(ActivatedRoute);
+      (route.snapshot.paramMap.get as any).mockReturnValue('ff88t99er');
+      fixture.detectChanges();
+    });
+
+    it('displays the name', () => {
+      const name = fixture.debugElement.query(
+        By.css('[data-testid="customer-name"]'),
+      );
+      expect(name.nativeElement.textContent).toContain(
+        testCustomers.ff88t99er.name,
+      );
+    });
+
+    it('has an edit button', () => {
+      const btn = fixture.debugElement.query(
+        By.css('[data-testid="edit-customer-button"]'),
+      );
+      expect(btn).toBeTruthy();
+    });
+
+    it('does not have an add timer button', () => {
+      const btn = fixture.debugElement.query(
+        By.css('[data-testid="add-timer-button"]'),
+      );
+      expect(btn).toBeFalsy();
+    });
   });
 
   describe('edit', () => {
     beforeEach(() => {
+      const route = TestBed.inject(ActivatedRoute);
+      (route.snapshot.paramMap.get as any).mockReturnValue('ff898gd');
       fixture.detectChanges();
     });
 
-    it('displays the editor', async () => {
+    it('displays the customer editor', async () => {
+      const btn = fixture.debugElement.query(
+        By.css('[data-testid="edit-customer-button"]'),
+      );
       const modalController = TestBed.inject(ModalController);
-      await component.edit(testCustomers.ff898gd);
+      click(btn.nativeElement);
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
         component: CustomerEditorComponent,
@@ -128,6 +188,37 @@ describe('CustomerPage', () => {
     });
   });
 
+  describe('add timer', () => {
+    beforeEach(() => {
+      const route = TestBed.inject(ActivatedRoute);
+      (route.snapshot.paramMap.get as any).mockReturnValue('ff898gd');
+      fixture.detectChanges();
+    });
+
+    it('displays the customer editor', async () => {
+      const btn = fixture.debugElement.query(
+        By.css('[data-testid="add-timer-button"]'),
+      );
+      const modalController = TestBed.inject(ModalController);
+      click(btn.nativeElement);
+      expect(modalController.create).toHaveBeenCalledTimes(1);
+      expect(modalController.create).toHaveBeenCalledWith({
+        component: TimerEditorComponent,
+        componentProps: {
+          customerId: testCustomers.ff898gd.id,
+        },
+        backdropDismiss: false,
+      });
+      expect(modal.present).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  const click = (button: HTMLElement) => {
+    const event = new Event('click');
+    button.dispatchEvent(event);
+    fixture.detectChanges();
+  };
+
   const initializeTestData = () => {
     testCustomerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];
     testCustomers = {
@@ -136,6 +227,7 @@ describe('CustomerPage', () => {
         name: 'Ace Hardware',
         hasAdvisory: false,
         supportHours: 12,
+        isActive: true,
       },
       'ff898gd': {
         id: 'ff898gd',
@@ -143,12 +235,14 @@ describe('CustomerPage', () => {
         hasAdvisory: true,
         primaryAdvisor: 'Tom Jones',
         supportHours: 40,
+        isActive: true,
       },
       'ff88t99er': {
         id: 'ff88t99er',
         name: 'Wal-Mart',
         hasAdvisory: false,
         supportHours: 12,
+        isActive: false,
       },
       '1849gasdf': {
         id: '1849gasdf',
@@ -156,6 +250,7 @@ describe('CustomerPage', () => {
         hasAdvisory: true,
         primaryAdvisor: 'Jim Jones',
         supportHours: 34,
+        isActive: true,
       },
     };
   };

@@ -51,7 +51,6 @@ describe('TimerListPage', () => {
       );
       store.overrideSelector(selectPeriodTimersSorted, timers);
       store.refreshState();
-      store.refreshState();
     }),
   );
 

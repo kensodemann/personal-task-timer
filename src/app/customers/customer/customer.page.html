@@ -9,7 +9,7 @@
 
 <ion-content>
   <div *ngIf="customer$ | async as customer">
-    <h1 class="ion-padding">{{customer.name}}</h1>
+    <h1 class="ion-padding" data-testid="customer-name">{{customer.name}}</h1>
 
     <ion-list>
       <ion-list-header>Customer Contract</ion-list-header>
@@ -35,11 +35,46 @@
       ></app-customer-task-summary>
     </ion-list>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab
+      *ngIf="customer.isActive"
+      vertical="bottom"
+      horizontal="end"
+      slot="fixed"
+    >
+      <ion-fab-button color="secondary">
+        <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button
+          id="add-timer-button"
+          color="light"
+          (click)="addTimer(customer)"
+          data-testid="add-timer-button"
+        >
+          <ion-icon name="timer-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button
+          id="edit-button"
+          color="light"
+          (click)="edit(customer)"
+          data-testid="edit-customer-button"
+        >
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+
+    <ion-fab
+      *ngIf="!customer.isActive"
+      vertical="bottom"
+      horizontal="end"
+      slot="fixed"
+    >
       <ion-fab-button
-        id="add-button"
+        id="edit-button"
         color="secondary"
         (click)="edit(customer)"
+        data-testid="edit-customer-button"
       >
         <ion-icon name="pencil-outline"></ion-icon>
       </ion-fab-button>

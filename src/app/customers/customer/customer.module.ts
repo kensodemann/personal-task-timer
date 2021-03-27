@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InfoItemComponentModule } from '@app/common/info-item/info-item.module';
+import { TimerEditorComponentModule } from '@app/timers/timer-editor/timer-editor.module';
 import { IonicModule } from '@ionic/angular';
 import { CustomerEditorComponentModule } from '../customer-editor/customer-editor.module';
 import { CustomerTaskSummaryModule } from '../customer-task-summary/customer-task-summary.module';
@@ -17,6 +18,7 @@ import { CustomerPage } from './customer.page';
     CustomerPageRoutingModule,
     CustomerTaskSummaryModule,
     InfoItemComponentModule,
+    TimerEditorComponentModule,
   ],
   declarations: [CustomerPage],
 })

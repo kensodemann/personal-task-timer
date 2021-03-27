@@ -12,6 +12,7 @@
     <ion-item
       *ngFor="let customer of allCustomers$ | async"
       [routerLink]="['customer', customer.id]"
+      data-testid="customer-item"
     >
       <ion-label>{{customer.name}}</ion-label>
     </ion-item>
@@ -21,13 +22,19 @@
     <ion-item
       *ngFor="let customer of activeCustomers$ | async"
       [routerLink]="['customer', customer.id]"
+      data-testid="customer-item"
     >
       <ion-label>{{customer.name}}</ion-label>
     </ion-item>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button id="add-button" color="secondary" (click)="add()">
+    <ion-fab-button
+      id="add-button"
+      color="secondary"
+      (click)="add()"
+      data-testid="add-customer-button"
+    >
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

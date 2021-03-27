@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from '@app/models';
 import { selectAllTaskTypes, selectCustomer, State } from '@app/store';
+import { TimerEditorComponent } from '@app/timers/timer-editor/timer-editor.component';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -35,6 +36,15 @@ export class CustomerPage implements OnInit {
     const modal = await this.modalController.create({
       component: CustomerEditorComponent,
       componentProps: { customer },
+      backdropDismiss: false,
+    });
+    modal.present();
+  }
+
+  async addTimer(customer: Customer) {
+    const modal = await this.modalController.create({
+      component: TimerEditorComponent,
+      componentProps: { customerId: customer.id },
       backdropDismiss: false,
     });
     modal.present();
