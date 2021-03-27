@@ -63,7 +63,7 @@ export const updateCustomerFailure = createAction(
 );
 
 export const removeCustomer = createAction(
-  '[Today Page] remove customer',
+  '[Timer List Page] remove customer',
   props<{ customer: Customer }>(),
 );
 export const removeCustomerSuccess = createAction(
@@ -122,7 +122,7 @@ export const updateTimerFailure = createAction(
 );
 
 export const removeTimer = createAction(
-  '[Today Page] remove timer',
+  '[Timer List Page] remove timer',
   props<{ timer: Timer }>(),
 );
 export const removeTimerSuccess = createAction(
@@ -159,7 +159,7 @@ export const timerRemoved = createAction(
 );
 
 export const startTimer = createAction(
-  '[Today Page] timer start',
+  '[Timer List Page] timer start',
   props<{ timer: Timer }>(),
 );
 export const startTimerSuccess = createAction(
@@ -171,7 +171,7 @@ export const startTimerFailure = createAction(
 );
 
 export const stopTimer = createAction(
-  '[Today Page] timer stopped',
+  '[Timer List Page] timer stopped',
   props<{ timer: Timer }>(),
 );
 export const stopTimerSuccess = createAction('[Timers API] timer stop success');

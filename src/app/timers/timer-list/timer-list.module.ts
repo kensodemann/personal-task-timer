@@ -5,17 +5,17 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TimerEditorComponentModule } from '../timer-editor/timer-editor.module';
 import { TimerListItemComponentModule } from '../timer-list-item/timer-list-item.module';
-import { TodayPage } from './today.page';
+import { TimerListPage } from './timer-list.page';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: TodayPage }]),
+    RouterModule.forChild([{ path: '', component: TimerListPage }]),
     TimerEditorComponentModule,
     TimerListItemComponentModule,
   ],
-  declarations: [TodayPage],
+  declarations: [TimerListPage],
 })
-export class TodayPageModule {}
+export class TimerListPageModule {}

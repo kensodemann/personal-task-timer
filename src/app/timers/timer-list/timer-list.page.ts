@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Timer } from '@app/models/timer';
-import { selectTodayTimers, State } from '@app/store';
+import { selectPeriodTimersSorted, selectTodayTimers, State } from '@app/store';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'today.page.html',
-  styleUrls: ['today.page.scss'],
+  selector: 'app-timer-list',
+  templateUrl: 'timer-list.page.html',
+  styleUrls: ['timer-list.page.scss'],
 })
-export class TodayPage implements OnInit {
-  timers$: Observable<Array<Timer>>;
+export class TimerListPage implements OnInit {
+  display: 'today' | 'history';
+
+  todayTimers$: Observable<Array<Timer>>;
+  historyTimers$: Observable<Array<Timer>>;
 
   constructor(
     private modalController: ModalController,
@@ -20,7 +23,11 @@ export class TodayPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.timers$ = this.store.pipe(select(selectTodayTimers));
+    this.display = 'today';
+    this.todayTimers$ = this.store.pipe(select(selectTodayTimers));
+    this.historyTimers$ = this.store.pipe(
+      select(selectPeriodTimersSorted, { days: 30 }),
+    );
   }
 
   async add() {

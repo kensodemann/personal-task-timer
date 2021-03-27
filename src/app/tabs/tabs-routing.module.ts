@@ -8,25 +8,13 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'today',
+        path: 'timer-list',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../timers/today/today.module').then(
-                m => m.TodayPageModule,
-              ),
-          },
-        ],
-      },
-      {
-        path: 'history',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../timers/history/history.module').then(
-                m => m.HistoryPageModule,
+              import('../timers/timer-list/timer-list.module').then(
+                m => m.TimerListPageModule,
               ),
           },
         ],
@@ -49,22 +37,20 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../about/about.module').then(
-                m => m.AboutPageModule,
-              ),
+              import('../about/about.module').then(m => m.AboutPageModule),
           },
         ],
       },
       {
         path: '',
-        redirectTo: '/tabs/today',
+        redirectTo: '/tabs/timer-list',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/today',
+    redirectTo: '/tabs/timer-list',
     pathMatch: 'full',
   },
 ];
