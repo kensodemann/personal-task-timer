@@ -1,3 +1,11 @@
+# [3.1.0](https://github.com/kensodemann/personal-task-timer/compare/v3.0.0...v3.1.0) (2021-03-27)
+
+### Features
+
+- **customer:** add timer from customer ([bc48b20](https://github.com/kensodemann/personal-task-timer/commit/bc48b20707ac75e64cb83126bfd4f94b6f7e86a5))
+- **customers:** visually signify the inactive customers ([d1f226e](https://github.com/kensodemann/personal-task-timer/commit/d1f226ed3e50460e0f06a22f708be32e4c1b510a))
+- **timers:** combine today and history into single page ([e0d92c4](https://github.com/kensodemann/personal-task-timer/commit/e0d92c4684733d9d511481207836c6e4f46129bc))
+
 # [3.0.0](https://github.com/kensodemann/personal-task-timer/compare/v1.1.4...v3.0.0) (2021-03-26)
 
 ### Bug Fixes
