@@ -117,6 +117,13 @@ describe('CustomerPage', () => {
       );
     });
 
+    it('does not display "Inactive"', () => {
+      const tag = fixture.debugElement.query(
+        By.css('[data-testid="inactive-tag"]'),
+      );
+      expect(tag).toBeFalsy();
+    });
+
     it('has an edit button', () => {
       const btn = fixture.debugElement.query(
         By.css('[data-testid="edit-customer-button"]'),
@@ -146,6 +153,13 @@ describe('CustomerPage', () => {
       expect(name.nativeElement.textContent).toContain(
         testCustomers.ff88t99er.name,
       );
+    });
+
+    it('displays "Inactive"', () => {
+      const tag = fixture.debugElement.query(
+        By.css('[data-testid="inactive-tag"]'),
+      );
+      expect(tag).toBeTruthy();
     });
 
     it('has an edit button', () => {

@@ -9,7 +9,12 @@
 
 <ion-content>
   <div *ngIf="customer$ | async as customer">
-    <h1 class="ion-padding" data-testid="customer-name">{{customer.name}}</h1>
+    <h1 class="ion-padding" data-testid="customer-name">
+      {{customer.name}}
+      <span *ngIf="!customer.isActive" data-testid="inactive-tag"
+        >(Inactive)</span
+      >
+    </h1>
 
     <ion-list>
       <ion-list-header>Customer Contract</ion-list-header>

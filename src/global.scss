@@ -24,6 +24,10 @@
   font-weight: lighter;
 }
 
+.inactive {
+  color: #777;
+}
+
 @mixin message($variation) {
   color: var(--ion-color-#{$variation});
   background-color: rgba(var(--ion-color-#{$variation}-rgb), 0.05);

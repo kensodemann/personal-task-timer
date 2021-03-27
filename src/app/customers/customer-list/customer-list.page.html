@@ -11,6 +11,7 @@
   <ion-list *ngIf="display === 'all'">
     <ion-item
       *ngFor="let customer of allCustomers$ | async"
+      [ngClass]="{'inactive': !customer.isActive}"
       [routerLink]="['customer', customer.id]"
       data-testid="customer-item"
     >
