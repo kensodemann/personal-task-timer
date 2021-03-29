@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/firestore';
-import { CustomersService } from '@app/core/firestore-data';
+import { CustomersService } from '@app/core';
 import { Customer } from '@app/models';
 import {
   addCustomer,

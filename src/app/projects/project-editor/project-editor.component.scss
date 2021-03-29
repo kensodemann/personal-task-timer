@@ -1,0 +1,10 @@
+input {
+  text-align: end;
+  border-image: hidden;
+  border-style: hidden;
+  border-width: 0;
+}
+
+input:focus {
+  outline: none;
+}

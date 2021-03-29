@@ -1,6 +1,6 @@
 import { Customer } from '@app/models';
-import { CustomersState, selectors } from '@app/store/customer/reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { CustomersState, selectors } from './reducer';
 
 const byName = (c1: Customer, c2: Customer) => {
   const name1 = c1.name.toLowerCase();

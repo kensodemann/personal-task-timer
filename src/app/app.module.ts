@@ -8,6 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import {
   AuthEffects,
   CustomerEffects,
+  ProjectEffects,
   metaReducers,
   reducers,
   TimerEffects,
@@ -37,7 +38,12 @@ import { AppComponent } from './app.component';
         strictActionImmutability: true,
       },
     }),
-    EffectsModule.forRoot([AuthEffects, CustomerEffects, TimerEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      CustomerEffects,
+      ProjectEffects,
+      TimerEffects,
+    ]),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

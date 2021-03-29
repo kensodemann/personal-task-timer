@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Customer, Timer } from '@app/models';
+import { Customer, Timer, Project } from '@app/models';
 
 export const startup = createAction('[Application] startup');
 
@@ -97,6 +97,55 @@ export const customerModified = createAction(
 export const customerRemoved = createAction(
   '[Customer Load State Change] removed',
   props<{ customer: Customer }>(),
+);
+
+export const addProject = createAction(
+  '[Project Editor] add project',
+  props<{ project: Project }>(),
+);
+export const addProjectSuccess = createAction(
+  '[Projects API] add project success',
+);
+export const addProjectFailure = createAction(
+  '[Projects API] add project failure',
+  props<{ error: Error }>(),
+);
+
+export const updateProject = createAction(
+  '[Project Editor] update project',
+  props<{ project: Project }>(),
+);
+export const updateProjectSuccess = createAction(
+  '[Projects API] update project success',
+);
+export const updateProjectFailure = createAction(
+  '[Projects API] update project failure',
+  props<{ error: Error }>(),
+);
+
+export const loadProjectsSuccess = createAction(
+  '[Projects API] load projects success',
+);
+export const loadProjectsFailure = createAction(
+  '[Projects API] load projects failure',
+  props<{ error: Error }>(),
+);
+
+export const projectAdded = createAction(
+  '[Project Load State Change] added',
+  props<{ project: Project }>(),
+);
+export const projectsAdded = createAction(
+  '[Project Load State Change] added many',
+  props<{ projects: Array<Project> }>(),
+);
+export const projectModified = createAction(
+  '[Project Load State Change] modified',
+  props<{ project: Project }>(),
+);
+export const projectRemoved = createAction(
+  '[Project Load State Change] removed',
+  props<{ project: Project }>(),
 );
 
 export const addTimer = createAction(

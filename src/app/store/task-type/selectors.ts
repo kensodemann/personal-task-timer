@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { TaskTypeState } from '@app/store/task-type/reducer';
+import { TaskTypeState } from './reducer';
 
 export const selectTaskTypes = createFeatureSelector('taskTypes');
 export const selectAllTaskTypes = createSelector(

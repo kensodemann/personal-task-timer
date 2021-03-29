@@ -11,6 +11,7 @@ import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
+import { click } from '@test/util';
 import { TimerEditorComponent } from '../timer-editor/timer-editor.component';
 import { TimerListItemComponentModule } from '../timer-list-item/timer-list-item.module';
 import { TimerListPage } from './timer-list.page';
@@ -90,6 +91,7 @@ describe('TimerListPage', () => {
       );
       const modalController = TestBed.inject(ModalController);
       click(btn.nativeElement);
+      fixture.detectChanges();
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
         component: TimerEditorComponent,
@@ -98,12 +100,6 @@ describe('TimerListPage', () => {
       expect(modal.present).toHaveBeenCalledTimes(1);
     });
   });
-
-  const click = (button: HTMLElement) => {
-    const event = new Event('click');
-    button.dispatchEvent(event);
-    fixture.detectChanges();
-  };
 
   const initializeTestData = () => {
     timers = [

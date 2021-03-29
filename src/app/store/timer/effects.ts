@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { Timer } from '@app/models';
-import { TimersService } from '@app/core/firestore-data';
+import { TimersService } from '@app/core';
 import {
   addTimer,
   addTimerFailure,

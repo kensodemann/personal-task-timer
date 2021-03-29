@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="primary">
+      <ion-button
+        id="close-button"
+        (click)="close()"
+        data-testid="close-button"
+      >
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{ editorTitle }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #projectForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label>Customer</ion-label>
+        <ion-select
+          name="customerSelect"
+          [(ngModel)]="customerId"
+          #customerSelect="ngModel"
+          required
+        >
+          <ion-select-option
+            *ngFor="let c of customers$ | async"
+            value="{{ c.id }}"
+            >{{ c.name }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input
+          name="name"
+          [(ngModel)]="name"
+          #nameInput="ngModel"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Task Type</ion-label>
+        <ion-select
+          name="taskTypeSelect"
+          [(ngModel)]="taskType"
+          #taskTypeSelect="ngModel"
+          required
+        >
+          <ion-select-option
+            *ngFor="let t of taskTypes$ | async"
+            value="{{ t }}"
+            >{{ t }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Due Date</ion-label>
+        <input
+          type="date"
+          name="dueDateInput"
+          [(ngModel)]="dueDate"
+          #dueDateInput="ngModel"
+          required
+        />
+      </ion-item>
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-select
+          name="statusSelect"
+          [(ngModel)]="status"
+          #statusSelect="ngModel"
+          required
+        >
+          <ion-select-option
+            *ngFor="let s of ['Open', 'On Hold', 'Closed']"
+            value="{{ s }}"
+            >{{ s }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea
+          rows="8"
+          autoGrow="true"
+          name="descriptionInput"
+          [(ngModel)]="description"
+          #descriptionInput="ngModel"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button
+      expand="full"
+      color="secondary"
+      (click)="save()"
+      [disabled]="!projectForm.form.valid"
+      data-testid="save-button"
+    >
+      Save
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

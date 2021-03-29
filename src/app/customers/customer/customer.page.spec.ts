@@ -19,6 +19,7 @@ import { CustomerTaskSummaryModule } from '../customer-task-summary/customer-tas
 import { CustomerPage } from './customer.page';
 import { By } from '@angular/platform-browser';
 import { TimerEditorComponent } from '@app/timers/timer-editor/timer-editor.component';
+import { click } from '@test/util';
 
 describe('CustomerPage', () => {
   let component: CustomerPage;
@@ -190,6 +191,7 @@ describe('CustomerPage', () => {
       );
       const modalController = TestBed.inject(ModalController);
       click(btn.nativeElement);
+      fixture.detectChanges();
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
         component: CustomerEditorComponent,
@@ -215,6 +217,7 @@ describe('CustomerPage', () => {
       );
       const modalController = TestBed.inject(ModalController);
       click(btn.nativeElement);
+      fixture.detectChanges();
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
         component: TimerEditorComponent,
@@ -226,12 +229,6 @@ describe('CustomerPage', () => {
       expect(modal.present).toHaveBeenCalledTimes(1);
     });
   });
-
-  const click = (button: HTMLElement) => {
-    const event = new Event('click');
-    button.dispatchEvent(event);
-    fixture.detectChanges();
-  };
 
   const initializeTestData = () => {
     testCustomerIds = ['asdf1234', 'ff898gd', 'ff88t99er', '1849gasdf'];

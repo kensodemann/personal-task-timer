@@ -1,7 +1,7 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Timer } from '@app/models';
-import { TimersService } from '@app/core/firestore-data';
-import { createTimersServiceMock } from '@app/core/firestore-data/mocks';
+import { TimersService } from '@app/core';
+import { createTimersServiceMock } from '@app/core/mocks';
 import {
   addTimer,
   addTimerFailure,

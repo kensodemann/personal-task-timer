@@ -20,6 +20,18 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'project-list',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../projects/project-list/project-list.module').then(
+                m => m.ProjectListPageModule,
+              ),
+          },
+        ],
+      },
+      {
         path: 'customers',
         children: [
           {

@@ -1,7 +1,7 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { selectors, TimersState } from '@app/store/timer/reducer';
-import { formatISO, subDays } from 'date-fns';
 import { Timer } from '@app/models';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { formatISO, subDays } from 'date-fns';
+import { selectors, TimersState } from './reducer';
 
 const byDate = (t1: Timer, t2: Timer) => {
   if (t1.date > t2.date) {

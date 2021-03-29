@@ -1,6 +1,6 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { CustomersService } from '@app/core/firestore-data';
-import { createCustomersServiceMock } from '@app/core/firestore-data/mocks';
+import { CustomersService } from '@app/core';
+import { createCustomersServiceMock } from '@app/core/mocks';
 import { Customer } from '@app/models';
 import {
   addCustomer,

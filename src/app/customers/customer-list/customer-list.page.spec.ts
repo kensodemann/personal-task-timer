@@ -16,7 +16,7 @@ import {
   createOverlayControllerMock,
   createOverlayElementMock,
 } from '@test/mocks';
-import { by } from 'protractor';
+import { click } from '@test/util';
 import { CustomerEditorComponent } from '../customer-editor/customer-editor.component';
 import { CustomerListPage } from './customer-list.page';
 
@@ -95,6 +95,7 @@ describe('CustomerListPage', () => {
       );
       const modalController = TestBed.inject(ModalController);
       click(btn.nativeElement);
+      fixture.detectChanges();
       expect(modalController.create).toHaveBeenCalledTimes(1);
       expect(modalController.create).toHaveBeenCalledWith({
         component: CustomerEditorComponent,
@@ -103,12 +104,6 @@ describe('CustomerListPage', () => {
       expect(modal.present).toHaveBeenCalledTimes(1);
     });
   });
-
-  const click = (button: HTMLElement) => {
-    const event = new Event('click');
-    button.dispatchEvent(event);
-    fixture.detectChanges();
-  };
 
   const initializeTestData = () => {
     customers = [
