@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Customer } from '@app/models';
 import { InfoItemComponentModule } from '@app/common/info-item/info-item.module';
 import { CustomersState } from '@app/store/customer/reducer';
-import { TaskTypeState } from '@app/store/task-type/reducer';
 import { TimersState } from '@app/store/timer/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
@@ -44,7 +43,6 @@ describe('CustomerPage', () => {
         providers: [
           provideMockStore<{
             customers: CustomersState;
-            taskTypes: TaskTypeState;
             timers: TimersState;
           }>({
             initialState: {
@@ -54,14 +52,6 @@ describe('CustomerPage', () => {
                 loading: false,
               },
               timers: { ids: [], entities: {}, loading: false },
-              taskTypes: {
-                taskTypes: [
-                  'Code Review',
-                  'Architecture Review',
-                  'Consulting',
-                  'Bug',
-                ],
-              },
             },
           }),
           { provide: ActivatedRoute, useFactory: createActivatedRouteMock },
@@ -88,18 +78,6 @@ describe('CustomerPage', () => {
     fixture.detectChanges();
     expect(route.snapshot.paramMap.get).toHaveReturnedTimes(1);
     expect(component.customerId).toEqual('4399503');
-  });
-
-  it('obtains the task types', () => {
-    let taskTypes: Array<string>;
-    fixture.detectChanges();
-    component.taskTypes$.subscribe(t => (taskTypes = t));
-    expect(taskTypes).toEqual([
-      'Code Review',
-      'Architecture Review',
-      'Consulting',
-      'Bug',
-    ]);
   });
 
   describe('for an active customer', () => {

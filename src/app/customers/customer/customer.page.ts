@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Customer } from '@app/models';
-import { selectAllTaskTypes, selectCustomer, State } from '@app/store';
+import { Customer, TaskType, taskTypes } from '@app/models';
+import { selectCustomer, State } from '@app/store';
 import { TimerEditorComponent } from '@app/timers/timer-editor/timer-editor.component';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
@@ -16,7 +16,7 @@ import { CustomerEditorComponent } from '../customer-editor/customer-editor.comp
 export class CustomerPage implements OnInit {
   customerId: string;
   customer$: Observable<Customer>;
-  taskTypes$: Observable<Array<string>>;
+  taskTypes: Array<TaskType>;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +29,7 @@ export class CustomerPage implements OnInit {
     this.customer$ = this.store.pipe(
       select(selectCustomer, { customerId: this.customerId }),
     );
-    this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
+    this.taskTypes = [...taskTypes];
   }
 
   async edit(customer: Customer) {

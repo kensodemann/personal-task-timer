@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Customer } from '@app/models';
 import { addTimer, updateTimer } from '@app/store/actions';
 import { CustomersState } from '@app/store/customer/reducer';
-import { TaskTypeState } from '@app/store/task-type/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
@@ -32,20 +31,12 @@ describe('TimerEditorComponent', () => {
         providers: [
           provideMockStore<{
             customers: CustomersState;
-            taskTypes: TaskTypeState;
           }>({
             initialState: {
               customers: {
                 ids: testCustomerIds,
                 entities: testCustomers,
                 loading: false,
-              },
-              taskTypes: {
-                taskTypes: [
-                  'Architecture Review',
-                  'Code Review',
-                  'Working Session',
-                ],
               },
             },
           }),
@@ -70,16 +61,6 @@ describe('TimerEditorComponent', () => {
     describe('without a specified timer', () => {
       beforeEach(() => {
         fixture.detectChanges();
-      });
-
-      it('subscribes to the task types', () => {
-        let taskTypes: Array<string>;
-        component.taskTypes$.subscribe(t => (taskTypes = t));
-        expect(taskTypes).toEqual([
-          'Architecture Review',
-          'Code Review',
-          'Working Session',
-        ]);
       });
 
       it('subscribes to the active customers', () => {
@@ -136,16 +117,6 @@ describe('TimerEditorComponent', () => {
           minutes: 32,
         };
         fixture.detectChanges();
-      });
-
-      it('subscribes to the task types', () => {
-        let taskTypes: Array<string>;
-        component.taskTypes$.subscribe(t => (taskTypes = t));
-        expect(taskTypes).toEqual([
-          'Architecture Review',
-          'Code Review',
-          'Working Session',
-        ]);
       });
 
       it('subscribes to the active customers', () => {

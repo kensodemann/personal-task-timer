@@ -46,11 +46,9 @@
           #taskTypeSelect="ngModel"
           required
         >
-          <ion-select-option
-            *ngFor="let t of taskTypes$ | async"
-            value="{{ t }}"
-            >{{ t }}</ion-select-option
-          >
+          <ion-select-option *ngFor="let t of taskTypes" value="{{ t }}">{{
+            t
+          }}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>

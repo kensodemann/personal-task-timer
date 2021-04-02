@@ -1,11 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Customer, Timer } from '@app/models';
-import {
-  selectActiveCustomersSorted,
-  selectAllTaskTypes,
-  selectCustomer,
-  State,
-} from '@app/store';
+import { Customer, TaskType, taskTypes, Timer } from '@app/models';
+import { selectActiveCustomersSorted, selectCustomer, State } from '@app/store';
 import { addTimer, updateTimer } from '@app/store/actions';
 import { ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
@@ -23,7 +18,7 @@ export class TimerEditorComponent implements OnInit {
   @Input() timer: Timer;
 
   customers$: Observable<Array<Customer>>;
-  taskTypes$: Observable<Array<string>>;
+  taskTypes: Array<TaskType>;
   editorTitle: string;
   disableMinutes: boolean;
 
@@ -44,7 +39,7 @@ export class TimerEditorComponent implements OnInit {
       this.initializeCreate();
     }
     this.customers$ = this.store.pipe(select(selectActiveCustomersSorted));
-    this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
+    this.taskTypes = [...taskTypes];
   }
 
   close() {

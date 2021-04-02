@@ -30,7 +30,7 @@
 
       <ion-list-header>Task Breakdown</ion-list-header>
       <app-customer-task-summary
-        *ngFor="let taskType of taskTypes$ | async"
+        *ngFor="let taskType of taskTypes"
         [taskType]="taskType"
         [customerId]="customerId"
       >

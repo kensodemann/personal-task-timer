@@ -1,9 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Customer, Project, ProjectStatus } from '@app/models';
+import {
+  Customer,
+  Project,
+  ProjectStatus,
+  TaskType,
+  taskTypes,
+} from '@app/models';
 import {
   addProject,
   selectActiveCustomersSorted,
-  selectAllTaskTypes,
   selectCustomer,
   State,
   updateProject,
@@ -23,7 +28,7 @@ export class ProjectEditorComponent implements OnInit {
   @Input() project: Project;
 
   customers$: Observable<Array<Customer>>;
-  taskTypes$: Observable<Array<string>>;
+  taskTypes: Array<TaskType>;
   editorTitle: string;
 
   name: string;
@@ -44,7 +49,7 @@ export class ProjectEditorComponent implements OnInit {
       this.initializeCreate();
     }
     this.customers$ = this.store.pipe(select(selectActiveCustomersSorted));
-    this.taskTypes$ = this.store.pipe(select(selectAllTaskTypes));
+    this.taskTypes = [...taskTypes];
   }
 
   close() {

@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { Customer } from '@app/models';
 import { addProject, updateProject } from '@app/store/actions';
 import { CustomersState } from '@app/store/customer/reducer';
-import { TaskTypeState } from '@app/store/task-type/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Dictionary } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
@@ -35,20 +34,12 @@ describe('ProjectEditorComponent', () => {
         providers: [
           provideMockStore<{
             customers: CustomersState;
-            taskTypes: TaskTypeState;
           }>({
             initialState: {
               customers: {
                 ids: testCustomerIds,
                 entities: testCustomers,
                 loading: false,
-              },
-              taskTypes: {
-                taskTypes: [
-                  'Architecture Review',
-                  'Code Review',
-                  'Working Session',
-                ],
               },
             },
           }),
@@ -73,16 +64,6 @@ describe('ProjectEditorComponent', () => {
     describe('without a specified project', () => {
       beforeEach(() => {
         fixture.detectChanges();
-      });
-
-      it('subscribes to the task types', () => {
-        let taskTypes: Array<string>;
-        component.taskTypes$.subscribe(t => (taskTypes = t));
-        expect(taskTypes).toEqual([
-          'Architecture Review',
-          'Code Review',
-          'Working Session',
-        ]);
       });
 
       it('subscribes to the active customers', () => {
@@ -133,16 +114,6 @@ describe('ProjectEditorComponent', () => {
           dueDate: '2021-12-23',
         };
         fixture.detectChanges();
-      });
-
-      it('subscribes to the task types', () => {
-        let taskTypes: Array<string>;
-        component.taskTypes$.subscribe(t => (taskTypes = t));
-        expect(taskTypes).toEqual([
-          'Architecture Review',
-          'Code Review',
-          'Working Session',
-        ]);
       });
 
       it('subscribes to the active customers', () => {
