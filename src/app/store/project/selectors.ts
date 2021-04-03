@@ -25,10 +25,16 @@ export const selectAllProjectsSorted = createSelector(
   selectAllProjects,
   projects => projects.sort(byDueDate),
 );
-// export const selectActiveProjectsSorted = createSelector(
-//   selectAllProjects,
-//   projects => projects.filter(project => project.isActive).sort(byDueDate),
-// );
+export const selectOpenProjectsSorted = createSelector(
+  selectAllProjects,
+  projects =>
+    projects.filter(project => project.status === 'Open').sort(byDueDate),
+);
+export const selectOnHoldProjectsSorted = createSelector(
+  selectAllProjects,
+  projects =>
+    projects.filter(project => project.status === 'On Hold').sort(byDueDate),
+);
 export const selectProjectCount = createSelector(
   selectProjects,
   selectors.selectTotal,

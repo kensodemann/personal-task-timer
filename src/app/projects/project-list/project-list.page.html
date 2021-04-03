@@ -1,17 +1,38 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Projects</ion-title>
+    <ion-segment [(ngModel)]="display">
+      <ion-segment-button value="Open">Open</ion-segment-button>
+      <ion-segment-button value="On Hold">On Hold</ion-segment-button>
+      <ion-segment-button value="all">All</ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="display === 'all'">
     <app-project-list-item
-      *ngFor="let project of projects$ | async"
+      *ngFor="let project of allProjects$ | async"
       [project]="project"
     >
     </app-project-list-item>
   </ion-list>
+
+  <ion-list *ngIf="display === 'Open'">
+    <app-project-list-item
+      *ngFor="let project of openProjects$ | async"
+      [project]="project"
+    >
+    </app-project-list-item>
+  </ion-list>
+
+  <ion-list *ngIf="display === 'On Hold'">
+    <app-project-list-item
+      *ngFor="let project of holdProjects$ | async"
+      [project]="project"
+    >
+    </app-project-list-item>
+  </ion-list>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button
       id="add-button"

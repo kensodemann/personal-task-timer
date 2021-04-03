@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from '@app/models';
-import { selectAllProjectsSorted, State } from '@app/store';
+import { Project, ProjectStatus } from '@app/models';
+import {
+  selectAllProjectsSorted,
+  selectOnHoldProjectsSorted,
+  selectOpenProjectsSorted,
+  State,
+} from '@app/store';
 import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -12,7 +17,10 @@ import { ProjectEditorComponent } from '../project-editor/project-editor.compone
   styleUrls: ['./project-list.page.scss'],
 })
 export class ProjectListPage implements OnInit {
-  projects$: Observable<Array<Project>>;
+  display: ProjectStatus | 'all';
+  allProjects$: Observable<Array<Project>>;
+  openProjects$: Observable<Array<Project>>;
+  holdProjects$: Observable<Array<Project>>;
 
   constructor(
     private modalController: ModalController,
@@ -20,7 +28,10 @@ export class ProjectListPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.projects$ = this.store.select(selectAllProjectsSorted);
+    this.display = 'Open';
+    this.allProjects$ = this.store.select(selectAllProjectsSorted);
+    this.openProjects$ = this.store.select(selectOpenProjectsSorted);
+    this.holdProjects$ = this.store.select(selectOnHoldProjectsSorted);
   }
 
   async add() {

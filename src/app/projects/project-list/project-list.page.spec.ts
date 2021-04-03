@@ -3,7 +3,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Project } from '@app/models';
-import { selectAllProjectsSorted, State } from '@app/store';
+import {
+  selectAllProjectsSorted,
+  selectOnHoldProjectsSorted,
+  selectOpenProjectsSorted,
+  State,
+} from '@app/store';
 import { ProjectsState } from '@app/store/project/reducer';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
@@ -54,6 +59,15 @@ describe('ProjectListPage', () => {
       component = fixture.componentInstance;
       const store = TestBed.inject(Store) as MockStore<State>;
       store.overrideSelector(selectAllProjectsSorted, projects);
+      store.overrideSelector(
+        selectOpenProjectsSorted,
+        projects.filter(p => p.status === 'Open'),
+      );
+      store.overrideSelector(
+        selectOnHoldProjectsSorted,
+        projects.filter(p => p.status === 'On Hold'),
+      );
+      fixture.detectChanges();
     }),
   );
 
@@ -61,11 +75,32 @@ describe('ProjectListPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('displays the projects', () => {
+  it('displays the open projects by default', () => {
+    const items = fixture.debugElement.queryAll(By.css('ion-item'));
+    const expected = projects.filter(project => project.status === 'Open');
+    expect(items.length).toBe(expected.length);
+    expected.forEach((project, idx) =>
+      expect(items[idx].nativeElement.textContent).toContain(project.name),
+    );
+  });
+
+  it('displays all the projects when display is "all"', () => {
+    component.display = 'all';
     fixture.detectChanges();
     const items = fixture.debugElement.queryAll(By.css('ion-item'));
     expect(items.length).toBe(projects.length);
     projects.forEach((project, idx) =>
+      expect(items[idx].nativeElement.textContent).toContain(project.name),
+    );
+  });
+
+  it('displays on hold projects when display is "On Hold"', () => {
+    component.display = 'On Hold';
+    fixture.detectChanges();
+    const items = fixture.debugElement.queryAll(By.css('ion-item'));
+    const expected = projects.filter(project => project.status === 'On Hold');
+    expect(items.length).toBe(expected.length);
+    expected.forEach((project, idx) =>
       expect(items[idx].nativeElement.textContent).toContain(project.name),
     );
   });
