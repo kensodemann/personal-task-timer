@@ -1,3 +1,15 @@
+# [3.2.0](https://github.com/kensodemann/personal-task-timer/compare/v3.1.0...v3.2.0) (2021-04-03)
+
+### Bug Fixes
+
+- **task-types:** remove task-types from state ([a6931e2](https://github.com/kensodemann/personal-task-timer/commit/a6931e28f82403bcadcefd51a4d4943d263b9a24))
+
+### Features
+
+- **projects:** add the projects module ([6ea011a](https://github.com/kensodemann/personal-task-timer/commit/6ea011a7c6dbd2505e217151215f460ec9deabaa))
+- **projects:** create a list item format ([3071e44](https://github.com/kensodemann/personal-task-timer/commit/3071e44fd4269cacfb556a09fa96f758e6ee8284))
+- **projects:** display projects by status ([6a1ebf8](https://github.com/kensodemann/personal-task-timer/commit/6a1ebf822a06ed379189ed811499faea797c0a94))
+
 # [3.1.0](https://github.com/kensodemann/personal-task-timer/compare/v3.0.0...v3.1.0) (2021-03-27)
 
 ### Features
