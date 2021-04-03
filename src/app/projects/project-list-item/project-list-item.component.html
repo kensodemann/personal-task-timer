@@ -1,0 +1,17 @@
+<ion-item [ngClass]="{'inactive': project.status === 'Closed'}">
+  <ion-label (click)="edit()">
+    <div class="title">[{{ project.customerName }}]: {{ project.name }}</div>
+    <div class="sub-title">{{ project.description }}</div>
+    <div class="sub-title">{{ project.dueDate | date }}</div>
+    <div class="sub-title">{{ project.type }}</div>
+  </ion-label>
+  <ion-button
+    color="secondary"
+    slot="end"
+    fill="outline"
+    [disabled]="project.status === 'Closed'"
+    (click)="createTimer()"
+  >
+    <ion-icon slot="icon-only" name="timer-outline"></ion-icon>
+  </ion-button>
+</ion-item>

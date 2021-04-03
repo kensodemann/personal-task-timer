@@ -9,4 +9,4 @@ import { IonicModule } from '@ionic/angular';
   exports: [ProjectEditorComponent],
   imports: [CommonModule, FormsModule, IonicModule],
 })
-export class ProjectEditorModule {}
+export class ProjectEditorComponentModule {}

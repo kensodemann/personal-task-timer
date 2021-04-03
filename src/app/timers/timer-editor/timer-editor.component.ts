@@ -16,15 +16,15 @@ import { map, take } from 'rxjs/operators';
 export class TimerEditorComponent implements OnInit {
   @Input() customerId: string;
   @Input() timer: Timer;
+  @Input() title: string;
+  @Input() taskType: string;
 
   customers$: Observable<Array<Customer>>;
   taskTypes: Array<TaskType>;
   editorTitle: string;
   disableMinutes: boolean;
 
-  title: string;
   taskId: string;
-  taskType: string;
   minutes: number;
 
   constructor(

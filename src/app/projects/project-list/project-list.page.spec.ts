@@ -14,7 +14,8 @@ import {
 } from '@test/mocks';
 import { click } from '@test/util';
 import { ProjectEditorComponent } from '../project-editor/project-editor.component';
-import { ProjectEditorModule } from '../project-editor/project-editor.module';
+import { ProjectEditorComponentModule } from '../project-editor/project-editor.module';
+import { ProjectListItemComponentModule } from '../project-list-item/project-list-item.module';
 
 import { ProjectListPage } from './project-list.page';
 
@@ -30,7 +31,12 @@ describe('ProjectListPage', () => {
       modal = createOverlayElementMock();
       TestBed.configureTestingModule({
         declarations: [ProjectListPage],
-        imports: [FormsModule, IonicModule, ProjectEditorModule],
+        imports: [
+          FormsModule,
+          IonicModule,
+          ProjectEditorComponentModule,
+          ProjectListItemComponentModule,
+        ],
         providers: [
           provideMockStore<{ projects: ProjectsState }>({
             initialState: {

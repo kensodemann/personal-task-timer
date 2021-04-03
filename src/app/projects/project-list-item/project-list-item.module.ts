@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TimerEditorComponentModule } from '@app/timers/timer-editor/timer-editor.module';
 import { IonicModule } from '@ionic/angular';
 import { ProjectEditorComponentModule } from '../project-editor/project-editor.module';
-import { ProjectListItemComponentModule } from '../project-list-item/project-list-item.module';
-import { ProjectListPageRoutingModule } from './project-list-routing.module';
-import { ProjectListPage } from './project-list.page';
+import { ProjectListItemComponent } from './project-list-item.component';
 
 @NgModule({
   imports: [
@@ -13,9 +12,10 @@ import { ProjectListPage } from './project-list.page';
     FormsModule,
     IonicModule,
     ProjectEditorComponentModule,
-    ProjectListItemComponentModule,
-    ProjectListPageRoutingModule,
+    TimerEditorComponentModule,
   ],
-  declarations: [ProjectListPage],
+  declarations: [ProjectListItemComponent],
+  entryComponents: [ProjectListItemComponent],
+  exports: [ProjectListItemComponent],
 })
-export class ProjectListPageModule {}
+export class ProjectListItemComponentModule {}

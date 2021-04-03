@@ -6,9 +6,11 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let project of projects$ | async">
-      <ion-label>{{project.name}}</ion-label>
-    </ion-item>
+    <app-project-list-item
+      *ngFor="let project of projects$ | async"
+      [project]="project"
+    >
+    </app-project-list-item>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button
