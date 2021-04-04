@@ -1,6 +1,6 @@
 import { Timer } from '@app/models';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { formatISO, subDays } from 'date-fns';
+import { formatISO, startOfWeek, subDays } from 'date-fns';
 import { selectors, TimersState } from './reducer';
 
 const byDate = (t1: Timer, t2: Timer) => {
@@ -61,6 +61,16 @@ export const selectTodayTimers = createSelector(selectAllTimers, timers => {
   const dt = formatISO(new Date(Date.now()), { representation: 'date' });
   return timers.filter(t => t.date === dt);
 });
+export const selectThisWeekTimers = createSelector(selectAllTimers, timers => {
+  const startDt = startOfWeek(Date.now());
+  const dt = formatISO(startDt, { representation: 'date' });
+  console.log('week start date', dt);
+  return timers.filter(t => t.date >= dt);
+});
+export const selectThisWeekTimersSorted = createSelector(
+  selectThisWeekTimers,
+  timers => timers.sort(byDate),
+);
 export const selectAllActiveTimers = createSelector(selectAllTimers, timers =>
   timers.filter(t => !!t.startTime),
 );

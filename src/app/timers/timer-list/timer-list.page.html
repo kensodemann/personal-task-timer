@@ -2,6 +2,7 @@
   <ion-toolbar color="primary">
     <ion-segment [(ngModel)]="display" data-testid="segment">
       <ion-segment-button value="today">Today</ion-segment-button>
+      <ion-segment-button value="week">This Week</ion-segment-button>
       <ion-segment-button value="history">30 Days</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -15,6 +16,13 @@
     ></app-timer-list-item>
   </ion-list>
 
+  <ion-list *ngIf="display === 'week'">
+    <app-timer-list-item
+      *ngFor="let timer of weekTimers$ | async"
+      [timer]="timer"
+    ></app-timer-list-item>
+  </ion-list>
+
   <ion-list *ngIf="display === 'history'">
     <app-timer-list-item
       *ngFor="let timer of historyTimers$ | async"
@@ -22,12 +30,7 @@
     ></app-timer-list-item>
   </ion-list>
 
-  <ion-fab
-    *ngIf="display==='today'"
-    vertical="bottom"
-    horizontal="end"
-    slot="fixed"
-  >
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button
       id="add-button"
       color="secondary"
