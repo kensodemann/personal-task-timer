@@ -64,7 +64,6 @@ export const selectTodayTimers = createSelector(selectAllTimers, timers => {
 export const selectThisWeekTimers = createSelector(selectAllTimers, timers => {
   const startDt = startOfWeek(Date.now());
   const dt = formatISO(startDt, { representation: 'date' });
-  console.log('week start date', dt);
   return timers.filter(t => t.date >= dt);
 });
 export const selectThisWeekTimersSorted = createSelector(
