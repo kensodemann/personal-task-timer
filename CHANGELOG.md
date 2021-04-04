@@ -1,3 +1,13 @@
+## [3.2.1](https://github.com/kensodemann/personal-task-timer/compare/v3.2.0...v3.2.1) (2021-04-04)
+
+### Bug Fixes
+
+- **timers:** remove log accidently left in ([374d68c](https://github.com/kensodemann/personal-task-timer/commit/374d68c83e4d8e71131eb6779c2a608e3d6f4e77))
+
+### Features
+
+- **timers:** add a weekly view ([00d90ab](https://github.com/kensodemann/personal-task-timer/commit/00d90abc489a8dba794b4b0b17cfa98bb00861dc))
+
 # [3.2.0](https://github.com/kensodemann/personal-task-timer/compare/v3.1.0...v3.2.0) (2021-04-03)
 
 ### Bug Fixes
