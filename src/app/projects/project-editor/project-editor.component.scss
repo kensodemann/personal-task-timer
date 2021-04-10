@@ -3,6 +3,8 @@ input {
   border-image: hidden;
   border-style: hidden;
   border-width: 0;
+  background: var(--ion-item-background, var(--ion-background-color, #fff));
+  color: var(--color);
 }
 
 input:focus {
