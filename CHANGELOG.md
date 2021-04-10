@@ -1,3 +1,12 @@
+## [3.2.2](https://github.com/kensodemann/personal-task-timer/compare/v3.2.1...v3.2.2) (2021-04-10)
+
+### Bug Fixes
+
+- **about:** display the about info in a nicer way ([81522fd](https://github.com/kensodemann/personal-task-timer/commit/81522fd38b3c47ff3721a311611c23912b1c957a))
+- **app:** make the subtitle text easier to read ([3c67860](https://github.com/kensodemann/personal-task-timer/commit/3c67860b9d1fc7779fb7ceb69b4cc12515a440f1))
+- **projects:** make the date play better with dark mode ([6e1e9a7](https://github.com/kensodemann/personal-task-timer/commit/6e1e9a7a515b2406b562c1fd71844f2c31929754))
+- **projects:** turn off autogrow ([7c2f060](https://github.com/kensodemann/personal-task-timer/commit/7c2f0606d01be1700624b6df1e5880db03c56d2a))
+
 ## [3.2.1](https://github.com/kensodemann/personal-task-timer/compare/v3.2.0...v3.2.1) (2021-04-04)
 
 ### Bug Fixes
