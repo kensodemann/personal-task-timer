@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { version } from '@app/default-data/version';
-import { Version } from '@app/models/version';
+import { author, date, tag, version } from '@app/default-data/version.json';
 import { State } from '@app/store';
 import { logout } from '@app/store/actions';
 import { Store } from '@ngrx/store';
@@ -11,7 +10,11 @@ import { Store } from '@ngrx/store';
   styleUrls: ['about.page.scss'],
 })
 export class AboutPage {
-  appVersion: Version = version;
+  tag = tag;
+  author = author;
+  version = version;
+  date = date;
+
   constructor(private store: Store<State>) {}
 
   logout() {
